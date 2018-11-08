@@ -1,0 +1,71 @@
+包(模块名) Package
+1.包(模块名) Package
+        包是将模块以文件夹的组织形式进行分组管理的方法
+    作用:
+        将一系列模块进行分组管理,有利于防止名字冲突
+        可以在需要时加载一个或部分模块而不是全部模块
+    示例:
+    mypack/
+        __init__.py
+        menu.py
+        games/
+            __init__.py
+            contra.py
+            supermario.py
+            tanks.py
+        office/
+            __init__.py
+            excel.py
+            word.py
+2.包的导入
+    同模块的导入规则基本相同
+    语法:
+        import 包名[as 包别名]
+        import 包名.模块名[as 模块新名]
+        import 包名.子包名.模块名[as 模块新名]
+        ...
+        from 包名 import 模块名 [as 模块新名]
+           如:from _menu import show_menu
+        from 包名.子包名.模块名 import 属性名 [as 属性新名]
+        ...
+        from 包名 import *
+        from 包名.模块名 import *
+3.__init__.py 文件
+        此文件是常规包里必须存在的文件.此文件会在包被导入时自动调用
+    作用:
+        编写此包的内容
+        在内部填写包的文档字符串
+        在__init__.py 内可以加载此包所依赖的一些其他模块
+    示例:
+        __init__.py
+4.包内的all列表
+    作用:
+        用来记录此包中有哪些子包或者模块在from import *语句导入时需要被导入
+    说明:
+        __all__列表只对from xxx import * 语句中起作用
+    示例:
+        games/__init__.py
+5.包的相对导入
+        包的相对导入是指包内模块的相互导入
+    语法:
+        from 相对路径或模块 import 属性或模块名或
+        from 相对路径包或 import *
+    相对路径:
+        . 当前路径
+        .. 代表上一级目录
+        ... 代表三两级路径
+        .... 以此类推
+        注:相对路径时不能超过包的外部
+        示例:
+            mypack/games/contra.py
+6.注意问题:
+        要避免循环导入
+        见:
+            mypack2/a.py b.py __init__.py
+        要导入的模块先执行
+7.包的加载路径
+    1)当前工作路径
+    2)sys.path 提供的路径
+    模块的加载路径设置方法
+        sys.path("新路径")
+        

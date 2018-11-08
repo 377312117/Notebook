@@ -1,0 +1,324 @@
+二.数据库基本介绍
+1.定义
+   1.1 数据库：
+     a.是一款软件：存储管理数据的仓库，是一款c/s软件,比喻成是大容器，安装在服务器(机房)
+     b.所有软件的基本功能也就是增删改查
+     c.软件=程序+文档+数据（数据库软件）
+     d.在个人电脑安装一个客户端软件-再来访问机房中数据库
+          {钱存在银行系统中数据库：oracle DB2中} 简称：DB
+    计算机中的单位：
+	 bit(位)(计算机最底层单位：0和1)
+	 1111 （二进制：机器语言） 
+	 10101010（二进制：机器语言）
+	 byte(字节)流量的单位
+	 kb  mb  gb  tb .... db
+    1.2 数据库技术：
+	格式（增删改查）
+           技能要求：
+	       熟悉当前主流的数据库，熟练使用sql(结构化查询语言)对数据库进行增删改查操作。
+               sql：结构化查询语言：所有数据库标准语言
+                    structure  query language       
+2.数据库介绍
+   2.2 生产环境下，如何选择数据库
+	1).是否开源，不等于免费
+		a.开源：MySQL,MariaDB,MongoDB
+		b.商业软件：Oracle，SQL_server
+	
+	2).是否跨平台
+		a.不跨平台  SQL_server
+		b.跨平台   Oracle，MySQL、MongoDB、MariaDB
+	3).公司类型
+		a、商业软件：政府部门，金融机构
+		b、开源软件：游戏网站，电商网站 ....
+   2.3.产品：
+	Oracle
+	MySQL    开源,被甲骨文收购
+	MongoDB
+	MariaDB   传承mysql，同一个团队开发
+	SQL_server  微软
+   2.4.oracle数据库的使用
+	下载：oracle的大本营（官网）
+		www.oracle.com（英文）
+		java：jdk
+		mysql:
+		oracle:
+			12c（最新）
+			11g
+			10g（教学中）
+   2.5 MySQL数据库
+      2.5.1 关系型数据库
+	1）关系型数据库特点
+		a.数据以行(记录)和列（表格）形式存储
+		b.表中的行叫记录，每一列叫字段
+		c.表和表之间的逻辑关联叫做关系
+	2）示例
+		a.关系型数据库存储
+		    表1：学生信息表
+			姓名    年龄    班级
+			佩奇    20       三班
+		    表2：班级信息表
+			班级    班主任
+			三班    卢大大
+		b.非关系型数据库存储
+		    {"姓名":"佩奇","年龄":20,"班级":"三班","班主任":"卢大大"}
+      2.5.2 跨平台
+	        三大系统皆可用
+      2.5.3 支持多种编程语言
+	        python java  php
+      2.5.4 数据库软件，数据库，数据仓库
+		a.数据库软件
+			一个实际存在的软件，可操作,实现数据库的逻辑功能
+		b.数据库
+			是一个逻辑上的概念，实现存储数据的功能，数据库侧重存储
+		c.数据仓库
+			比数据库庞大，侧重数据分析和数据挖掘
+3.数据库安装及使用
+    3.1 Oracle安装：	
+		准备：1）首先要确认安装包的大小
+				（下载是否下全？）
+			2）关闭杀毒软件（360）
+			安装包：用来安装程序
+		启动文件：
+		步骤：
+			1）双击安装文件
+				后缀：.exe   可执行文件
+				扩展名 .msi  二进制文件
+				（windows）
+				（linux）：.tar.gz
+			2）根据安装向导操作
+				接受协议
+				安装路径
+				设计口令（密码）
+					用户名：system/sys
+					口  令：
+						1234
+						1234
+			3）最后执行安装
+		{客户端软件}
+			连接、访问：
+			借助客户端工具：
+				a）dos（磁盘操作系统：命令）
+				b）sqldeveloper（图形化界面、sql命令）
+				c）...
+		【在dos访问oracle数据库】
+		步骤：
+		1）进入dos
+		2）在dos命令窗口中输入命令：
+		访问oracle格式
+		访问格式：(一次，但是不安全：密码暴露)
+		sqlplus 用户名/密码
+		命  令：sqlplus
+		用户名：system
+		密  码：1234
+			访问成功的标识：SQL>
+			所以我们推荐分批次访问：（密码不回显）
+			如下：三次
+			sqlplus
+			system
+			1234
+			或者如下：二次
+			sqlplus system
+			1234
+			分别连接oracle然后退出 5次
+			访问：
+		a）sqlplus  （回车）
+		b）请输入用户名：system
+		c）输入口令：1234   （密码不会显示）
+		d）最后回车(Enter)执行
+			退出：
+			exit
+			访问成功之后：
+				sql示例1：
+			select 1+1 from dual;
+			回车执行
+			结果：2
+		select sysdate from dual;
+		回车执行
+		结果：系统的当前的日期
+			（日-月-年）
+		select * from all_tables;
+		回车执行
+		结果：查询数据库中所有的表
+		结束当前的任务：Ctrl+C
+	3.2	MySQL安装
+		安装
+			1.Ubuntu安装MySQL服务
+				安装服务器端
+					sudo apt-get install mysql-SQL_server
+				安装客户端
+					sudo apt-get install mysql-client
+			2.windows安装MySQL
+				官网下载MySQL安装包
+					mysql - install-5.7....
+				按照教程安装
+			3.使用数据库
+    			安装软件，默认位置为c盘
+    			进入数据库：在cmd中输入：
+						mysql.exe -h127.0.0.1 -uroot -p -P3306
+                        mysql -uroot 无权限，游客访问
+			3.Mac 安装MySQL
+				下载安装包
+				设置环境变量
+					cd 
+					vi .bash_profile
+					在末尾添加：PATH="$PATH":/user/local/mysql/bin
+				终端：source .bash_profile
+				登录测试
+					mysql -uroot -p密码
+4.数据库基本sql命令： Mysql
+  	1).语法规则
+		a.每条必须以;结尾
+		b.sql不区分大小写
+		c.使用\c来终止当前命令
+  	2).库的命名规则
+		a.数字,字母,_,但是不能实用纯数字
+		b.库名区分大小写
+		c.不能以关键字作为库名
+	3).启动和连接MySQL服务(Linux)
+		启动服务端 
+			sudo etc/init.d/mysql start
+			sudo etc/init.d/mysql staus | stop | restart
+		客户端连接
+			mysql -h主机地址 -u用户名 -p用户密码
+			mysql -h -uroot -p123456
+  	4).对库进行操作
+		查看数据库：
+			查看服务器中所有库
+    			show databases; 
+			查看当前所在库
+				select database();
+    		切换指定数据库：
+    		    use 库名;-->显示Database changed则表示已进入指定数据库
+    		查看当前库中所有的表：
+    		    show tables;
+			查看创建库的语句:
+				show create dabase 库名;
+				//可查看设置的字符集
+		创建数据库：
+			创建新库
+    		    crate dabase 库名;
+			设置制定字符集
+				create database 库名 character set utf-8; 
+    	删除数据库：
+    		    drop  database 库名;
+    		  	//如果数据库存在就删除；
+    		    drop database if exists 数据库名;
+  	5).对表进行操作
+    	创建一个新表(在这之前需要选择库)
+			//数据类型：整数int(可不指定字节数，默认为11字节),varchar,char,
+			//字段要指定类型，后面可接着	character set utf8设定字符集;
+    	    	create table book(列,列...);
+		查看表的语句
+			查看创建表的语句(字符集,存储引擎)
+				show create table 表名;
+			查看表的结构
+				desc 表名;
+    	插入表记录
+			//需注意字符串要用字符串引起来,一个括号里为一行,一一对应
+    	    	insert into 表名 values(值1),(值2),...;
+			//插入部分记录
+				insert into 表名(字段名1,字段名2) values(值1),(值2),...;
+    	删除表
+			删除表
+				drop table 表名;
+			删除记录
+    	   		delete from 表名;
+				   //全删，在实际工作中不使用
+				delete from 表名 where 条件; 
+				   //定位删除
+    	修改数据行：
+    	    update 表名 set 列=值 where 条件;
+		使用脚本模式导入命令；
+     		a.创建纯文本文档改类型为sql;
+     		b.在文档中编辑数据，批量导入数据;
+		字母设置显示中文
+     		a.set names UTF8;
+     		b.drop database if exists xz;#如果存在数据库xz就删除;
+     		c.create database xz charset=utf8;
+	6)注意
+		1.所有的数据都是以文件形式存放在数据库目录下
+		2.数据库目录:/var/lib/mysql
+	7)更改默认的字符集
+		方法
+			更改配置文件
+		步骤
+			1.sudo -i   //到root用户
+				.conf 皆为 配置文件
+			2.cd /etc/mysql/mysql.conf.d/  
+			3.备份 cp mysqld.cnf   mysqld.cnf.bak
+			4.subl mysqld.cnf
+			   [mysqld]
+			  添加:
+				character_set_server = utf8
+			5.重启mysql服务
+				/etc/init.d/mysql restart
+			6.进入数据库验证
+			mac 版本
+				/etc/my.cnf
+	8)字符类型宽度和数值类型宽度的区别
+		数值类型宽度为显示宽度,只用于select查询显示,与存储无关,可用Zerofill查看效果,不够位数补0
+		eg:
+			create table t3(id int(3)zerofill);
+		字符类型宽度超过之后无法存储
+*****************************************
+5.oracle数据库：
+	重要的单词		
+	1）使用sql语句
+	2）sql语句以英文输入下的分号结束
+	   (分号是语句的结束符号，
+	   如果最后没有分号，语句不回执行
+	   所起得作用是：换行)
+	3）sql语句中每个单词都要用空格隔开
+               {如何在数据库中来存储和管理数据？}
+               借助数据库的语言来做到
+               数据库的语言：sql
+		   结构化查询语言
+        4）sql语言分类：
+	1）数据定义语言(DDL)：
+		单词：
+			create（创建）
+			drop（删除）
+			alter（修改）	
+			desc(查看)
+	2）数据操纵语言(DML):
+		单词：
+			insert（插入） 
+			delete（删除）
+			update（修改）
+			select（查询）
+	3）数据控制语言(DCL):
+		单词：
+			grant：授权
+			revoke：撤销
+	4）事务控制语言(TCL):
+		单词：
+			commit：提交
+		如果不执行commit，业内称为假操作
+			rollback：回退
+           ps:清屏：
+                     dos系统：cls
+                     进入oracle：host cls
+                     linux系统：clear
+    (连接-建表-插入数据-查询数据)
+	  1）首先连接到oracle数据库
+		在dos中连接oralce格式：
+		sqlplus 用户名/密码			
+	  2）然后创建表
+		create table 表名(列名 数据类型);
+	    示例1：
+		创建一张表，表名为a
+		表的结构：(name char(10));
+	    SQL>create table a(name char(10));
+         创建一张表，表名：gebilaowang
+             表的结构：(id number(18),name varchar(10));
+             SQL>create table gebilaowang
+               (id number(18),name varchar(10));
+	  3）往表中存储数据
+		insert into 表名 values(值);
+	   示例1：
+		往a表中插入一条数据：'张三'
+	     SQL>insert into a values('张三');
+	  4）查询表中的数据
+		select * from 表名;
+	  示例：查询a表中有哪些数据？
+	       SQL>select * from a;

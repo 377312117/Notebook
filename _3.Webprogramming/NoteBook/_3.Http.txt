@@ -1,0 +1,256 @@
+tcp应用
+http传输 超文本传输协议
+    浏览器 实质上是一种客户端,将请求组织为http协议格式(本质是大字符串组成的消息包)
+        格式为 TCP传输
+    后端服务器 
+        将整个后端服务器的响应反馈至客户端 
+        http server 
+            tcp_server接收到http请求
+            解析请求
+        应用服务器
+            数据处理
+            逻辑处理
+            按照http协议格式组织响应发送到http server
+    示例
+        _9.http.py
+http协议
+    用途
+        用于网页的获取
+        数据的传输
+    特点
+        应用层协议,传输层选择tcp传输
+        简单灵活,很多语言都有http专门接口
+        无状态协议,协议本身不要求记录传输的数据
+        http1.1 支持持久连接
+网页请求过程
+    过程
+        客户端(浏览器)通过tcp传输,发送http协议请求给服务端
+        服务端接收到http请求进行解析
+        服务端处理具体请求内容,组织响应内容
+        将响应内容以http协议以http响应格式回发给浏览器
+        浏览器接受秀响应内容解析展示
+    http请求  request
+        请求格式
+            请求行 : 具体的请求类别和请求路径
+                格式:  GET          /          HTTP/1.1
+                      请求类别    请求内容       协议版本
+                    请求类别:
+                        GET         获取网络资源
+                        POST        提交一定的信息,得到反馈
+                        HEAD        只获取响应头
+                        PUT         更新服务器资源
+                        DALETE      删除服务器资源
+                        CONNECT     
+                        TRACE       测试
+                        OPTIONS     获取服务器性能信息
+            请求头 :   对请求内容的基本描述,由键值对组成
+            (空行)   # 一定要有
+            请求体  :  请求参数或者提交内容
+    http响应    response
+        响应格式
+            响应行
+                格式
+                    HTTP/1.1   200         OK
+                    协议版本    响应码   响应码的附加信息
+                响应码:         提示信息:
+                    1xx                 表示请求被接收
+                    2xx                 响应成功
+                    3xx                 响应需要进一步操作,重定向
+                    4xx                 客户端错误
+                    5xx                 服务器出错,未知错误
+                常用:
+                    200                  成功
+                    404                  访问内容不存在
+                    401                  没有访问权限
+                    500                  服务器未知异常
+            响应头    键值对
+                Server	                        tarena
+                Date	                        Tue, 16 Oct 2018 01:47:56 GMT
+                Content-Type	                text/css
+                Content-Length	                14530
+                Last-Modified	                Wed, 16 May 2018 01:36:14 GMT
+                Accept-Ranges	                bytes
+                Access-Control-Allow-Headers	Content-Type
+                Access-Control-Allow-Origin	    *
+                Access-Control-Allow-Methods	GET
+                Vary	                        Accept-Encoding, Accept-Encoding
+            空行
+            响应体
+        示例:
+            _12
+I/O 操作
+        在内存在存在数据交换的都认为是I/O操作
+        和终端交互: input print
+        和磁盘交互: read ....  write....
+        和网络交互: recv send 
+    I/O 密集型程序
+        程序执行中有大量的I/O操作
+        而cpu运算较少.消耗cpu资源少,耗时长
+    计算密集型程序
+        (cpu密集型)
+        程序中计算较多,IO操作较少.占用cpu资源较多,运行速度快
+    I/O类型
+        阻塞IO
+            阻塞IO是IO的默认形态,是效率较低的一种IO情形
+            阻塞情形:
+                因为某种条件没有达成造成的函数阻塞
+                    accept input recv
+                处理IO的事件较长产生的阻塞行为
+                    网络传输,大文件读写
+        非阻塞IO
+            将原本的阻塞函数通过属性更改将其变为非阻塞
+                sockfd.setblocking(bool)
+                功能:
+                    将套接字设置为非阻塞IO
+                参数:
+                    默认True 表示套接字调用阻塞函数时为阻塞状态
+                    如果设置为False表示调用阻塞函数变为非阻塞状态
+                注意:
+                    非阻塞IO通常和循环一起使用,不断执行任务再检测IO行为是否满足运行条件
+                超时检测:
+                    设置一个最长阻塞等待时间,超过时间后则不再阻塞
+                    sockfd.settimeout(sec)
+                    功能
+                        设置套接字的超时时间
+                    参数
+                        设置的时间为多少秒
+                示例:
+                    _13                
+        IO多路复用
+            分类
+                准备就绪的IO
+                    IO能够操作,可以进行处理执行
+                没有准备就绪的IO
+                异步IO
+                事件IO
+            定义 
+                同时监控多个IO事件,当哪个IO事件准备就绪,就执行哪个IO事件,以此形成可以同时操作多个IO的行为,避免一个IO
+                阻塞造成其他的都无法运行,提高了执行效率
+            具体方案:
+                select: windows Linux unix
+                poll    linux unix
+                epoll   linux unix
+        Python模块select
+            select 方法实现多路复用
+                import select
+                rs,ws,xs = select(rlist,wlist,xlist[,timeout])
+                    功能: 
+                        监控IO事件.阻塞等待IO发生
+                    参数:
+                        rlist  列表   想要关注的等待发生的IO事件
+                        wlist  列表   想要关注的可以主动处理的IO
+                        xlist  列表   想要关注的出现异常去处理的IO
+                        timeout  超时时间 ,默认为阻塞设置超时时间后即阻塞一定的时间
+                    返回值:
+                        rs  列表   rlist中准备就绪的IO对象
+                        ws  列表   wlist中准备就绪的IO对象
+                        xs  列表   xlist中准备就绪的IO对象
+                    示例:
+                        _14,_15
+                基于select IO多路复用的tcp服务端
+                    步骤:
+                        1.将关注的IO放入对应类别的关注列表
+                        2.通过select函数进行监控
+                        3.遍历select返回值确定哪个IO事件发生
+                        4.处理发生的IO事件
+                    注意:
+                        wlist但当中存在IO事件,select会立即返回让你处理
+                        在处理IO过程中,不要出现死循环等长期占用服务端的情况
+                        IO多路复用占用系统资源较少,效率较高
+            poll实现多路复用
+                p = select.poll()
+                    功能    创建poll对象
+                    返回值   poll对象
+                p.register(fd,event)
+                    功能    注册要关注的IO事件
+                    参数     fd      要关注的IO对象
+                            event   选择要关注事件
+                                常见事件类型  
+                                    POLLIN    读IO事件  同rlist
+                                    POLLOUT   写IO事件  同wlist
+                                    POLLERR   出错IO    同xlist
+                                    POLLHUP   连接断开事件
+                p.unregister(fd)
+                    功能:   取消对IO的关注
+                    参数:   IO对象或者是文件描述符
+                    示例:
+                        p.register(sockfd,POLLIN | POLLERR)   同时关注多个事件
+                events = p.poll()
+                    功能:   阻塞等待监控的IO事件发生
+                    返回值: 返回一个列表
+                        格式:
+                            [(fileno,event),(),(),()...]  
+                                列表中包含多个元组,其中每个元组为一个就绪的IO事件
+                                元组中有该IO的fileno和就绪的事件类型
+                                *需要字典配合通过fileno查找对应的IO事件对象
+                                    {fileno:io_obj}
+                                    示例:
+                                        {sockfd.fileno():sockfd}
+                poll_server步骤
+                    1.创建套接字
+                    2.将套接字设置为关注
+                    3.创建查找字典并维护
+                    4.循环监控IO发生
+                    5.处理发生的IO事件
+                示例:
+                    _16
+            epoll实现多路复用
+                和poll几乎一模一样,但是POLLIN | POLLERR  改为 EPOLLIN | POLLERR
+                生成对象改为epoll()方法
+                事件类型改为EPOLL类型
+                与poll不同之处在于封装方法不一样
+                *epoll效率比select和poll更高
+                 监控的IO监控数量比select要多
+                 epoll触发方式更多 (边缘触发EPOLLET),  
+            拓展                  
+                位运算
+                    & 按位与     
+                        按二进制,两两进行相与,并把数字相加如 11&14   
+                        ==>  1011 1110   意义对应得 1010 即为10 
+                    | 按位或
+                        有1则为1
+                    ^ 按位异或
+                        相同为0,不同为1
+                    >> 右移
+                        14 >> 2  向右移动两位挤掉地位  1110 -->  0011  十位数 3 
+                    << 左移
+                        向左移动两位   11  << 2  即 1011 --> 101100   返回44
+发送更丰富的数据结构
+    struct 模块  结构化数据
+        原理:
+            将数据转化为Bytes格式,并且可以将bytes格式数据转换回来
+            struct模块可以直接调用pack()和unpack()
+            此时两个函数的第一个参数为fmt
+    struct(fmt)
+        功能:生成struct对象
+        参数:fmt  定制的数据结构组成
+        示例:
+            要发的数据:1b'zhang'1.75
+            组织的类型格式:Struct("i5sf")
+                注:i   整数型  
+                  5s   5个对应的Bytes
+                  f    float
+            python 类型    fmt
+               int         i
+               float       f
+               bytes       ns(n代表几个字符)
+        返回: struct对象
+    函数:
+        st.pack(v1,v2,v3)
+            功能:
+                将数据按照指定格式打包转换为Bytes
+            参数
+                要发送的数据
+            返回值:
+                打包后的bytes字串
+            示例:
+                st.pack(1,b'zhang',1.75)
+        st.unpuck(bytes_data)
+            功能:
+                将bytes字串解析为制定个数数据
+            参数:
+                要解析的bytes字串
+            返回值:
+                元组,为解析后的内容
+        示例:
+            见_18,_19

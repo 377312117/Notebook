@@ -1,0 +1,78 @@
+阶段总结:
+    1.数据类型
+        不可变数据类型:
+            bool,int,float,complex,str,tuple
+            fronzenset,bytes(字节串)
+        可变数据类型:
+            list dict set bytearray(字节数组)
+    2.运算符:
+        + - * / // % **
+        > >= < <= == !=
+        is / is not
+        in / not in 
+        not and or
+        & ^ | 
+        +正号  - 负号
+    3.表达式
+        1
+        1+2
+        max(1,2,3) + max(4,5,6)
+        print("hello")
+        条件表达式: x if x>y else y
+        全部推导式:列表,字典,集合
+    4.语句
+        表达式语句:
+            print("hello")
+        赋值语句:
+            a=100
+        del语句
+        if 语句/while/for
+        break/continue/pass
+    5.内建函数
+      用于容器的函数
+        1) len(s)  返回序列的长度，指的是每一个文字的编码加起来的长度
+	         eg:s2="12214"
+	            len(s2)
+		    输出：5
+                len('a b\nc') 
+                #空格，换行，完整的转义字符都算一个字符， 故答案为5
+		        如果\后面接的不是转义字符，则为2个字符长度例如\z
+        2) max()     返回序列的最大值元素
+        3) min()     返回序列值的最小元素
+	      4) sum(x)    返回序列中所有元素和（元素必须是数值类型）
+	      5) any(x)    真值测试，如果容器内其中一个是True则返回True,否则返回False
+	      6) all(x)    真值测试，容器内所有元素的布尔值均为True,否则返回False
+	                  all([]) #True  特例                
+      构造函数
+        int(x)
+        bool(x)
+        float(x)
+        complex(x)
+        str(x)
+        list(x)
+        tuple(x)
+        dict(x)
+        set(x)
+        frozenset(x)
+      数值的处理函数
+        abs(x)
+        round()
+        pow(x,y,z=None)
+      进制字符串
+        bin(x)
+        oct(x)
+        hex(x)
+      编码转换
+        chr(x)
+        ord(x)
+      返回可迭代对象的函数
+        range(start,stop,step)
+        reversed(x)
+      输入输出函数
+        input()
+        print(....sep="",end="\n")
+      其他
+        id(x)
+        type(x)
+
+        

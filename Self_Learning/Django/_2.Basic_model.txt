@@ -1,0 +1,204 @@
+模型
+django一个简单的流程回顾
+    1.Django对各种数据库提供了很好的支持,Django为数据库提供了统一的调用API
+    2.配置数据库
+        修改工程目录的__init__.py文件写入:
+        ...
+    3.开发流程
+    ...
+
+
+ORM 对象关系映射
+        Django通过ORM将不同数据库的的增删改查提供统一的转换,这样Django能够用
+        统一的操作操作不同的数据库
+    任务
+        1.根据对象的类型生成表结构
+        2.将对象,列表的操作转换为sql语句
+        3,将sql语句查询到的结果转换为对象,列表
+    优点
+        1.极大的减轻了工作量
+        2.不需要面对因数据库的变更而修改代码
+
+
+定义模型
+    模型,属性,表,字段的关系
+        一个模型类在数据库对应一张表
+        在模型类中定义属性,对应该模型对照表的字段
+定义属性
+    概述
+            django根据属性的类型确定以下信息
+            当前选择的数据库支持字段的类型
+            渲染管理表单使用默认的html控件
+            在管理站点最低限度的验证
+            *Django会为表增加自动增长的主键列,每个模型只能有一个主键列,
+            如果利用选项设置某属性为主键列,则不会再自动生成主键列
+        属性命名限制
+            遵循标识符规则
+            由于Django的查询方式,不允许使用连续的下划线
+    库
+            定义属性时,需要字段类型,字段类型被定义在django.db.models.fields目录下
+            为了方便使用,被导入到了django.db.models中
+        使用方式
+            导入from django.db import models
+            通过models.Field创建字段类型的对象,赋值给属性
+    逻辑删除
+        对于数据库都做逻辑删除,不做物理删除,实现方法是定义isDelete属性,类型是BooleanField
+        默认值为False
+    字段类型
+        AutoField
+            一个根据实际ID自动增长的IntegerField,通常不指定,如果不指定,
+            一个主键字段将自动添加到模型中
+        CharField(max_length = 字符长度)
+            字符串,默认的表单样式是TextInput
+        TextField
+            大文本字段,一般超过4000使用,默认的表单控件为Textarea
+        IntegerField 
+            整数
+        DecimalField(max_digits=None,decimal_places=None)
+            使用python的Decimal示例表示的十进制浮点数
+            参数说明
+                DecimalField.max_digits
+                    位数总数
+                DecimalField.decimal_places
+                    小数点后的数字位数
+        FloatField
+            用Python的float实例来表示的浮点数
+        BooleanField
+            True/False 字段,此字段的默认表单控制是CheckboxInput
+        NullBooleanField
+            支持null,True,False三种值
+        DateField([auto_now=False,auto_now_add=False])
+            使用python的datetime.date实例表示的日期
+            参数说明
+                DateField.auto_now
+                    每次保存对象时,自动设置该字段为当前时间,用于创建时间戳,用于
+                    '最后一次修改',它总是使用当前日期,默认值为False
+                DateField.auto_now_add
+                    当对象第一次被创建时自动设置当前时间,用于创建的时间戳,它总是使用当前日期,
+                    默认值为False
+            说明
+                该字段默认对应的表单控件是一个TextInput,在管理员站点添加了一个JavaScript写的日历控件
+                ,和一个'Today'的快捷按钮,包含一个额外的invalid_date错误消息键
+            注意
+                auto_now_add,auto_now,and default 这些设置是相互排斥的,他们之间任何
+                组合将发生错误的后果
+        TimeField
+            使用python 的 datetime.time 实例表示的时间,参数同DateField
+        DateTimeField
+            使用python的datetime
+            datetime实例表示的日期的时间,参数同DateFeild
+        FileField
+            一个上传文件的字段
+        ImageField
+            继承了FileField的所有属性和方法,但对上传的对象进行校验
+            确保它是一个有效的Image
+        *******
+    字段选项
+        概述
+            通过字段选项,可以实现对字段的约束
+            在字段对象时通过关键字参数指定
+        null 
+            如果为True,Django 将空值以NULL存储在数据库中,默认值为False
+        blank
+            如果为True,则该字段允许为空白,默认值为False
+        注意
+            null是数据库范畴的概念,blank是表单验证范畴的
+        db_column
+            字段的名称,如果未指定,则使用属性的名称
+        db_index
+            若值为True,则在表中会为此字段创建索引
+        default
+            默认值
+        primary_key
+            若为True,则该字段在表中会成为模型的主键字段
+        unique
+            如果为True,这个字段在表中必须具有唯一值
+    关系
+        分类
+            ForeignKey 一对多,将字段定义在多的端中
+            ManyToManyField 多对多,将字段定义在两端中
+            OneToOneField:一对一,将字段定义在任意一端中
+        用一访问多
+            格式
+                对象.模型类小写_set
+            示例
+                grade.students_set
+        用一访问一
+            格式
+                对象.模型类型小写
+            示例
+                grade.students
+        访问id
+            格式
+                对象.属性_id
+            示例
+                student.sgrade_id
+元选项 
+    在模型类中定义Meta类,用于设置元信息
+    class Students():
+        pass
+        class Meta:
+            db_table = ''  # 定义数据表名,推荐使用小写字母,数据表名默认为项目类名小写_类名小写
+            ordering = []  # 对象的默认排序字段,获取对象的列表时使用
+                示例
+                    ordering['id']  升序
+                    ordering['-id'] 降序
+                    注意:排序会增加数据库的资源消耗
+模型成员
+    类属性
+        objects  是Manager类型的对象,作用是与数据库的交互
+            示例(交互模式下)
+                stu = Students.objects.get(pk=1)
+                stu
+                <Students:薛延美>
+                stu.age = 22
+                stu.save()
+
+            当定义模型类时没有指定管理武器,则Django为模型创建一个名为objects的管理器
+        自定义管理器
+            stuObj = models.Manager()
+            # 当为模型指定模型管理器,Django就不在为模型生成objects模型管理器
+        自定义管理器Manage类
+                模型管理是Django的模型进行与数据库进行交互的接口,一个模型可以有多个模型管理
+            作用:
+                向管理器类中添加额外的方法
+                修改管理器返回的原始查询集  重写get_queryset()方法
+            代码示例
+                # 修改查询集,将isDelete为False的过滤进来,把True的过滤掉
+            class StudentsManager(models.Manager):
+                def get_queryset(self):
+                    return super(StudentsManager,self).get_queryset()filter(isDelete=False)
+            在Students中添加管理器
+                # 自定义模型管理器
+                stuObj2 = StudentsManager()
+
+    创建对象
+        目的
+            向数据库中添加数据
+        说明
+            当创建对象时,Django不会对数据库进行读写操作,当调用save()方法时才与数据库交互,
+            将对象保存在数据库中
+        注意
+            __init__在已经父类models.Model中使用,在自定义模型中无法使用
+        方法
+            1.在模型类中增加一个类方法
+            2.在自定义管理器中添加一个方法   -->创建一个对象
+        示例
+            在models.py写入
+                @classmethod
+                def createStudent(cls,name,age.gender,contend,lastT,createT,isD =False):
+
+        在views.py中添加路由
+            from .models import Students
+            def students(request):
+            studentsList = Students.stuObj2.all()
+                return render(request,'MyApp/students.html',{'students':studentsList})
+        
+        
+
+
+
+
+        
+                
+        

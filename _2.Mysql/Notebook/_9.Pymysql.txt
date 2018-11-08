@@ -1,0 +1,85 @@
+pymysql
+    作用
+        python与mysql的交互操作
+    安装
+        在线安装
+            sudo pip3 install pymysql[==版本号]   默认下载最新,[]中可指定版本号
+            pip3的安装
+                sudo apt-get insall python3-pip
+        离线安装
+            下载 xxx-版本号.tar.gz
+             $ tar -zcvf xxx.tar.gz
+             $ cd 解压后文件名字的路径
+             $ python3 setup.py install  # 安装命令
+    注:
+        python2 
+            模块名  MySQLdb
+            安装   sudo pip insall mysql-python步骤
+步骤
+        1.创建数据库连接对象
+            db = pymysql.connect(...)
+        2.创建游标对象(利用数据库对象)
+            cur = db.cursor()
+        3.执行sql命令(利用游标对象)
+            cur.execute("sql命令")
+        4.提交到数据库执行(利用commit方法)
+            db.commit()
+        5.关闭游标对象
+            cur.close()
+        6.关闭数据连接对象
+            db.close()
+    示例:
+        见pymysql/_1.exe.py
+数据库连接对象方法
+    db.commit(): 提交到数据库执行
+    db.rollback() : 回滚
+    db.close() :   断开与数据库的连接
+    db.cursor() :  创建游标对象
+游标对象(cursor)方法
+    cursor.execute(sql命令)  执行sql命令
+    cursor.close()          关闭游标对象
+    cursor.fetchone()       取第一条(查询)
+    cursor.fetchmany(n)     取n条
+    cursor.fetchall()       取所有记录(查询)
+    # 注意,fecth 取值属于序列取值,取的对象是游标对象,在一个模块里,,在前面已经被fetch取值过的对象将不会再被取值
+连接对象的参数(connector)
+    host        主机地址
+    user        用户名
+    password    密码
+    database    库名
+    charset     字符集 推荐utf-8
+    port        端口号,mysql皆为(3306)
+
+ORM (Object Relation Mapping对象关系映射)
+    定义
+        把对象模型映射到MySQL数据库中
+    sqlalchemy安装
+        在线
+            sudo pip3 install sqlalchemy
+        离线
+            $ tar -zvxf sql....tar.gz
+            $ cd 路径
+            $ sudo python3 setup.py install
+        示例:
+        class User(Base):
+            __tablename__ = "t123"
+            id = Column(Integer,primary_key = True)
+            name = Column(String(20))
+    映射类型
+        Python类(class)  <--> 数据库中表
+            class user ...    t123
+        Python中类属性   <--> 数据库中表字段(id ..)
+            id = Column(Integer)
+        关系映射
+            1:1   主外键关联,添加唯一约束
+            1:n   主外键关联
+            m:n   通过中间表实现
+        示例:
+            在db5库内创建表t123,表中字段有
+            id 整形 主键 自增长
+            name 字符类型  宽度20
+            phnumber  字符类型 宽度11
+
+
+
+

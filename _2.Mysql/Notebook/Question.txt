@@ -1,0 +1,31 @@
+# 客户端把数据存储到数据库服务器的过程
+    1.链接到数据库   mysql -uroot -p123456
+    2.选择库:   use 库名;
+    3.修改表:   insert / update   ....
+    4,断开与数据库的连接    exit | quit | \q
+
+# mysql 用户管理
+    正常登录 
+        mysql -hlocalhost -uroot -ppassword   所有权限
+        mysql -utarena -p123    tarena用户只能有部分权限
+    步骤
+        开启mysql远程连接 
+            sudo -i
+            cd /etc/mysql/mysql.conf.d/
+            code mysqld.cnf 
+            bind-address = 127.0.0.1
+            /etc/init.d/mysql restart 
+        添加授权用户
+            用root用户登录mysql
+                mysql -uroot -p123456
+            授权
+                grant 权限列表 on 库.表 to "用户名"@"%" identified by "密码" [with grant option];
+                注意:
+                    *.* : 所有库所有表
+                    库.*: 所选库中所有表
+                    [with grant option]  使该用户具备向下授权的能力
+                    权限列表
+                        all privileges
+                        select
+                        update
+                        drop

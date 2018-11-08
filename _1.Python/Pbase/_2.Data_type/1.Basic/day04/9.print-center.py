@@ -1,0 +1,9 @@
+#输入三行文字，让三行文字在一个方框内居中显示
+s1=input("请输入:")
+s2=input("请输入:")
+s3=input("请输入:")
+print("+"+"-"*(max(len(s1),len(s2),len(s3))+6)+"+")
+print("|"+s1.center(max(len(s1),len(s2),len(s3))+6)+"|")
+print("|"+s2.center(max(len(s1),len(s2),len(s3))+6)+"|")
+print("|"+s3.center(max(len(s1),len(s2),len(s3))+6)+"|")
+print("+"+"-"*(max(len(s1),len(s2),len(s3))+6)+"+")

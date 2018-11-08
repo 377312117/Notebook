@@ -1,0 +1,17 @@
+十.固定集合
+1.基本介绍
+        固定集合是不可变的,无序的,含有唯一元素的集合
+    作用:
+        可以作为字典的键,也可以作为集合的值
+    构造函数:
+        frozenset()    #创建一个空的固定集合对象
+        frozenset(iterable)  #用可迭代对象创建一个固定集合对象
+    示例:
+        fs=frozenset()           #创建空固定集合fs=frozenset() 
+        fs=frozenset("abcaba")   #fs=frozenset({"a","b","c"})
+2.固定集合的运算/比较大小/in/not in运算
+    和集合类似
+3.固定集合的方法
+    相当于集合的全部方法去掉修改集合的方法
+    详情见help(frozenset)
+4.

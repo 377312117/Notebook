@@ -1,0 +1,9 @@
+#计算x与y之间不同的计算方式的值
+x=int(input("请输入x的值："))
+y=int(input("请输入y的值："))
+sum=x+y
+pro=x*y
+pow=x**y
+print("二者之和为%d"%sum)
+print("二者之积为%d"%pro)
+print("x的y次方为%d"%pow)

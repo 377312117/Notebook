@@ -1,0 +1,347 @@
+开放源代码的Web应用框架,由Python写成,
+软件设计典范,由业务逻辑,数据,界面显示分离的方法组织代码,改进和个性化定制界面
+
+
+MVC
+    核心思想: 解耦
+    编程模式
+        Model       模型
+            应用程序中处理应用程序数据逻辑的部分
+            通常模型对象负责在数据库中存取数据
+        View        视图
+            是应用程序中处理数据显示的部分
+            通常视图是依据模型数据创建的
+        Controller  控制器
+            是应用程序中处理用户交互的部分
+            通常控制器从视图读取数据,控制用户输入,并向模型发送数据
+        优点
+            降低了各功能模块之间的耦合性,方便变更,更溶体重构代码,最大程度的实现代码的重用
+
+MTV
+    本质和MVC几乎无差别,定义上些许不同
+    编程模式
+        Model模型
+            负责业务对象和数据的对象ORM
+        Template模板
+            负责把页面展示给用户
+        View视图
+            负责业务逻辑,并在适当的时候调用Model和Template
+    注意
+        由一个url分发器,他的作用是将1个个url的页面请求
+        分发给不同的view处理,view在调用相应的model和template
+
+使用Django创建一个项目(示例)
+    流程
+        1.在合适的位置创建一个目录
+        2.打开终端进入到创建的目录下
+        3.在终端输入:django-admin startproject project
+            目录层级:
+            > project
+                > manage.py 一个命令行工具,可以使我们用多种方式对django项目进行交互(大量使用)   
+                > project目录
+                    > __init__.py   一个空文件,它告诉python这个目录应该看做一个包
+                    > settings      项目的配置文件(大量修改)
+                    > urls.py       项目的url声明(大量修改)
+                    > wsgi.py       项目和WSGI兼容的web服务器入口
+    基本操作
+        存储至数据库
+            设计表结构
+                班级表结构
+                    表名grades,字段:成立时间,男生总数,女生总数,是否删除
+                学生表结构
+                    表名students,字段:姓名,性别,年龄,简介,班级,是否删除
+            配置数据库
+                *django默认使用sqllite数据库
+                1.配置mysql
+                    安装pymysql,在/project/project/__init__.py写入:
+                        import pymysql
+                        pymysql.install_as_MySQLdb()
+                    在数据库中创建指定数据库Create_Project
+                2.settings.py文件中通过DATABASES选项进行数据库配置
+                  修改并写入:
+                    DATABASES = {
+                        'default': {
+                            'ENGINE': 'django.db.backends.mysql',
+                            'NAME': "Create_Project",
+                            'USER':'root',
+                            'PASSWORD':'123456',
+                            'HOST':'localhost',
+                            'PORT':'3306',
+                        }
+                    }
+    创建应用
+        1.在一个项目中创建多个应用,每个应用进行一个业务内容的处理
+        2.打开终端进入项目文件夹下的project目录,并切换到该目录
+        3.然后输入:python3 manage.py startapp MyApp(应用名字)
+          创建了个MyApp的文件夹
+            admin.py        配置站点
+            models.py       模型
+            views.py        视图
+    激活应用
+        1.在settings.py将MyApp应用加入到INSTALLED_APPS选项中
+            (在末尾添加名字即可)
+    定义模型
+        1.有一个数据表就对应一个模型
+        2.在models.py中定义模型
+            有一个数据表,对应一个模型
+        3.在models中导入:from django.db import models 以继承父类
+        4.创建模型类,在models.py中定义模型
+            class Grades(models.Model):
+                '''对应数据库上的班级表,属性会对应表里的字段'''
+                gname = models.CharField(max_length=20)
+                gdate = models.DateTimeField()
+                ggirlnum = models.IntegerField()
+                gboynum = models.IntegerField()
+                isDelete = models.BooleanField()
+
+            class Students(models.Model):
+                '''对应数据库中的学生表'''
+                sname = models.CharField(max_length=20)
+                sgender = models.BooleanField(default=True)
+                sage = models.ImageField()
+                scontend = models.CharField(max_length=20)
+                isDelete = models.BooleanField(default=False)
+                # 关联外键,一个班级对应多个学生
+                sgrade = models.ForeignKey('Grades',on_delete=models.CASCADE) 
+            说明:
+                不需要定义主键,会在生成时自动添加,并且值为自动增加的 
+    在数据库中生成数据表              
+        1.生成迁移文件
+            执行:python3 manage.py makemigrations
+            在migrations目录下生成一个迁移文件,此时数据库还没有表
+        2.执行迁移
+            终端bash执行:python3 manage.py migrate
+            注:相当于执行了sql语句创建了数据表
+    测试数据操作
+        1.进入到python shell  
+            执行:python3 manage.py shell
+        2.引入一些包(在执行完上一步后在终端下执行)
+            执行:from MyApp.models import Grades,Students
+                #  工具包
+                from django.utils importtimezone
+                from datetime import *
+        3.查看所有数据
+            在python下输入:Grades.objects.all()
+        4.添加数据
+            本质是创建一个模型类的对象实例
+            添加班级信息
+                grade1 = Grades()
+                grade1.gname = 'python04'
+                grade1.gdate = datetime(year=2017,month=7,day=17)
+                grade1.ggirlnum = 3
+                grade1.gboynum = 70
+                grade1.save()   #模型和数据交互
+            添加学生信息
+                 stu = Students()
+            >>> stu.sname = '薛艳梅'
+            >>> stu.sgender = False
+            >>> stu.sage = 20
+            >>> stu.scontend = '我叫薛艳梅'
+            >>> stu.sgrade = grade1
+            >>> stu.save()
+        5.查看数据
+            g = Grades.objects.get(pk=2)
+              print(g)
+        6.修改数据
+            模型对象.属性 = 新值
+            grade2.boynum = 60
+            保存
+            grade2.save()
+        7.删除数据
+            模型对象.delete()
+            grade2.delete() 删除该记录
+            注意:物理删除,数据库中的表里的数据被删除了
+        8.关联对象
+            获取关联对象的集合
+                获取python04班级所有学生
+                对象名.关联的类名小写_set.all()
+                grade1.students_set.all()
+            需求
+                创建曾志伟,属于python04班级
+                stu3 = grade1.students_set.create(
+                sname=u'曾志伟',sgender=True,scontend=u'我叫曾志伟',sage=45)
+                *不用save()即写入数据库
+        9.启动服务器
+            格式
+                python3 manage.py runserver  ip:port 
+                *ip可以不写,端口号默认8000
+                示例
+                    python3 manage.py runserver
+                说明:
+                    这是一个纯python写的轻量级web服务器,仅仅在测试开发时使用
+        10.admin站点管理
+            概述
+                内容发布
+                    负责添加,修改,删除内容
+                公告访问
+            配置admin应用
+                在settings.py文件中的INSTALLED_APPS添加'django.contrib.admin'
+                (默认已经自动添加)
+            创建管理员用户
+                在manage.py的文件夹下bash执行:python3 manage.py createsuperuser
+                依次输入用户名邮箱以及重复密码
+                汉化
+                    在settings.py中修改
+                        LANGUAGE_CODE = 'zh-Hans'
+                        TIME_ZONE = 'Asia/Shanghai'
+            管理我们的数据表
+                修改admin.py文件(在MyApp目录下)
+                    在文件中写入:
+                    from .models import Grades,Students
+                    # 注册
+                    admin.site.register(Grades)
+                    admin.site.register(Students)
+                自定义管理界面
+                    列表页属性
+                        list_display            显示字段
+                        list_filter             过滤字段
+                        search_fields           搜索字段    
+                        list_per_page           分页
+                    添加,修改页属性
+                        fields                  规定属性的先后顺序
+                        fieldsets               给属性分组(fields和本属性只能设置一条)
+                    示例
+                        class GradesAdmin(admin.ModelAdmin):
+                            # 列表页属性
+                            list_display = ['pk','gname','gdate','ggrilnum']
+                            list_filter = ['gname']
+                            search_fields = ['gname']
+                            list_per_page = 5
+
+                            # 添加修改页属性
+                            # fields = ['ggirlnum','gboynum','gname','gdate','isDelete']
+                            # fieldsets = [
+                                # ('num':{fields:['ggirlnum','gboynum']}),('base',
+                                # {"fields":['gname','gdate','isDelete']}),
+                            # ]
+                        admin.site.register(Grades,GradesAdmin)
+                        学生表类似
+                需求:在创建一个班级的时候可以直接添加几个学生
+                    class StudentsInfo(admin.TabularInline):  # Stackedlnline
+                        '''为student表添加页面进行修改'''
+                        # TabularInline为添加修改页面的父类
+                        model = Students
+                        extra = 2
+                    class GradesAdmin(admin.ModelAdmin):
+                        '''对班级表的管理页面进行修改'''
+                        inlines = [StudentsInfo]
+                bool值的显示问题
+                    (在admin.py中修改)
+                    class StudentsAdmin(admin.ModelAdmin):
+                        '''对student管理页面进行修改'''
+                        def gender(self):
+                            '''对应男女显示性别的问题'''
+                            if self.sgender:
+                                return '男'
+                            else:
+                                return '女'
+                设置页面列的名称
+                        gender.short_description = '性别'
+                修改执行动作的位置
+                    actions_on_top = False   # 在页面上方,True为上方,默认在上方
+                    actions_on_bottom = True # 在页面下方,设置True在下面
+            注册
+                使用装饰器完成注册
+                # 装饰器装饰,更为简洁方便
+                @admin.register(Students) 
+                class StudentsAdmin(admin.ModelAdmin):   
+                    ...
+                可以去掉下面这一句
+                    # admin.site.register(Students,StudentsAdmin)
+    视图的基本使用
+        概述
+            在django中,视图对web请求进行回应,对客户端返回页面
+            视图就是一个python函数,在views.py中定义
+        定义视图
+            在views.py中设置
+            def  index(request):
+                '''输入域名直接返回主页'''
+            return HttpResponse('have a good day')
+        配置url
+            修改project目录下的urls文件
+                from django.conf.urls import url,include
+                from django.contrib import admin
+                urlpatterns = [
+                    url(r'^admin/', admin.site.urls),
+                    url(r'^',include('MyApp.urls'))
+                ]   
+            在MyApp目录下创建一个urls.py文件并输入
+                from django.conf.urls import url
+                from . import views
+                urlpatterns = [
+                    url(r'^$', views.index)
+                ]
+            可以在MyApp的urls中.py添加自定义页面
+                urlpatterns = [
+                    url(r'^$', views.index),
+                    url(r'^(\d+)/$',views.detail),
+                    # 组里的数字给了views.py.detail函数的num中
+                    ]
+            并且在views中添加相应的响应函数
+                def detail(request,num):
+                    return    HttpResponse('detail-%s' % num)
+    模板的基本使用
+        概述
+            模板是HTML页面,可以根据视图中传过来的数据进行填充
+        创建模板目录
+            创建templates目录,在目录下创建对应项目的模板目录(project/templates/MyApp)
+        配置模板路径
+            在setting.py中修改TEMPLATES.
+            TEMPLATES = [
+                {
+                    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                    'DIRS': [os.path.join(BASE_DIR,'templates')],
+                    'APP_DIRS': True,
+                    ....
+        定义grades.html 和students.html模板(仅展示grades.html,students类似)
+            1.在grades.html中写入模板:
+                <h1>班级信息列表</h1>
+                <ul>
+                    <!-- python04,python05,python06 -->
+                    {%for grade in grades%}
+                    # 传来班级的列表
+                    <li>
+                        <a href="#">{{grade.gname}}</a>
+                        
+                    </li>
+                    {%endfor%}
+                </ul>
+            2.配置urls
+            在MyApp/urls.py中写入列表urlpatterns中
+                urlpatterns = [
+                    url(r'^$', views.index),
+                    url(r'^(\d+)/$',views.detail),
+                    # 组里的数字给了views.py.detail函数的num中
+                    url(r'^grades/$',views.grades)
+                ]
+            3.定义视图
+                在views.py中创建grades函数
+                from .models import Grades
+                def grades(request):
+                    '''从模型拿数据'''
+                    gradesList = Grades.objects.all()
+                    # 将数据传递给模板,模板渲染好页面,再将渲染好的页面返回浏览器
+                    return render(request,'MyApp/grades.html',{'grades':gradesList})
+        需求:点击班级显示对应班级学生
+            1.修改grades.html中的url
+                <a href="{{grade.id}}">{{grade.gname}}</a>
+                下属页面跟id相关联
+            2.定义视图(在views.py中)
+                def gradeStudents(request,num):
+                    '''获得对应的班级对象'''
+                    grade = Grades.objects.get(pk=num)
+                    # 获得班级下的所有学生列表
+                    studentsList = grade.students_set.all()
+                    return render(request,'MyApp/students.html',{'students':studentsList})
+            3.配置url
+                在urlpattern列表中添加项:
+                    url(r'^grades/(\d+)$',views.gradeStudents)
+
+注意事项
+    如果需要重新迁移,则将数据库和迁移文件0001_initial.py删掉
+    添加关联表则只需要在数据库添加表添加关联即可
+                
+进行简易修改
+    1.在settings.py中修改数据库名,以及密码(如不相同的话)
+    2.删除迁移文件,建立新的数据库,并重新执行迁移
+    3.启动服务并测试

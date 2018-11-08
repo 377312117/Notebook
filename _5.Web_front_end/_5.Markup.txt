@@ -1,0 +1,131 @@
+                                               8.17 前端
+2.标记
+   2.1 块分区：<div></div> 自动换行
+       行内分区：<span></span> 不会自动换行
+   2.2 输入标记：
+        单词：input
+	语法：单标记
+	格式：<input>,</input>
+	作用：将一个指定的控件输入到网页上
+	    属性1：type
+	      属性值：指定控件类型
+	    属性2：size 默认值为20
+	      属性值：像素
+	         number类型不可调输入框长度 
+	    属性3：value ：文字
+	       属性值：控制控件上的文字
+	    属性4：placeholder 暗显提示语，输入数值后消失,用于输入框
+	           即使是密码框也会显示。
+	    属性5：maxlength 控制我们输入字符的长度
+	       属性值：数字
+	       作用：控制输入字符的长度
+	    属性6：对input中输入的内容做限制的方法：
+                      a.只能输入数字：<input type="text" onkeyup="if(!/^\d+$/.test(this.value)) {this.value=this.value.replace(/[^\d]+/g,'');}" />
+                      b.只能输入字母：<input type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"> 
+                      c.只能输入数字和字母组合：<INPUT class=input onKeyUp="value=value.replace(/[\W]/g,'')">
+	    属性7：name
+	          作用：控制radio(单选框）的选项个数
+		        a)name属性的值都相同时，选项的取值只有一个,适用于单选题
+			b)name属性值各不相同，选项的个数取决于属性值中最大的值
+3.表单标记：
+        ps:属性值可有可无可多可少
+        单词：form
+	语法：双标记
+	格式：<form></form>
+	作用：在网页上开辟一块区域来存储各种控件并且让控件的值或者请求有响应
+	    属性1:action(动作)
+	    属性值：响应的位置(url\页面)，服务器(项目)
+	    属性：请求方法 method(请求方法)
+	    属性值：get或者post
+	    完整格式：<font action="" method="">
+	        控件
+		...
+		<input type="submit" value="注册">
+	        <input type="reset" value="重置">
+		</form>
+               控件格式为：
+	            1)img
+	               <input type="image" src="图片路径">
+		    2)number
+		       <input type="number" max="100" min="1">
+		      特点：a.不能限制你输入值，但是下拉选择只能限制在1-100
+                            b.不可以改变控制大小
+		    3)文件上传
+		       <input type="file">  
+		    4)下拉列表:双标记
+		       格式：<select></select>
+		       作用：提供很多选项的值可以供我们选择
+		       选项:<option></option>
+		            作用:为下拉列表提供选项的值
+		         完整格式：
+			   <select>
+			   <option>值1</option>
+		           <option>值2</option> 
+			   <option>值3</option>
+			   ...
+                           </select>
+			案例：
+		          <select>
+			   <option>1980</option>
+		           <option>1990</option> 
+			   <option>2000</option>
+			   <option>2010</option>
+			   <option>2020</option>
+			   <option>2030</option>
+			   <option>2040</option>
+			   <option>2050</option>
+			   <option>2000</option>
+			   ...
+                           </select>
+		     5)textarea
+		       ...
+		     6)readonly 只读
+            示例：<center>
+                  <form action="file:///C:/Users/zhangxs/Desktop/8.17.5.html" method="get">
+                  账号：<input type="text" size="30" placeholder="请输入账号"><br/>
+                  密码：<input type="password" size="30" placeholder="请输入密码"><br/>
+                  重复：<input type="password" size="30" placeholder="请再次输入密码"><br/>
+                        <input type="submit" value="login">
+                        <input type="reset" value="cancel">
+                        </center>
+                        </form>	    
+  
+    1)html语法就是标记<>
+    2)下拉选择框：<select></select>
+          作用：提供选项供用户选择
+	  如何提供选项：
+	       借助option作为select的子标记
+	       <option></option>
+	       一个option只能提供一个选项
+	  完整格式:
+	  <select>
+	      <option>选项1</option>
+	      <option>选项2</option>
+	      <option>选项3</option>
+	      <option>选项4</option>
+	      ...
+	      </select>
+	  对选项进行分组：
+	   <optgroup></optgroup>
+	   作用：给选项定义一个组名
+	   属性：label 组名
+	         selected=""  被选中的默认值，默认为selected
+		 size  行数，放在 select后面。默认为1行
+
+	   完整格式：
+	    <select size="1">
+	       <optgroup label="组名1">
+	         <option selected="selected">选项1</option>
+	         <option>选项2</option>
+	         <option>选项3</option>
+	         <option>选项4</option>
+	         ...
+	       </optgroup>
+	         <optgroup label="组名2">
+	         <option>选项5</option>
+	         <option>选项6</option>
+	         <option>选项7</option>
+	         <option>选项8</option>
+	         ...
+	       </optgroup>
+            </select>

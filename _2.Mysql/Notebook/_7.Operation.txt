@@ -1,0 +1,128 @@
+锁(自动加锁释放锁)
+    目的
+        解决客户端并发访问的冲突问题
+    锁分类
+        锁类型(共享锁)
+            读锁 (共享锁)
+                select 加读锁之后别人可以查询,不能更改(update)
+            写锁 (互斥锁,排它锁)
+                update: 加写锁之后,别人不能查,也不能更改
+        锁粒度()
+            行级锁
+                可加读锁,写锁
+            表级锁
+                可加读锁,写锁
+存储引擎
+        可制定并且更改,只针对表,处理表的处理器
+    基本操作
+        查看所有的存储引擎
+            show engines;
+        查看已有表的存储引擎
+            show create table 表名;
+        创建表时指定存储引擎
+            create table 表名(...)  engine = MyISAM;
+        已有表更改指定引擎
+            alter table 表名 engine = InnoDB;
+            最好不要进行如此操作,会引起无法预料到的问题
+        常用引擎
+            InnoDB          默认 
+                特点
+                    支持事务和事务回滚,行级锁,和外键
+                    共享表空间 /var/lib/mysql/表名
+                        表名.frm 表结构和索引信息
+                        表名.ibd 表记录
+            MyISAM
+                特点
+                    支持表级锁,其他锁不支持
+                    独享表空间 
+                        表名.frm   表结构
+                        表名.MYD   表记录
+                        表名.MYI   索引信息                 
+            MEMORY               
+                特点
+                    表结构存储在硬盘
+                    表记录存储在内存
+                    服务器/主机重启后,表记录消失
+        如何选择存储引擎
+            执行查询操作多的表
+                用MyISAM(使用InnoDB浪费资源)
+            执行写最多的表
+                InnoDB 
+数据备份    mysqldump 在linux终端中操作
+    完全备份
+        完全备份是将数据完全更新
+        命令格式
+            mysqldump -u用户名 -p 源库名 >xxx.sql   -->回车,输入密码(需root密码)
+            mysqldump -u用户名 -p 源库名 | gz>xxx.sql.gz  压缩 备份
+        源库名的表示方式
+            --all-databases  备份所有的库
+             库名              备份单个库
+             -B 库1 库2 库3    备份多个库
+             库名 表1 表2 表3   备份制定库的多张表
+            
+        示例.备份所有库,放在mydata下
+    增量备份
+        备份新增的数据
+        企业应用时一般混合使用,在服务器负载较小时进行完全备份
+数据还原 在终端操作
+    命令格式
+        普通还原
+             mysql -u用户名  -p  目标库名  < xxx.sql
+        压缩还原
+            gunzip <xxx.sql.gz | mysql -uroot -p密码 databasename>
+    示例:
+        删除db3库,创建空库 ,从all.sql 中恢复此库
+        mysql>  drop ...
+        mysql>  create ...
+        mysql>  use db3
+        终端: mysql -u用户名  -p  --one-databases db3  < all.sql
+    注意:
+        若备份中的库备份到数据库中,数据库中新增加的表不会删除,但是重名的表会被覆盖
+        恢复时,要恢复的库不存在,则先创建空库
+数据导入
+    作用
+        把文件系统的内容导入到数据库中
+    语法格式
+        load data infile "文件名"
+        into table 表名
+        fields terminated by "分隔符"
+        lines terminated by "\n"
+    导入步骤
+        在数据库中创建对应的表
+            注意:需要与表相对应的数据类型
+        把文件拷贝到数据库的搜索路径中
+            查看搜索路径 
+                show variables like "secure_file_priv"
+                cd 需导入文件路径 
+                sudo cp 文件名  /var/lib/mysql-files/         复制文件到搜索路径
+        执行数据导入语句  --注意是绝对路径
+        load data infile "/var/lib/mysql-files/scoreTable.csv" into table score
+        fields terminated by "," lines terminated by "\n";
+        见
+         :_7.unlock.py
+数据导出
+        把数据库的表的记录导出到系统文件中
+    语法格式
+        select ... from 表名 where 条件
+        into file "文件名"
+        fields terminated by "分隔符"
+        lines terminated by "\n"
+    注意:
+        在导出文件中需不存在被导出的文件名
+事务和事务回滚
+    定义
+        一件事从开始发生到结束的过程
+    作用
+        确保数据的一致性
+    应用
+            show variables like "autocommit "     
+            查看自动提交状态,在mysql中默认为on,sql命令默认提交到数据库执行
+        开启事务
+
+            begin;  -- 开启事务后,不会自动提交到数据库执行了
+                    -- 查看表时,插入数据是存在的,但是在另一个终端查看时是不存在的(未存储在数据库中)           
+        终止事务
+            commit;    -- 提交    
+                将记录真正存储到数据库中,终止之后事务将取消,使用sql语句插入记录仍将会自动提交到数据库
+            rollback;  -- 回滚    
+                将回滚至上一个begin位置,将之前预插入的记录撤销

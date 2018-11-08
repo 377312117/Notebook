@@ -1,0 +1,8 @@
+为什么使用Web框架
+    底层代码由专门的服务器软件实现,我们专注于生成html文档,
+    使用统一的接口,专心于使用python编写web业务
+    将大部分固定的工作交给框架,合理使用框架可以节省主要精力去做Web应用
+WSGI 协议
+    Web Server Gateway interface
+
+wsgiref模块

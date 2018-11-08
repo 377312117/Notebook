@@ -1,0 +1,112 @@
+python和mongodb的连接
+使用模块    
+    pymongo 
+操作步骤
+    1.创建mongodb数据库连接对象
+        con = pymongo.MongoClient('localhost',27017)
+    2.生成要操作的数据库连接对象(__getitem__  __setitem__)
+        db = conn.stu
+        或db.conn['stu']
+    3.生成操作的集合对象
+        myset = db.class0
+        myset = db["class0"]
+    4.通过集合对象调用函数进行数据库操作
+    5.关闭数据库连接
+    conn.close()
+插入操作
+    insert()    插入一条或者多条文档
+    insert_many()   插入多条文档
+    insert_one()    插入多条文档
+    save()          插入一条或者多条文档,当由_id域时_id域重复会替换源文档
+查找
+    find()      查找所有文档
+        参数    同mongo shell 中的find
+        返回    游标变量
+            pymongo 操作数据库时所有的操作符均使用引号引起来当做字符串传入
+            mongodb中的true和false用python中的True和False代替
+            null使用None代替
+        cursor游标对象属性函数
+            next()  获取下一条文档
+            limit() 显示前几条文档
+            skip()  跳过前几条
+            count() 统计计数
+            sort()  排序
+        注意
+            当使用游标对象调用limit skip sort 等函数时,要求游标对象必须为初始游标,
+            即没有被for或者next取值过
+        对比
+            pymongo:
+                sort([("age":-1),("King":-1)])
+    find_one()
+        得到的一个字典
+        dic = {"$or":[{"$role":{"$exists":False}},{"name":"古天乐"}]}
+        d = myset.find_one(dic)
+        print(d)
+修改
+    myset.update({"name":"高圆圆"},{"$set":{"$role":"周芷若"}},upsert = True)
+
+删除
+    remove(query,multi = True)
+        默认删除多个,当multi设置为False时只删除一个
+    delete_one()
+    delete_many()
+
+复合操作    find_one_and_update
+    print(myset.find_one_and_update({"role":"萧峰"},{"set":{"name":"黄日华"}}))
+
+索引聚合操作
+    createIndex()       创建索引
+      参数  域名,则默认对该域创建正向索引
+           传入列表,列表中每个二维元组代表一个索引项
+                示例:[(age,-1)]表示对age创建逆向索引
+    list_indexes()      查看索引
+    drop_index()        删除一个索引
+    drop_indexes()      删除所有索引
+
+聚合操作
+    aggregate([])
+        参数    同mongoshell中的聚合
+        返回值  返回一个和find函数相同的游标对象
+
+文件操作
+    GridFS文件提取
+        步骤
+            1.连接数据库
+            2.生成gridfs对象
+                fs = gridfs.GridFS(db)
+            3.通过fs获取存储的文件集合
+                fs.find()
+            4.挑选想获取的文件进行读取
+            5.关闭数据库对象
+    GridFS写入文件
+        步骤
+            1.连接数据库
+            2.生成gridfs对象
+                fs = gridfs.GridFS(db)
+            3.通过fs.put()函数将读取出来的文件内容存入数据库
+                fs.put(data,filename)
+                    参数    data,要存入的二进制内容
+                            filename 文件存入的名称
+            4.关闭数据库对象
+    存取小文件
+        引入模块
+            import bson.binary
+        存
+            1.连接数据库,生成数据库对象和集合对象
+            2.选择要存储的文件,使用rb方式读出
+            3.将读取的内容转换为mongodb的二进制存储格式
+              content = bson.binary.Binary(data)
+                功能:    将bytes字串转换为mongodb二进制存储
+                参数:    要转换的bytes字串
+                返回值:  转换后的待存储数据
+            4.将内容写入文档插入数据库
+            示例:
+                _5
+        取
+            1.连接数据库,生成数据库对象和集合对象
+            2.选择要读取的集合提取数据
+            3.将数据写入本地
+            示例
+                _6
+        
+

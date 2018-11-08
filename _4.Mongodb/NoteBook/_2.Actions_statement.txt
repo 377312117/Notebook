@@ -1,0 +1,430 @@
+对集合的增删改查
+    创建集合
+        方法1 
+            db.createCollection(collection)
+            示例
+                db.createCollection('class1')
+        方法2 
+            向一个集合插入数据时，如果集合不存在会自动创建
+    查看集合
+        方法1：
+            show collections                常用
+        方法2：
+            show tables
+
+    删除集合
+        db.collection.drop()
+            其中collection指集合名，后面的括号不能省略
+            示例：
+                db.class1.drop()
+                删除当前库中的class1集合
+    集合重命名
+        db.集合名.renameCollection('新集合名')
+
+对文档的增删改查
+    【增】
+        插入单条文档       
+            db.集合名.insertOne()
+                功能    插入一条文档
+                参数    要插入的文档
+                示例
+                    db.class.insertOne({"name" : "lucy", "age" : "17", "sex" : "w"})
+                    数据操作时，键可以不加引号
+                    _id域可以自己添加，但是_id域是不可重复的
+                    一个集合的插入文档是有序的
+        插入多条文档
+            db.集合名.insertMany([{},{},{}...])
+                功能    插入多条文档
+                参数    由多条文档组成的数组
+                示例
+                    db.class0.insertMany([{name:"a",age:17},{name:"haha",age:18}])
+        通用：
+            db.collection.insert({'name':"zhangsan",'age':35,'sex':"man"})
+            兼容：insertOne和insertMany，都可以代替
+        save插入文档
+            db.集合名.save()
+            功能：插入文档基本与insert相同，
+            参数：同insert相同
+            *不同之处：
+                如果要插入的文档_id已经存在则会替换掉原有文档内容，插入多条时不可又替换又新增
+        获取集合对象
+            db.getCollection(集合名)        
+    【删】文档删除操作
+        db.集合名.deleteOne(query)      删除符合条件的第一条文档
+            参数query:同find
+                eg:
+                    删除第一条性别为男的文档
+                    db.class0.deleteOne({sex:"m"})
+        db.集合名.deleteMany(query)     删除符合条件的所有文档
+                示例:
+                    db.class0.deleteMany({sex:"m"})
+                    删除集合中所有性别为男的文档
+        db.集合名.deleteMany({})        删除所有的文档
+        db.集合名.remove(query,justOne) 删除文档
+        参数    query同上相同
+                justOne 默认为false,与deleteMany相同
+                        若为True,则同deleteOne相同
+        db.集合名.findOneAndDelete(query)
+        示例
+            db.集合名.findOneDelete({sex:{$exists:false}})
+            查找并删除一条没有性别属性的文档
+
+    【改】修改文档
+        db.集合名.updateOne(query,update,upsert)    修改第一个符合条件的文档
+            query:同之前相同
+            update:要修改的数据项,需要和修改操作符一同使用
+            upsert:bool值,默认为false,表示如果query没有筛选到文档,则不做任何操作
+                如果设置为True,则如果没有筛选到会根据query update插入新的文档
+                修改操作符
+                    $set    修改为18
+                        示例
+                            db.class0.updateOne({age:18},{$set:{age:20}})
+                            将年龄为18的第一个文档修改为年龄为20
+                            db.class0.updateOne({name:"jame"},{$set:{age:20}},{update:true})
+                            如果查找内容不存在,会插入新文档{name:"jame",age:"20"}
+        db.集合名.updateMany(query,update,upsert)   修改符合条件的所有文档
+            参数与updateOne相同
+        db.集合名.update(query,update.upsert,multi)   修改筛选文档
+            multi   默认为false,表示只能修改一条文档,如果设置为true,则修改多条文档
+            示例
+                db.class.update({name:'Lucy'},{$set{age:17}},true)
+            示例
+                修改所有不存在sex域的文档年龄为20
+                db.classupdate({sex:{$exists:false},{$set:{age:20},false,true})
+        db.collection.findOneAndUpdate(query,update)
+            功能 ： 查找一个文档并修改
+            参数 ： query 查找条件
+                   update 修改内容
+            返回 ： 修改前的文档内容
+
+             e.g. 查找一个文档并修改年龄为17
+                 db.class0.findOneAndUpdate({name:'Jame'},{$set:{age:17}})
+
+        db.collection.findOneAndReplace(query,docuemnt)
+            功能： 查找并替换一个文档
+            参数： query
+                  document：要替换的文档
+            返回：返回原有文档内容
+
+            e.g. 用新的文档替换查找到的文档
+                 db.class0.findOneAndReplace({abc:123},{name:'Lily',age:19})
+        修改器的使用
+            $set    修改或者增加一个域
+                当一个域不存在时可以增加一个域
+                示例
+                    db.class.update({name:'Jame'},{$set:{sex:'m'}})
+            $unset  删除一个域
+                示例
+                    db.class0.update({name:'Jame'},{$unset:{sex:''}}) 
+            $rename 修改域名
+                示例
+                    db.class0.updateMany({},{$rename:{sex:'gender'}})
+                    将符合条件的域名都修改成新的域名
+            $setOneInsert   当update插入文档时,作为补充插入内容
+                示例
+                    插入新的文档时,gender:'w'也会成为文档域
+                    db.class0.update({name:'Alis'},{$set:{age:19},$setOnInsert:{gender:'w'}},true)
+            $inc    加法修改器
+                示例
+                    所有人的age+1
+                    db.class0.updateMany({},{$inc:{age:1})
+            $mul    乘法修改域,用法和加法类似
+                $inc和$mul的值可以是整数,小数,复数,分数都可以
+            $max    指定某个域,如果小于规定值则修改为规定值,大于规定值则保持不变
+            $min    ...和max类似
+                示例
+                    如果Lily的年龄大于20则改为20,小于20则保持不变
+                    db.class.update({name:'Lily'},{$min:{age:20}})
+            $push    向数组里添加一项
+            $pushAll    向数组里添加多项
+                示例
+                    db.class.update({name:'小明'},{$push:{score:5}})
+            $pull       在数组中取出某一个值,等同删除,如果有重复的都删除
+            $pullall    同时删除数组多个值(示例用法同push,似乎新版不让用了)
+                示例
+                    db.class.update({name:'小红'},{$pull:{score:5}})
+            $pop        弹出数组一项,结合索引使用
+
+            $addToSet   无则添加
+                示例
+                    如果socre中没有88则添加,如果有则添加不上
+                    db.class3.update({name:'小红'},{$addToSet:{score:88}})
+            $each   对多个值逐一执行外部操作
+                    db.class3.update({name:'小明'},{$push:{score:{$each:[90.100]}}})
+            $position   指定位置插入
+                示例
+                    db.class.update({name:'小红'},{$push:{score:{$each:[91],$position:1}}})
+            $sort   对数组进行升序,搭配each使用,1是升序,0是降序
+                示例
+                    db.class3.update({name:'小亮'},{$push:{score:{$each:[],$sort:1}}})       
+    【查】
+        db.集合名.find(query,field)
+            功能：查找所有符合条件的文档
+            参数：只有位置传参
+                query   表示筛选条件，是一个键值对文档，默认表示查找所有内容
+                            示例：db.class0.find({_id:1})
+                    操作符
+                        使用$符号注明的一个由特殊意义的字符串，用以表达丰富的含义
+                        例如
+                            $lt     小于
+                            $eq     等于
+                            $gt     大于
+                            $lte    小于等于
+                            $gte    大于等于
+                            $ne     不等于
+                            $in     包含关系
+                            $nin    非包含关系 not in
+                                字符串则比较ascii码值的大小
+                            示例
+                                db.class0.find({age:{$lt:26}},{_id:0})
+                                    年龄小于26
+                                db.class0.find({age:{$gt:16,$lt:19}},{_id:0})
+                                    年龄小于19大于16，逗号连接表示and关系
+                                db.class0.find({age:{$ln:[16,18]}},{_id:0})
+                    逻辑操作符
+                        表示逻辑与
+                            在query文档中用逗号隔开的多个键值对即表示与关系，
+                            也可以使用and表示
+                                示例：db.class0.find({age:17,sex:"w"},{_id=0})
+                                     db.class0.find({$and:[{age:17},{sex:"w"}]},{_id=0})
+                        表示逻辑或 $or 
+                                示例：
+                                    db.class0.find({$or:[{age:17},{sex:"w"}]},{_id=0})
+                                        年龄17或者性别为女
+                                    db.class0.find({$or:[{age:{￥lt:17}},{sex:"w"}]},{_id=0})
+                                        年龄小于17或者性别为女
+                        表示逻辑非 $not
+                            直接作用于条件
+                                示例
+                                    db.claas0.find({age:{$not:{$gt:17}}},{_id=0})
+                                        年龄不大于17
+                        表示逻辑 not or  $nor   既不也不 not（A or B）
+                                    示例
+                                    db.claas0.find({$nor:[{age:{$gt:17},{sex:'m'}}]},{_id=0})
+                                        既不是男的也不大于18
+                        注意：
+                            一项则用{}，两项以上用[]，操作符和逻辑符写法存在差别,注意逻辑的掌握
+                        其他操作符
+                            $exists     判断一个域存在，操作值为bool
+                                查找不存在的文档，
+                                示例
+                                    查找不存在sex域的文档（false表示不存在，true表示存在）
+                                    db.class0.find({sex:{$exists:false}},{_id:0})
+                            $mod
+                                通过除数余数筛选  
+                                示例
+                                    筛选年龄除以2余数为1的文档
+                                    db.class0.find({age:{$mod:[2,1]}},{_id:0})
+                            $type
+                                通过类型筛选
+                                示例
+                                    db.class0.find({name:{$type:2}},{_id:0})
+                                    查找类型为2的类型（String）
+                                    可以通过查看www.mongodb.com的doc文档查找新的操作符
+                                    使用方法
+                数组类型查找
+                    数组
+                        一组数据的有序集合，使用[]表示
+                    查找数组中的某一项
+                            *有序的
+                            *数据类型可以不相同
+                        示例
+                            查找score数组中包含90的文档
+                            db.class3.find({score:90},{_id:0})
+                    查找数组中包含多项  $all
+                        示例
+                            查找score数组中包含88，90的文档
+                            db.claas3.find({score:{$all:[88,90]}},{_id:0})
+                    按照数组项数查找
+                        示例
+                            查找数组中包含3项的文档
+                            db.class3.find({score:{$size:3}},{_id:0})            
+            field    
+                第一个值：   
+                        表示显示选择查找的域，是一个键值对文档，用0表示不查找某个域
+                        1表示查找某个域,
+                        *如果第一个参数无条件，但是第二个有，必须在第一个位置加{}
+                        *要么全为0，要么全为1。若全为0，除了0其他都查找；若全为1，除了1其他都不查找
+                        *例外：_id必须明确指出为0才会不显示，默认一定显示，_id为0时，普通域可为1
+                        示例：
+                            不查找_id域，只查找name
+                            db.class0.find({},{_id:0,name:1})
+                第二个值（跟前值用,隔开）    $slice  用于数组的查找
+                    选择数组的查询部分
+                        e.g 显示数组的前两项
+                            db.class3.find({},{_id:0,score:{$slice:2}})
+                        e.g 跳过数组的第一项，显示后面两项
+                            db.class3.find({},{_id:0,score:{$slice:[1,2]}})             
+        db.集合名.findOne()
+            功能：  查找第一条符合的文档
+            参数：  与find一致
+            eg：查找第一个年龄为22的文档
+            db.class.findOne({age:22},{_id:0})
+        数据处理函数
+            distinct()  获取集合中的某个域的取值范围
+                示例
+                    db.class0.distinct("age")
+                    查看class0中某个域的取值范围.
+            pretty()    将查找结果格式化显示
+                示例
+                    db.class0.find().pretty()
+            limit(n)     限制显示前N条文档
+                示例
+                    db.class0.find({},{_id:0}).limit(3)
+                    显示查找结果前三条插入的文档
+            skip(n)      跳过前n条文档,显示后面的文档内容
+                示例:
+                    db.class0.find({},{_id:0}).skip(3)
+                    显示查找结果,跳过前三条插入文档
+            count()     对查找结果进行统计
+                示例:
+                    统计年龄等于17的文档
+                    db.class.find({age:17},{_id:0})count()
+            sort({field:1/-1})      对查找结果进行升序降序排列,1是升序,-1时降序
+                示例
+                    db.class0.find({},{_id:0})sort({age:1})
+                    对年龄查找结果升序排序
+                复合排序
+                    对多个域进行排序,当第一个指定排序相同时,对第二项进行排序,以此类推
+                    db.class0.find({},{_id:0}).sort({age:1,name:1})
+            函数可以连续调用
+                当一个函数的返回结果仍然为文档集合时,可以继续调用函数
+                示例
+                    查找年龄最大的三位同学文档信息
+                    db.class0.find({},{_id:0}).sort({age:-1}).limit(3)
+                对筛选文档的集合,可以用索引取某一项
+                示例
+                    通过序列号 1 取到删选结果的第二项
+                    db.class0.find({},{_id:0})[1]
+        聚合操作    aggregate
+            对文档进行数据整理和统计
+            db.collection.aggregate()
+                功能    完成聚合操作
+                参数    聚合条件,需要配合聚合操作使用
+            聚合操作符
+                $group  分组聚合,往往需要配合一定的统计操作符完成
+                    统计求和:$sum
+                        示例    按照gender域的值分组,统计结果叫做num,方法为加和
+                        db.class.aggregate({$group:{_id:"$gender",num:{$avg:"$age"}}})
+                    统计平均数:$avg
+                        按照性别分组,求平均年龄
+                        db.class0.aggressive({$group:{_id:"$gender",num:{$avg:"$age"}}})
+                    统计最大值:$max
+                        示例   按照性别求最大年龄
+                            db.class.aggregate({$group:{_id:'$gender',num:{$max:"$age"}}})
+                    统计最小值:$min
+                    求第一个数:$first
+                    求最后一个数:$last
+                        示例同上
+                $project        用于格式化的显示文档内容
+                    值的用法同find中的field相同
+                    示例
+                        按照指定名称显示文档内容(只显示指定的键值对)
+                        db.class.aggregate({$project:{_id:0,Name:"$name",Age:"$age"}})
+                $match  筛选数据
+                    值得写法同find的query相同     
+                    示例
+                        db.class.aggregate({$match:{age:{$gt:11}}})
+                $limit  显示前几条文档
+                    示例
+                        db.class0.aggregate({$limit:3})
+                $skip   跳过前几条文档显示后面内容
+                    示例
+                        db.class0.aggregate({$skip:3})
+                $sort   对所有域进行排序
+                    示例
+                        对文档按照年龄升序排序
+                        db.class0.aggregate({$sort:{age:1}})
+            聚合管道
+                指多个聚合操作合并到一起完成,即将上一个聚合的结果作为下一个聚合的对象继续操作
+                db.class.aggregate([{聚合1},{聚合2},...])
+                    示例
+                        先排序后然后通过project进行显示设置
+                        db.class0.aggregate([$sort:{age:1},{$project:{_id:0}}])
+        
+作业
+查找练习
+查看班级所有人信息
+db.class.find()
+
+查看班级中年龄为8岁的人员信息
+    find({age：8})
+
+查看年龄大于10岁的学生信息
+    find({age:{$gt:10}})  
+
+查看年龄在8-12岁的学生信息
+    find({age:{$gte:8,$lte:12}})
+
+查看年龄为9岁且喜欢画画的女生
+find({age:9,hobby:'draw'})
+
+查看年龄小于8岁或者大于12岁的学生
+find({$or:[{age:{$lt:8}},{age:{$gt:12}}]})
+
+找到年龄为9岁或者11岁的学生
+find({age:{$in:[9,11]}})
+
+找到有两项兴趣爱好的同学
+find({hobby:{$size:2}})
+
+找到兴趣爱好中有计算机的同学
+find({hobby:'computer'})
+
+找到既喜欢画画又喜欢跳舞的同学
+find({hobby:{$all:['draw','dance']}})
+
+同学兴趣爱好有三项的学生人数
+find(hobby:{$size:3}).count()	
+
+找到本班年龄第二大的同学
+find().sort({age:-1})[1]
+
+查看本班同学兴趣爱好的涵盖范围
+db.class.distinct('hobby')
+
+找到本班年龄最小的三个同学
+find().sort({age:1}).limit(3)
+
+删除所有年龄大于12或者小于8岁的同学
+deleteMany({$or:[{age:{$lt:8}},{age:{$gt:12}}]})
+                
+
+修改练习
+
+基于之前的 grade 数据库
+
+1. 将小红的年龄修改为8岁，兴趣爱好变为跳舞画画
+   update({name:'小红'},{$set:{age:8,hobby:['dance','draw']}})
+
+2. 追加小明兴趣爱好 唱歌
+   update({name:'小明'},{$push:{hobby:'sing'}})
+
+3. 小王多了兴趣爱好 吹牛 打篮球
+   update({name:'小王'},{$pushAll:{hobby:['吹牛','basketball']}})
+
+4. 小李兴趣爱好要增加跑步，唱歌，但是不要和之前的兴趣重复
+   update({name:'小李'},{$addToSet:{hobby:{$each:['running','sing']}}})
+
+5. 该班级所有同学年龄加1
+   updateMany({},{$inc:{age:1}})
+
+6. 删除小明的sex属性
+   update({name:'小明'},{$unset:{sex:''}})
+
+7. 删除小李兴趣中的第一个
+   update({name:'小李'},{$pop:{hobby:-1}})
+
+8. 删除小红的兴趣画画唱歌
+   update({name:'小红'},{$pullAll:{hobby:[‘draw’,'sing']}})
+
+9. 为小王增加一个域  备注 ：{民族：‘回族’，习俗：“不吃猪肉”}
+   update({name:'小王'}，{$set:{备注 ：{民族：‘回族’，习俗：“不吃猪肉”}}})
+
+10. 在小王的备注中增加一项  宗教：“伊斯兰教”
+   update({name:'小王'}，{$set:{'备注.宗教':'伊斯兰教'}})
+
+        
+
+
+ 

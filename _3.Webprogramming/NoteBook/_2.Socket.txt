@@ -1,0 +1,306 @@
+Python 中的网络编程
+套接字 socket 
+    通信端点
+    套接字(socket)
+        套接字是计算机网络数据结构,它体现了上节中所描述的“通信端点”的概念。
+        在任何类型的通信开始之前,网络应用程序必须创建套接字。
+    类型
+        基于文件
+            UNIX 套接字
+                AF_UNIX(又名 AF_LOCAL,在 POSIX1.g 标准中指定)
+                它代表地址家族(address family):UNIX。
+                Python 在内的大多数受欢迎的平台都使用:术语地址家族及其缩写 AF;
+                AF_LOCAL(在 2000~2001 年标准化)将代替 AF_UNIX。然而,考虑到
+                后向兼容性,很多系统都同时使用二者,。
+                Python 本身仍然在使用 AF_UNIX。
+        面向网络
+            它也有自己的家族名字 AF_INET,或者地址家族:因特网。
+            另一个地址家族 AF_INET6 用于第 6 版因特网协议(IPv6)寻址。
+    总结
+        Python 只支持 AF_UNIX、AF_NETLINK、AF_TIPC 和 AF_INET 家族。
+套接字地址:主机-端口对
+    主机名和端口号就像区号和电话号码的组合。
+        有效的端口号范围为 0~65535(小于 1024 的端口号预留给了系统)。
+        Linux、Mac OS X那么可以在/etc/services 文件中找到预留端口
+        号的列表(以及服务器/协议和套接字类型)。
+    查询地址:
+        http://www.iana.org/assignments/port-numbers。
+面向连接的套接字与无连接的套接字
+    面向连接的套接字
+            这意味着在进行通信之前必须先建立一个连接,虚拟电路或流套接字。
+            面向连接的通信提供序列化的、可靠的和不重复的数据交付,而没有记录边界。
+            每条消息可以拆分成多个片段,并且每一条消息片段都确保能够到达目的地,
+            然后将它们按顺序组合在一起,最后将完整消息传递给正在等待的应用程序。
+        主要协议
+            实现这种连接类型的主要协议是传输控制协议(更为人熟知的是它的缩写 TCP)
+            为 了创建 TCP 套接字 ,必须 使用 SOCK_STREAM 作 为套接 字类型
+            所以整个系统通常结合这两种协议(TCP 和 IP)
+            来进行(当然,也可以使用 TCP 和本地[非网络的 AF_LOCAL/AF_UNIX]套接字,
+            但是很明显此时并没有使用 IP)。
+    无连接的套接字
+            虚拟电路形成鲜明对比的是数据报类型的套接字,它是一种无连接的套接字
+            在数据传输过程中并无法保证它的顺序性、可靠性或重复性
+            数据报确实保存了记录边界,这就意味着消息是以整体发送的,而
+            并非首先分成多个片段.
+        优点:
+            由于面向连接的套接字所提供的保证,因此它们的设置以及对虚拟电路连接的维护需要大量的开销。
+            然而,数据报不需要这些开销,即它的成本更加“低廉”。
+            因此,它们通常能提供更好的性能,并且可能适合一些类型的应用程序。
+        主要协议
+            实现这种连接类型的主要协议是用户数据报协议(更为人熟知的是其缩写 UDP)。
+            为了创建 UDP 套接字,必须使用 SOCK_DGRAM 作为套接字类型。
+            即这两种协议(UDP 和 IP)的组合名字,或 UDP/IP。
+    定义
+        实现网络编程,进行数据传输的一种技术手段
+    主要模块
+        socket 模块
+            在这个模块中可以找到 socket()函数,该函数用于创建套接字对象。
+            套接字也有自己的方法集,这些方法可以实现基于套接字的网络通信。
+            使用socket模块提供的接口函数进行组合搭配,完成网络套接字编程
+    套接字分类
+        流式套接字(SOCK_STREAM) :TCP
+        数据报套接字(SOCK_DGRAM) : UDP
+        面向连接 - TCP 可靠  流式套接字
+        无连接     UDP 不可靠   数据报套接字
+socket()模块函数
+    TCP服务端流程
+    socket()-->bind()-->listen()-->accept()-->recv(),send()-->close()
+        1.创建套接字
+            socket(socket_family, socket_type, protocol=0)
+            功能: 
+                创建套接字
+            参数:
+                socket_family : 地址族类型
+                         AF_UNIX(本地通信) 或 AF_INET (常用,ipv4),AF_INET6(ipv6)
+                socket_type:    
+                        是 SOCK_STREAM(常用,流式套接字)或 SOCK_DGRAM(数据报套接字)
+                protocol:
+                         通常省略,默认为 0。选择一些子协议类型
+            返回值: 
+                返回套接字对象   
+            示例:
+                为了创建 TCP/IP 套接字,可以用下面的方式调用 socket.socket()。
+                sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        2.绑定地址
+            sockfd.bind(addr)
+                功能: 
+                    绑定本机的网络地址
+                参数: 元组(ip,port)
+                    例如 ('192.168.56.140',8888)
+                返回值:无
+        3.设置监听
+            sockfd.listen(n)
+                功能
+                    将套接字设置为监听套接字并且创建监听队列
+                参数
+                    n 设置监听队列大小,最多有多少个连接
+                返回值:无
+        4.等待处理客户端连接请求
+            connfd,addr = sockfd.accept()
+                功能
+                    阻塞等待处理客户端请求
+                    阻塞函数
+                        程序运行过程遇到阻塞函数则暂停执行,直到达成某种条件后再继续执行
+                返回值
+                    connfd  连接的客户端的连接套接字
+                    addr    连接的客户端地址
+        5.收发消息
+            data = connfd.recv(buffersize)
+                功能 
+                    接受消息
+                参数
+                    每次最多接受多少字节的消息
+                返回值
+                    接受到的网络消息
+                data = connfd.send(data)
+                功能
+                    发送消息
+                参数
+                    要发送的内容 bytes格式 使用encode方法
+                返回值
+                    发送了多少个字节
+        6.关闭套接字
+            sockfd.close()
+            功能
+                关闭套接字
+        示例
+            见_1.tcp_server.py
+    tcp客户端
+        socket() --> connect() --> send()/recv() --> close()
+        1.创建套接字
+            * 只有相同类型的套接字才能进行连接传输
+        2.请求连接
+            sockfd.connect(server_addr)
+            功能
+                连接服务端
+            参数
+                服务器地址,元组
+        3.收发消息
+            * 防止两端都阻塞,收发函数使用要配合
+        4.关闭套接字
+        特点
+            当一端退出时,另一端阻塞在recv,此时recv会立即结束阻塞返回空字符串
+            如果另一端不存在,调用send发送时会出现Broken Pipe异常
+            一个监听套接字可可以连接多个客户端,也可以重复使用
+    基于udp套接字的服务端
+        过程
+        1.创建数据报套接字
+            sockfd = socket(AF_INET,SOCK_DGRAM)
+
+        2.绑定地址
+            sockfd.bind(addr)
+
+        3.消息收发
+            data,addr = socked.recvfrom(buffersize)
+            功能: 接受udp消息
+            参数: 每次最多接收多少字节消息
+            返回值: data 收到的消息
+                   addr 消息发送方的地址
+
+            n = sockfd.sendto(data,addr)
+            功能: 发送udp消息
+            参数: data 要发送消息 bytes 格式
+                 addr 目标地址
+            返回: 发送的字节数
+
+        4.关闭套接字
+            sockfd.close()
+    本地套接字
+        功能
+            本地两个程序之间发送信息
+        创建流程
+            1.创建本地套接字
+                sockfd = socket(AF_UNIX,SOCK_STREAM)
+            2.绑定本地套接字文件
+                sockfd.bind("./file")     # 自动生成File套接字文件
+            3.监听
+                listen()
+            4.消息收发
+                send  recv
+    基于udp套接字的客户端
+        过程
+            1.创建数据报套接字
+            2.消息发收
+            3.关闭套接字
+    拓展
+        获取命令行参数
+        import sys
+        sys.argv 属性获取命令行内容
+        将命令行参数以字符串形式收集为一个列表
+    TCP 和 UDP 的区别
+        流式套接字是以字节流方式传输数据.数据报是以数据报形式传输
+        tcp会有粘包,udp不会
+        tcp保证传输的可靠性,udp不保证
+        tcp需要listen,accept操作,udp不需要
+        tcp抵用send,recv收发消息,udp使用 sendto recvfrom
+    补充函数
+        sendall(data)
+        功能 参数 同send
+        返回值: 发送成功 None 失败得到异常
+        要么全部发送出去,要么发送失败
+最常见的套接字方法
+        名称                                描述  
+    socket.gethostname()                 # 获取本地名
+    socket.gethostname("www.baidu.com")  # 访问百度的ip
+    socket.gethostbyname("localhost")    # 查看本机环回地址
+    socket.getservbyname("http")         # 产看端口号
+    服务器套接字方法                
+        s.bind()                将地址(主机名、端口号对)绑定到套接字上
+        s.listen()              设置并启动 TCP 监听器
+        s.accept()              被动接受 TCP 客户端连接,一直等待直到连接到达(阻塞)
+    客户端套接字方法    
+        s.connect()             主动发起 TCP 服务器连接
+        s.connect_ex()          connect()的扩展版本,此时会以错误码的形式返回问题,而不是抛出一个异常
+    普通的套接字方法
+        s.recv()                接收 TCP 消息
+        s.recv_into()           接收 TCP 消息到指定的缓冲区
+        s.send()                发送 TCP 消息
+        s.sendall()             完整地发送 TCP 消息
+        s.recvfrom()            接收 UDP 消息
+        s.recvfrom_into()       接收 UDP 消息到指定的缓冲区
+        s.sendto()              发送 UDP 消息
+        s.getpeername()         连接到套接字(TCP)的远程地址
+        s.getsockname()         当前套接字的地址
+            例:
+                sockfd.bind(("176.140.1.195",8888))
+                print(sockfd.getsockname())        # 获取套接字绑定信息
+        s.getsockopt()          返回给定套接字选项的值
+            功能: 获取套接字选项值
+            参数: level 选项类别
+                 option 每个选项类别对应的子选项
+            返回值: 获取到的选项值
+        sockfd.setsockopt(level,option,value)
+            功能 
+                设置套接字选项,丰富或者修改套接字属性功能
+                最好在套接字创建完了以后立即设置
+            参数
+                level  选项类别  SOL_SOCKET
+                option 每个选项类别对应的子选项
+                value  对选项设置值,value为1的话端口可以立即被重用
+        s.shutdown()            关闭连接
+        s.close()               关闭套接字
+        s.detach()              在未关闭文件描述符的情况下关闭套接字,返回文件描述符
+        s.ioctl()               控制套接字的模式(仅支持 Windows)    
+    面向阻塞的套接字方法
+        s.setblocking()         设置套接字的阻塞或非阻塞模式
+        s.settimeout()          设置阻塞套接字操作的超时时间
+    面向文件的套接字方法
+        s.fileno()              套接字的文件描述符
+            系统中每一个IO操作系统都会分配一个整数为编号,该整数即为这个IO 操作的
+            文件描述符,文件描述符是系统识别io的标志
+        s.makefile()            创建与套接字关联的文件对象
+    数据属性
+        s.family                套接字家族
+        s.type                  套接字类型
+        s.proto                 套接字协议
+    创建 TCP 服务器
+    示例:
+        ss = socket()               #   创建服务器套接字
+        ss.bind()                   #   套接字与地址绑定  
+        ss.listen()                 #   监听连接
+        inf_loop:                   #   服务器无限循环
+            cs = ss.accept()        #   接受客户端连接
+            comm_loop:              #   通信循环
+            cs.recv()/cs.send()     #   对话(接收/发送)
+            cs.close()              #   关闭客户端套接字
+        ss.close()                  #   关闭服务器套接字#(可选)  
+        最后一行代码是可选的,在这里关闭了服务器套接字。
+        这种情况永远也不会碰到,因为服务器应该在一个无限循环中运行。
+网络收发缓冲区
+    作用
+        减少和磁盘的交互
+        协调收发速度(数据处理速度)
+        * send 和recv 实际上是向缓冲区发送,从缓冲区接收
+        阻塞函数只会在缓冲区清空后进行阻塞
+    tcp粘包
+        只有udp会产生粘包
+        产生原因
+            tcp以字节流的方式进行数据传输,消息之间没有边界
+            多次发送的消息被一次接收
+        影响
+            如果每次发送的内容是独立含义的个体,此时粘包会产生影响
+        处理粘包
+            将消息结构化
+            在消息结尾添加结束标志
+            控制消息发送速度
+    拓展:
+        系统的三个流
+            stdin 
+            stdout
+            stderr 
+udp应用
+    广播: 一点发送,多点接收
+    广播地址
+        每个网段的最大地址为该网段的广播地址
+    # 设置可以发送接收广播
+        s.setsockopt(SOL_SOCKET,SO_BROADCAST,1)
+    小知识:
+        format()     #字符串属性,通过参数合成字符串
+        示例:
+            "{} is a {}".format('Tom','Boy')
+            print(s)
+            返回: Tom is a Boy 
+    示例
+        _7,_8
+
+

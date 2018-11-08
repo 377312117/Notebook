@@ -1,0 +1,437 @@
+六、《约束》 && 索引
+	作用：
+	    对表中整列的数据做约束
+	分类：
+		1）主键：primary key
+				作用：数据非空且唯一
+		2）not null：
+				作用：数据非空
+		3）unique：
+				作用：
+				a表：id列唯一约束
+					id列的值：insert 语句有id的为1
+					第二次insert语句再此插入数据1，此时报错
+
+				b表：没有约束
+
+		4）check
+				作用：约束某个列的值要符合某个规则
+				sex char(3) check (sex in('男','女'))
+				email char(20) check (email like '%@%')
+
+		5）default
+				作用：当没有给该列插入数据的时，
+						该列的值取默认值
+				address varchar(50) default '江西' 
+		6）foreign key		
+	用法：
+		1）在建表时，添加约束名
+		2）建表之后，添加约束名
+    1.{主键：primary key}
+	作用：主键所在的列的值是非空而且唯一
+	      防止表中出现两条或多条完全一样的数据（避免冗余）
+	关键字：primary key
+	用法：
+		1）在创建表的时候设定主键约束
+		2）在创建表之后追加主键约束
+	分类：
+		单列主键
+		联合主键(多列)
+	案例：
+                创建一张表：表名为test1表的结构为(id number(2),name char(10));
+                         create table test1(id number(2),name char(10));
+	        创建一张表：表名为test2，表的结构为(id number(2) primary key,name char(10) primary key);
+                         create table test2(id number(2) primary key,name char(10));
+                查看表的结构：
+	                  desc test1;
+	                  desc test2;
+                分别往2张表中插入数据：
+                           ==========test1没有主键约束================
+                          insert into test1 values('1','张三');
+                          insert into test1 values('2','李四');
+                          insert into test1 values('3','王五');
+                          〓再次执行一遍，正常插入数据
+                          insert into test1 values('1','张三');
+                          insert into test1 values('2','李四');
+                          insert into test1 values('3','王五');
+                          ==========test2中id有主键约束==================
+                          insert into test2 values('1','张三');
+                          insert into test2 values('2','李四');
+                          insert into test2 values('3','王五');
+                          〓再次执行一遍，报错：违反唯一约束条件
+                          {每张表中必须得有主键}
+	      primary key小结：
+                     1)：一个表中只能定义一个主键约束;
+                     2): 主键可由一个列或者多个列组合而成
+                     3): 多个列组成的主键称为复合主键(联合主键);
+                     4): 约束可以设定约束名称。《constraint 约束名称 约束类型(列名)》
+     1).案例2：创建表时设定主键约束：
+	======创建work1表，id为主键================
+	create table work1
+	(id number(2) primary key,
+	name varchar2(10));
+	======往worker表插入数据====================
+	--正例
+	insert into work1 values(1,'张三');
+	insert into work1 values(2,'李四');
+	--反例
+	insert into work1 values(1,'李四');
+	报错：违反唯一约束
+	--反例：
+	insert into work1(name) values('王五');
+	报错：违反非空约束
+
+	案例3：创建表时设定主键并取一个主键的名称
+	=======创建work2表，id为主键且取主键名pk1====
+	create table work2
+	(id number(4) constraint pk1 primary key,
+	name varchar2(50));
+	======往work2表插入数据======================
+	--正例
+	insert into work2 values(1,'隔壁老王');
+	--反例
+	insert into work2 values(1,'隔壁小王');
+	报错：违反唯一约束
+	insert into work2(name) values('隔壁阿姨');
+	报错：违反非空约束
+
+	案例4： 在创建表之后追加主键约束
+	========添加约束的格式=======================
+		alter table 表名 
+		add constraint 约束名 约束类型 (列名)
+	=======添加主键约束的格式====================
+		alter table 表名
+		add constraint 主键名 primary key (列名)
+	=======创建work3表，没有设定主键=============
+	create table work3(
+	id number(4) ,
+	name varchar2(50));
+	=======修改work3表，追加id列的主键约束=============
+	alter table work3 
+	add constraint pk_id primary key(id);
+	======往work3表插入数据======================
+	--正例
+	insert into work3 values(1,'隔壁老王');
+	--反例
+	insert into work3 values(1,'隔壁小王');
+	报错：违反唯一约束
+	insert into work3(name) values('隔壁阿姨');
+	报错：违反非空约束
+    2)删除主键约束：
+	二种格式：
+		（1）alter table 表名 drop primary key
+	案例：删除work1中的主键
+	alter table work1 drop primary key
+		（2） alter table 表名 drop constraint 约束名
+		  可以用于删除任何约束
+	案例：删除work2中主键PK1
+	alter table work2 drop constraint PK1
+	***************************************************
+	小结：
+		1）一个表中只能定义一个主键约束
+		2）主键可以由一个列或者多个列的组合而成
+		3）多个列组成的主键称为复合主键(联合主键)
+		4）约束可以设定约束名称。
+		constraint 约束名称 约束类型(列名)
+        DBA:数据库管理员
+	***************************************************
+    2.not null：   
+        【非空约束】数据不能为空
+	作用：该列的值，永远都不能为null
+	关键字：not null
+               案例：
+	            创建一张表：表名为test7,表的结构为(id number(2),name char(10));
+	            创建一张表：表名为test8,表的结构为(id number(2) not null,name char(10));
+                    分别往2张表中插入数据：
+                         ==========test3没有非空约束================
+                         insert into test3 values('1','张三');
+                         insert into test3 values('2','李四');
+                         insert into test3 values('3','王五');
+                         〓insert into test3(name) values('刘六');
+                         正常执行
+                         ==========test4中id有非空约束==================
+                         insert into test2 values('1','张三');
+                         insert into test2 values('2','李四');
+                         insert into test2 values('3','王五');
+                         〓insert into test3(name) values('刘六');
+                         报错，违法非空约束
+            例1：create table work1(id number(2) primary key,name varchar2(10));
+                创建表格时添加约束。
+               联合主键：create table work1(id number(2),name varchar2(10),constraint pk2 primary key(id,name));
+                主键名为 pk2;
+            例2：create table work2(id number(4) constraint pk1 primary key,name varchar2(10));
+                 constraint pk1:约束名为pk1. 
+            例3：alter table 表名 add constraint 约束名 约束类型(列名1,列名2) 
+                  建表后添加约束
+            例4：alter table 表名 drop primary key;
+                  建表后删除约束;
+	案例：
+	create table work8(
+	id number(4) primary key,
+	name varchar2(50) unique not null,
+	password varchar2(50) not null);
+	--正例：
+	insert into work8 values(1,'赵光义','8888');
+	--反例：
+	insert into work8(id,name) values(1,'赵光义');
+	insert into work8(id,password) values(2,'1234')     
+    3.unique 唯一：
+       【唯一约束】(列的数据是唯一的)
+	作用：
+	     用于指定一个或者多个列的组合值具有唯一性，
+	     可以用于防止在列中输入同一个值
+	关键字：
+	     unique
+         unique小结：主键约束和唯一约束的区别：
+                  1)一个表只能定义一个主键约束，但可以定义多个唯一约束;
+                  2)主键约束：非空且唯一.唯一约束：可有一次null.
+                  3)unique not null(条件组合) = primary key;
+            例5：create table work9(id number(4) 
+                 constraint pm primary key,name varchar2(10) constraint ph unique);
+                 添加多约束。
+            例6：alter table 表名 drop unique(列名);
+                 alter table 表名 drop constraint 约束名;
+       	用法1：创建表是设定唯一约束
+	1）使用唯一约束修饰的列，可以在该列输入一次null值
+	案例：
+	=======创建work4表，给name列设定唯一约束========
+	create table work4(
+	id number(4) primary key,
+	name varchar2(50) unique);
+	=======往work4表插入数据===========================
+	--正例
+	insert into work4 values(1,'周恩来');
+	insert into work4 values(2,'朱德');
+	insert into work4 values(3,null);
+	--反例
+	insert into work4 values(1,'毛泽东');
+	insert into work4 values(4,'林彪');
+	用法2）创建表之后追加唯一约束
+	=======添加唯一约束的格式====================
+		alter table 表名
+		add constraint 唯一约束名 unique (列名)
+	=======创建work5表，没有设定唯一约束=============
+	create table work5(
+	id number(4),sname varchar2(50));
+	=======修改work5表，追加name列的唯一约束=============
+	alter table work5 
+	add constraint uq_name unique(name);
+    3.2删除唯一约束：
+	格式1：
+	      alter table 表名 drop unique
+	格式2：
+	      alter table 表名 drop constraint 约束名
+	案例：删除work5中的唯一约束（uq_name）
+	      alter table work5 drop constraint uq_name
+    3.3
+       主键约束和唯一约束的区别：
+          a）一个表中只能定义一个主键约束，但可以定义多个唯一约束
+          b）对于主键约束所修饰的列，列值永远都是非空而且唯一，
+             但是被唯一约束修饰的列，列值可以有一次为null
+*******************************************************
+    4.default 默认:
+        作用：
+	     被默认值约束所修饰的列，
+	     如果该列没有插入列值的话，
+	     系统使用默认值。
+	     如果该列插入的值是空值，也是值
+	     自然不会使用默认值。
+	关键字：
+	      default
+	用法：
+	     列名 数据类型 default 默认值
+	      例7：每个列只能指定一个默认约束;
+                 create table work7(id number(4)constraint pm primary key,
+                 name varchar2(10) constraint ph unique,age number(3) default 20);
+              例8：在表的外界修改默认值
+                alter table 表名 modify 列名 数据类型 default 数值;
+              例9：删除默认约束：
+                格式1：alter table 表名 modify 列名 数据类型 default null;
+                格式2：alter table 表名 drop default(列名);
+          default小结： 
+                1)如果该列插入空值也是值，自然不会使用默认值。
+      案例：
+	1）每个列只能指定一个默认值约束
+	案例：
+	=======创建work6表，给age列设定默认约束==========
+	create table work6(
+	id number(4) primary key,
+	name varchar2(50) unique ,
+	age number(3) default 20);
+	=======往work6表中插入数据===================
+	insert into work6 values(1,'孔子',45);
+	insert into work6(id,name) values(2,'老子');
+	insert into work6 values(3,'庄子')
+	=======查询work6表中的数据===================
+	select * from work6;
+     2）在表的外界修改默认值
+	关键字：modify
+	格式：
+	alter table 表名 
+	modify 列名 数据类型 default 数值;
+	案例：
+	=======创建work6表中age列的默认值===============
+	alter table work6
+	modify age number(3) default 30;
+	=======往work6表中插入数据：使用默认值===================
+	insert into worker6(id,name) values(4,'离子');
+	=======查询work6表中的数据===================
+	select * from work6;
+
+    3）删除默认值：将默认值设置为null
+        案例：删除worker6中age为30的默认值
+              alter table worker6
+              modify age number(3) default null;
+    5.【检查约束】
+	作用：
+		用于指定某个列的列值必须要满足某些特定的要求，
+		只有满足要求的列值才可以插入表中，
+		用来避免用户输入一些非法的数据。
+	关键字：check
+	用法：
+            格式：
+		列名 数据类型 check(列值遵循的规则)
+        案例：
+	1）创建表的时候指定检查约束：
+	==========创建work7表，检查约束==================
+	create table work7
+	(id number(4) primary key,name varchar2(50) unique not null,
+	sex char(3) check(sex in('男','女')));
+	==========往work7表中插入数据=============================
+	--正例
+	insert into work7 values(1,'林则徐','男');
+	--反例
+	insert into work7 values(2,'东方不败','中');
+        name列,检查约束：
+		规则：以a开头，以z结尾，至少5个字节
+		'a_%_%_z'
+                create table work8
+                (id number(4) primary key,name char(50) check(name like ''a_%_%_z''));
+-------------------------------------------------------------------------
+    6.【oracle数据库的函数】
+	时间函数：
+			关键字：to_date()
+			案例：
+			select to_date('2018-8-10','yyyy-mm-dd') from dual;
+			作用：将我们给指定时间格式
+			              转化oracle数据库默认的格式
+				      日-月-年，此时才可以往表中插入数据
+	字符函数：
+			关键字：to_char()
+			案例：
+			select to_char(sysdate,'yyyy-mm--dd') from dual;
+			作用：将oracle默认时间格式转化为
+			              我们想要的时间格式
+
+	数字函数：
+			关键字：to_number()
+			案例：
+				select to_number(9999,'999,999.999') from dual;
+			作用：将数据库默认是数字格式
+			               转化为我们正常的数字
+				       9999.1(正常)
+				       9,999,999.0(数据库显示)
+
+MYSQL
+5.索引 index
+    定义
+        对数据库表的一列或者多列的值进行排序的一种结构(BTree方式)
+    优点
+        加快数据的检索速度
+    缺点
+        索引占用物理存储空间,需要动态维护(当对表记录进行更新时索引需要动态维护,占用系统资源,占用数据维护速度)
+        索引文件存放在: /var/lib/mysql/db3/ t1.frm(结构,索引位置) t1.ibd   (以t1为例)
+    示例:
+        开启运行时间检测
+        set profiling = 1
+        执行查询语句(没有索引)
+        select name from t1 where name = "lucy888888";  # 0.86s
+        在name字段创建索引
+        create index name on t1(name);      #  18.99s
+        再执行查询语句(有索引)
+        select name from t1 where name = "lucy888888"   # 0.04s
+        对比执行时间
+6.索引分类
+    普通索引 index   && 唯一索引 unique
+        使用规则
+            可设置多个字段
+        约束
+            普通索引 : 无约束 无约束key 标志 MUL
+            唯一索引:  字段不允许重复,可为NULL  标志 UNI
+        注意:
+            把经常用来查询的字段设置为索引字段
+        示例:
+            创建表时创建
+                create table 表名(..., index(name),index(age),unique(phnumber),unique(cardnumber);
+            已有表创建
+                create [unique] index 索引名 on 表名(字段名);
+            查看索引
+                desc 表名;
+                show index from 表名[\G];   //\G会将内容竖着显示
+            删除索引
+                drop index 索引名 on 表名
+    主键    primary key  && (auto_increment) 自增长
+		使用规则
+			只能有1个字段
+			非空且唯一
+			主键标志:PRI
+			通常设置id为主键,且能唯一锁定一条记录
+		示例:
+			创建表时创建
+				create table 表名(id int primary key auto_increment,...);
+			已有表创建
+				alter table 表名 add primary key(id);
+			删除
+				先删除自增长
+				alter table 表名 modify id int;
+				删除主键
+				 
+		注意:
+			复合主键,其中两个字段中的记录其中一条记录满足不相同都可以插入
+			auto_increment: 插入数据时可用NULL占位,自动从指定的数字往上增长,
+			如果你指定了值,则从你指定的值往上增长
+			如果你删除增长后的其中一条数据,后续插入则继续从删除的值往上增长,不会顶替原来的数值;
+    外键    foreign key
+		定义
+			让当前表字段的值在另一个表的范围内选择
+		语法
+			foreign key (参考字段名) references 主表(被参考字段名)
+			on delete   级联动作
+			on update   级联动作
+		使用规则
+			主表,从表的字段数据类型要一致
+			主表被参考字段: 主键 
+		示例:
+			创建
+				见 _5.index.sql
+				缴费信息表(财务)
+				id   姓名   班级   缴费金额
+				1   唐伯虎  AID08   300
+				2   秋香    AID08   200  
+
+				学生信息表
+				stu_id    姓名     缴费金额 
+				   1      
+				   2
+				   3	 祝枝山      300   # 不让插入 
+			删除
+				查看外键名
+					show create table 表名;
+				删除外键
+					alter table 表名 drop foreign key 外键名;
+			在已有表中添加外键
+				alter table 表名 add foreign key(stu_id)
+				references 被参考表名(id) 
+				on delete set null
+				on update sel null
+			级联动作
+				1.cascade
+					数据级联删除,更新(参考字段)
+				2,set null
+					从表的相关联记录,字段值设为null
+				3.restrict
+					从表的相关联记录,不让主表删除,更新
+		注意:
+			在已有的表创建外键约束,受原来数据的影响
+			
+		

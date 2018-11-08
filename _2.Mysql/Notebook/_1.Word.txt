@@ -1,0 +1,152 @@
+1.基础单词： 
+  默认为Oracle,如果Mysql有说不同之处则标注出来
+  1)database    数据库   
+  2)oracle  数据库的产品
+              中文：甲骨文(大陆)，香港、新加坡(神谕) 服务收费（） 产品免费（）   
+              大型、政府、银行   财大气粗：java （74亿美金）
+  3)mysql	    数据库的产品
+                 开源：开放源代码（）,中小型，创业市场份额大
+  4)sqlserver   数据库的产品
+	         微软：  DB2:IBM,{数据库是存储数据，且使用表的对象来存储}
+  5)table       表(column:列)  
+     表中的结构：
+	  列（是表的结构自带）
+	  创建一张空表(只有列名，没有行)
+	  行（）
+          {数据库是使用表来存储数据}
+2.数据分类：
+   oracle数据库常用三大数据类型：                           Mysql  
+          数字,字符,日期                                             数字类型,字符类型,枚举类型,日期时间类型
+    1)number    数字的数据类型                                      数字类型
+	    作用：                                                         整数 :int(4字节)  0~2**32-1(42亿多)
+	        存储数字（整数和小数）                                             tinyint(微小整形,1字节)                             
+	    使用：                                                               有符号signed(默认)      -128~127
+          格式1：                                                          无符号unsigned(需标明)   0~255
+              列名 number(m)                                              smallint  小整形  (2字节)
+		      示例1：                                                                   0~65535 
+              age number(3)                                               bigint   极大整形  0~2**64-1
+		      格式2：                                                    浮点型
+                列名 number(m,n)                                         float 浮点型 (4字节) 
+                m:数字的最大位数（不包含0）                                  用法: score float(m,n) m为总位数,n为小数位位数,最多7个有效位
+		            n:小数的最大位数                                             例'score float(5,2) -999.99-999.99
+		示例1：salary number(8,5)                                                 double (m,n)   (8字节) 较少使用
+		     存储的最大数为：999.99999                                              decimal (m,n)  不定长,小数和整数分开存储
+		            m-n：整数的最大位数                                         规则:将9的倍数封装为4个字节
+		示例2：score number(2,-1)                                             存储空间:  余数    字节
+		            存储的最大数为：990                                                   1-2     1
+		            整数位：2--1=3                                                        0      0
+		            小数位：-1（没有小数）                                                 3-4     2
+                    字符类型：包含汉字、符号、空格、字母                          decimal(19,9)    整数部分: 10/9 余1  4+1=5字节
+    2)char          定长字符的数据类型 浪费空间 性能强                                            小数部分: 9/9 余1   4+0=4字节
+      varchar       可变字符的数据类型  节省空间,性能低                    字符         char      范围1~255 宽度(字符宽度,中文也是1个字符长)
+      varchar2    	oracle专用字符                                                 varchar    范围 1~65535
+                 示例：name char(10)                                              text/longtext(4G)/blob/longblob
+	               gbk:一个汉字等于2个字节,一个字母等于1个字节,最多存5汉字
+	               utf-8：一个汉字等于3个字节,一个字母等于1个字节,最多存3汉字   枚举类型     
+    3)date         
+        日期的数据类型                                                       1.单选:enum(值1,值2,值3....)
+          oracle日期格式： 日-月-年                                           2.多选:set(值1,值2,值3...)
+          mysql日期格式：  
+            年-月-日 date "YYYY-MM-DD"
+                    time "HH:MM:SS"
+                    datetime: "YYYY-MM-DD HH:MM:SS"
+                        不给值默认返回null
+                    timestamp: "YYYY-MM-DD HH:MM:SS"
+                        不给值默认返回系统当前时间    
+          日期时间函数
+              now():       返回当前时间
+              curtime():   返回时间
+              curdate():   返回日期
+              year(date):  从给定的时间里取出年份
+              date(date):  取出日期
+              time(date):  取出时间    
+          日期时间运算
+              语法格式
+                select * from 表名 where
+                字段名 运算符(时间 - interval 时间间隔单位);
+                时间间隔单位
+                  1 day | 2 hour | 3 year | 3 month	
+                  >= 在后接时间以内
+                  <= 在后接时间以外	
+              示例:
+                查询1天以内的充值记录
+                见_1.time.sql  				   	   	    
+3.对表结构进行增、删、改、查操作	
+   1）create	     创建、创造			   
+   2）drop	       删除(结构)			   
+   3）alter	       修改(结构)			   
+   4）desc	       查看(结构)	 descript
+4.对表数据进行增删改查
+  1）insert into	插入(往表中插入数据
+         往表中插入数据
+	     insert into 表名 values('列1的值','列2的值','列3的值');
+  2）delete from		删除(表中的数据)      
+	      delete from 表名;
+  3）update		修改(表中的数据)	
+        sqldeveloper工具:关键字写对了，颜色变蓝色
+	      update 表名 set 列名='新的值';	
+  4）select		查询(表中的数据)	
+	      select * from 表名;
+	        *:代表所有列的所有值						
+  5）where		 	在哪里	
+	  定位那几行
+	  具体哪行取决于条件
+	  如果满足该条件的只有一个：就是一行
+	  如果满足该条件的有多个：就是多行
+   带条件查询：
+     a）max()	 最大值		
+     b）min()	 最小值		
+     c）sum()	 求和		
+     d）avg()	 平均值		
+     e）count()	 个数			
+          以上5个函数在数据库中称呼:聚合函数或者分组函数	
+     f）group	 分组（group by）	
+     g）between and  在范围之间(闭区间)
+     h）null	  空	
+        {任何数字与null进行任何运算，其结果都是null}
+          eg:月薪=底薪+提成
+	           5000 +null=null
+5.排序分组及主键
+      1）order	 排序  order by 放在最后，最后执行
+		   降序：desc(查看表的结构)
+		   升序：asc (默认)	
+      2）like	    像(模糊)	
+      3）group      分组
+	     group by 列名(字段)
+      4）having        过滤(条件：分组函数)	
+      5）order         排序
+	order by 
+      6）desc	       降序
+	     order by sal desc
+      7）asc	       升序(默认值)
+	     order by sal ,comm desc
+      8）as	      作为(取别名)
+	     select avg(sal) as 平均工资 from emp
+      9）primary key	       主键(约束)
+	约束是对表中列的数据进行约束：
+		a）primary key(主键)：非空且唯一
+		b）唯一(unique):数据有且只有一个，可以有一次为空
+		c）非空(not null):数据不能为空，可以重复
+		d）检查(check):
+                   案例：
+	              create table e(email varchar(20) check (email like ('%@%')));
+		e）默认值(default)
+			列名 数据类型 default '深圳' check()
+		f）外键(多表)foreign key
+6.转化函数
+      1）to_date   时间转化函数  
+      2）to_char   字符转化函数  
+      3）to_number 数字转化函数
+      4）sysdate   系统时间
+     拓展知识点：
+       sysdate:系统时间 
+       dual: 虚表，也是默认表。
+       select sysdate from dual; 查询当前时间。
+       select to_char(sysdate,'yyyy-mm-dd HH:MM:SS')from dual; 
+       查询当前具体时间以及转化的时间格式。
+7.易混淆单词：
+      数据：data  日期：date
+      退出：quit  非常,很：quite
+      出口：exit  存在：exist  
+      从：from    表单：form
+  

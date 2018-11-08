@@ -1,0 +1,161 @@
+    (1)html  超文本标记语言  hyper text markup language 超文本标记语言  静态页面 设计网页
+    例：<标记> 单： <br/><hr/>
+               双： <b></b>,<b></b>:加粗,<i></i>:斜体,<u></u>:下划线,<s></s>:删除线
+	            <html></html>:页面的开始和结束  <head></head>：文件头 
+		    <body></body>：主体   <title></title>：标题
+       
+         ps:/ 斜杠   一般用于：网址
+            \ 反斜杠 一般用于：路径
+            <> 尖括号  <>单尖括号 <><> 双尖括号
+  
+    (2)head  文件头的标签  
+       <head></head>
+
+    (3)title   网页的标题
+       <title>网页标题</title>
+
+    (4)body     文件主题
+      <body></body>
+
+    (5)page     页面
+
+    (6)font     字体
+      
+    (7)color    颜色
+      属性：（形容词）
+      <font color="red">这是红色字体</font>
+
+    (8)browser  浏览器
+     {网页是借助浏览器来解释并编译}
+     {html:web项目}
+
+    (9)server   服务器
+    搭建服务器：供别人访问
+         phpstudy2013
+
+    (10)text    文本
+
+   1)input    输入、插入  用户输入位置
+     eg:<input type="date" placeholder="tarena"> 
+   2)value     数值，价值，控件上的文字
+   3)placeholder:暗显默认值，输入数值后消失,
+     eg:<input type="password" placeholder="1213">
+   4)type      类型，输入（测试）
+        a)date:时间
+        b)password:密码
+        c)name:文本框	
+	d)submit:提交
+	      与form区域响应密切联系
+	e)reset:重置
+	      与form区域响应密切联系
+	f)button：按钮
+	    例：<input type="button" value="xxx">
+	g)checkbox  复选框    （方块）打钩  默认选中用checked
+	         eg. <h2>2.中国最著名的篮球明星是：（）。</h2>
+                     <input type="checkbox">A.姚明
+                     <input type="checkbox">B.易建联
+                     <input type="checkbox">C.王治郅
+                     <input type="checkbox">D.科比
+                    关键词：checkbox.  复选框，可多重选择，name不能对checkbox选项数进行制定。
+	h)radio     单选按钮  （小圆） 点选 默认选中用checked
+	                 eg:
+                    <h1>一、单选题</h1>
+                    <h2>1.阿根廷最著名的球星是：（）。</h2>
+                    <input type="radio" name="1">A.梅东
+                    <input type="radio" name="1">B.梅西
+                    <input type="radio" name="1">C.梅南
+                    <input type="radio" name="1">D.梅北
+                       关键词：name:在单选框中，如果都指定只有一个选项，则只可以选择一个，
+		       选中一个时其他的都会取消选定。
+		       radio：单选框，只能选择一个。但是未指定name个数时，不能实现效果
+        i)reset     重置按钮
+	j)color     颜色 color 类型用在input字段主要用于选取颜色，
+	   例：选择你喜欢的颜色: <input type="color" name="favcolor">
+	k)email
+	l)number
+	m)range  滑动条
+	n)Search 
+	  例子:Search  Google: <input type="search" name="googlesearch">
+	o)tel
+	p)time
+	q)url
+        r)week
+	s)datetime
+	t)datetime-local
+	u)file
+   5)image     图片
+        用法：<img src="xxx.jpg" 属性1 属性2>或<img/>
+   6)embed  插入音频播放器
+        用法与img类似
+   7)video  插入视频播放器
+        用法与img类似
+   8)textarea 多行输入，称为文本域，可换行输入。
+           格式:<textarea></textarea>
+           用法:<textarea cols="100" rows="30">填充内容</textarea>
+           属性： 1.cols： 列数，宽度
+	          2.rows:  行数，高度 
+                  3.readonly  只读  
+		  4.disabled  禁用
+           eg:<h2>3.给自己写一封信：</h2>
+              <textarea cols="100" rows="30">
+	       亲爱的自己：
+	           你好！
+		   xxx
+		   </textarea> 
+         关键词：textarea:文本域，可换行，
+	        在该区域中编辑换行可以直接在网页显示。与其他情况下不同。
+
+   1)form    表单
+      
+   2)action  动作，行动
+       属性：作为表单的属性
+       属性值：请求的位置
+                 网址，或者指定页面，后台（）
+   3)method  方法，方式
+             属性值：请求的方式
+	           get(获得内容)
+		   post(传递参数)
+		   put
+		   delete
+		   ...
+   4)post    传递
+   5)align   水平对齐方式
+          属性值：居中,左、右对齐
+       valign 垂直对齐方式
+          属性值：靠上，靠下，居中       
+   6)center  居中
+          用法1：<center>内容</center>
+
+   7)width   宽度
+   8)height  高度
+   9)length  长度  一般仅用于文字输入时的长度限制
+
+       1)table      表格，桌子 
+                 双标记
+    2)row        行
+          <tr></tr>:一行(横的)
+    3)column     列
+           table data
+           <td></td>:一列
+           <th></th>:一列 加粗
+    4)border     边宽
+                边框线的粗细
+    5)javascript js技术
+              脚本语言
+        html:实现页面的内容，
+        css:优化内容
+	js:实现动画效果
+    6)alert      警告框
+        eg:<a href="javascript:window.alert('警告框显示内容');">xxx</a>
+        alert:弹出一个警告框
+    7)select     选择、查询（数据库）
+         <select>下拉选择框</select>
+    8)option     选项
+         <option>选项的值</option>
+    9)group      分组
+         <optgroup></optgroup>
+    10)textarea  文本域
+                多行的文本框
+             ps：1.测试思维：5w2h:who(谁),where(哪),why(为什么),what(什么),when(时间),
+	         how(程度),howmuch(时长价格)
+		 2.出现乱码就是编码没有统一

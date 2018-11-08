@@ -1,0 +1,110 @@
+web基础知识了解
+    internet
+       	定义：
+	   		互联网
+       	作用：
+	   		实现资源共享和信息传递
+       	实现技术：
+          	分组交换原理：路由器、交换器
+	  		tcp/ip协议簇
+	     	ip地址 DHCP
+		B/S:
+			浏览器和服务器的交互模式
+		C/S: 
+			客户端和服务器的交互模式
+    web
+       	电商：
+	   		web项目
+       		application:应用程序（软件）
+       	定义：
+	   		是一种应用在internet上的网页应用程序
+       	服务：
+		   	www(world wide web)
+            w3c-world wide web consortium（万维网联盟）
+	   	功能：
+	   		将信息和服务连接
+       	工作原理：
+		   	基于浏览器/服务器模式（b“浏览器”/s“服务器”）
+       	组成：
+		   	web服务器
+				代替用户向服务器发起请求,解析数据并呈现
+			浏览器
+				接收客户请求并响应
+			通信协议
+				http / https / ftp / file ....
+				协议作用
+					规范数据在网络中是如何打包和传递的
+					http
+						超文本传输协议
+					https
+						加密的超文本传输协议
+					url:
+						网络协议+域名（ip地址）+端口号
+	        		tp：
+						//176.140.1.230:21（文本传输协议）
+	WEB服务器
+	    功能
+	        存储在web 上的内容信息,响应浏览器的请求，执行服务器端程序安全性功能
+			海量数据存储在数据库
+	    产品
+	        Apache:
+				Apache HTTP Server（简称Apache）是Apache软件基金会的一个开放源码的网页服务器，
+				可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，
+				是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，
+				将Perl/Python等解释器编译到服务器中
+			Tomcat: 
+				Tomcat是Apache 软件基金会的Jakarta 项目中的一个核心项目
+				深受喜爱的web服务器,免费稳定
+			IIS:
+				IIS是Internet Information Services的缩写，意为互联网信息服务，
+				是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。
+			Nginx:
+				Nginx (engine x) 是一个高性能的HTTP和反向代理服务，
+				也是一个IMAP/POP3/SMTP服务
+		技术
+			JSP 
+				Java Server Pages (Java服务器页面)
+			PHP
+				轻量级语言,非常小巧快速
+			ASP.net
+			Python Web 
+				现成框架Flask,Django
+    WEB浏览器
+		功能
+			代理用户提交请求,也叫用户代理user agent
+			作为htmL解释器和内嵌脚本的执行器
+			作为响应数据的解释引擎,用图形化的方式显示html文档
+		产品
+			IE/Edge   
+			chrome		webkit
+			opera
+			火狐FireFox
+			Safari		webkit
+			浏览器内核
+				也称为浏览器引擎
+					1.渲染引擎
+						解释,Html,CSS 控制页面的渲染效果
+					2.JS引擎
+						解析js脚本
+		
+ 
+    web前端技术
+        html
+	 	css（样式）
+        javascript（脚本语言）
+		前端框架
+			Angular
+			Vue
+			Node
+			React
+
+    流程： 
+		1）搭建服务器：
+	    2）在服务器的文档目录
+	    3）借助浏览器来访问
+	        http://localhost/文件名 或者
+                ip地址/文件名
+	    
+	  ps:1.查看自己的ip地址：ipconfig
+	     2.个人网站申请：www.beianbeian.com
+	     3.localhost 本机

@@ -1,0 +1,230 @@
+git的使用
+        代码的协同管理工具
+    特点
+        防止代码丢失
+        做代码的版本管理,创建多个版本或者节点,在多版本之间切换
+        可以将代码在多人之间简单的传输共享
+        可以方便多人协同开发,开辟各自分支和分支管理
+    定义
+        git是一个开源式版本控制系统,可以用于高效的管理大小的目的
+    小知识
+        分布式
+            每个节点关系平等,都完整保存代码,节点之间相互推送或者下载代码
+            ,工作方式多样
+        集中式
+            有明确的中央服务器统一管理代码,每个节点将代码上传中央服务器
+            或者从中央服务器下载,逻辑简单
+    git特点
+        *git 可以管理各种文件,特别是代码项目,多在*nix系统中使用,
+        是开源的系统,是唯一的可以操作github的管理工具
+        git是分布式管理,不同于集中式,也是和svn最大的差别
+        git可以拖网操作,传输速度更快
+        git的安全性很强,是全球唯一的commit版本号
+        git的分支管理很强大,可以方便多人协同工作
+    git安装
+        sudo apt-get install git
+    git基本配置
+        1.系统中所有的用户均使用的配置
+            命令 git config --system 
+            配置文件    /etc/gitconfig
+            示例
+                sudo git config --system user.name Tedu
+        2.在当前用户的所有项目均使用的配置
+            命令   git config --global
+            配置文件    ~/.gitconfig
+            示例
+                git config --global user.email tarena@tedu.cn 
+                查看
+                    cat ~/.gitconfig
+        3.只在当前项目中使用的配置
+            命令  git config   (命令要在git项目文件夹中执行)
+            配置文件    
+                project/.git/config
+            示例
+                配置编译器
+                git config core.editor vscode
+        4.查看配置
+            git config --list
+            返回
+                credential.helper=osxkeychain
+                user.name=zzx
+                user.name=377312117@qq.com
+                core.repositoryformatversion=0
+                core.filemode=true
+                core.bare=false
+                core.logallrefupdates=true
+                core.ignorecase=true
+                core.precomposeunicode=true
+                core.editor=vscode
+基本概念
+    工作区(本地)
+        通过自己主机操作的git目录(只有工作区对用户可见)
+    暂存区(本地)
+        用来记录你工作区的行为,作为暂时保存
+        (不保存内核工作内容,只记录你的行为,只有暂存区记录的内容,本地仓库才会备份)
+    本地仓库(本地)
+        本地用来备份同步工作区内容的区域
+        上述三个区域在git init命令后都会产生建立
+    远程仓库
+        其他主机的git仓库都称为远程仓库
+
+git 的基本操作命令
+    初始化仓库
+        git init
+        *初始化仓库后产生,git目录为git的管理目录,初始化仓库的目录中的内容即可使用git管理
+    查看工作分支状态
+        git status
+        概念:  分支:创建仓库后,默认为只有主分支master可以通过创建新的分支切换
+    文件提交到暂存区
+        首先将工作区内容注册到暂存区,才能备份到本地仓库
+            git add [file]
+            说明:可以一次提交多个内容,中间用空格隔开即可    
+                提交的内容可以是 文件也可以是目录
+                如果想将当前目录的所有内容都提交也可以使用*表示
+    删除暂存区的记录
+        git rm --cached file  (如果是目录的加 -r)
+    将暂存区记录的修改内容同步到本地仓库
+        git commit  -m 'some message'
+        * -m为添加的附加信息
+        * 当工作区 和本地仓库内容一致时,git status提示干净的工作区
+    查看提交日志
+        git log
+            通过commit号码前七位可以进行恢复
+        git log --pretty=oneline   简洁显示
+    工作区操作
+        查看工作区文件和本地仓库的差异
+        git diff [file]
+        放弃工作区修改
+        git checkout -- [file]
+        恢复仓库文件到工作区
+        git checkout [file]
+    文件的移动和删除
+        从工作区删除文件,并将变更提交到暂存区
+            git rm [file]
+        确认在本地仓库和工作区共同删除
+            git commit -m 'some message'
+        移动工作区文件并提交到暂存记录
+            git mv file dir
+        *rm mv的用法和bash下的shell命令用法相同,操作完成直接commit同步到本地仓库
+    版本控制命令
+        回到之前版本
+            git reset --hard HEAD^
+            * HEAD 后几个^表示回到之前的几个版本
+        如果回滚多个版本通过commit_id 回到指定的版本
+            git reset --hard commit_id
+        查看操作日志
+            git reflog
+            *获取到操作记录后可以根据commit_id 去往较新的版本
+    标签管理
+        什么是标签
+            即在当前工作位置添加快照,保存项目的版本信息,一般用于项目迭代
+        创建标签
+            git tag v1.0
+            默认会在最新的commit_id处打标签
+        查看标签
+            查看所有标签
+                git tag
+            具体查看某个标签
+                git show v2.0
+        在某个指定的commit_id 处打标签
+            git tag v0.9 [commit_id]
+        删除某个标签
+            git tag -d v2.0
+    保存临时工作区
+        创建临时工作区
+            git stash
+            将工作区修改内容暂时封存,恢复到最近一个'干净'的状态
+        查看临时工作区
+            若建立多个临时工作区
+            可使用git stash list 进行查看临时工作区
+        应用某个工作区
+            git stash apply stash@{1}   //后面的为序列号,通过list查看
+            *新的工作区总是为stash@{0}
+        应用上一个工作区并删除
+            git stash pop 
+        删除工作区
+            git stash drop stash@{0}
+            删除所有
+            git stash clear 
+
+作业 申请一个github账号
+     复习http协议
+     复习并发服务器和ftp文件服务器项目
+
+分支管理
+    什么是分支
+        分支即每个人在获取原有分支master基础上,作为自己的工作环境,单独开发,
+        不会影响其他分支操作,开发完成再同意合并到主线分支
+    好处
+        安全,不影响其他人工作,自己控制进度
+    问题
+        冲突
+    查看当前分支
+        git branch
+        带*号的表示正在工作的分支
+    创建分支
+        git branch [branch name]
+    切换工作分支
+        git checkout [branch]
+    综合:创建并且切换
+        git checkout -b [branch_name]
+    合并分支
+        git merge [branch]
+    查看分支
+        git branch
+    删除分支
+        git branch -d [branch_name]
+    强制删除未合并分支
+        git branch -D [branch_name]
+    
+远程仓库
+        在远程主机的仓库.git是分布式的,每一台主机上的git基本相同
+        只是把其他的主机的git仓库叫做远程仓库
+    创建共享仓库
+        1.创建目录
+            mkdir gitrepo
+        2.设置仓库文件夹的属主
+            chown tarena:tarena gitrepo
+        3.创建共享仓库
+            git init  --bare  aid.git
+        4.设置git文件夹项目文件夹数组
+            chown -R tarena:tarena aid.git
+    添加远程仓库
+        git remote add origin zhaozhengxing@127.0.0.1:/Users/zhaozhengxing/project/gitrepo/aid.git
+    向远程主机推送分支
+        git push -u origin master
+    从远程主机获取项目
+        git clone zhaozhengxing@127.0.0.1:/User/zhaozhengxing/project/gitrepo/aid.git
+    向远程主机推送代码
+        git push
+    从远程仓库内容拉取到本地
+        git pull(直接合并)
+        git fetch(获取远程分支到本地,但是暂时不合并)
+    删除已有的远程主机
+        git remote rm origin
+
+github 开源的项目社区网站,提供丰富的开源项目,也为用户提供项目管理服务
+    git 是GitHub是唯一指定的代码管理工具
+    url:http://github.com
+    创建新的仓库:
+        点击右上角加号 + --> new repository  -->填写信息
+    操作远程仓库
+        git remote 连接远程仓库
+        通过git push上传代码
+        *github就是一个远程仓库
+
+
+pip的使用
+        管理升级下载第三方库
+    安装
+        sudo apt-get install python3-pip
+    常用命令
+        安装包: pip3 install [package]
+        查看包: pip3 list
+        搜索包: pip3 search [package]
+        升级包: pip3 install --upgrade [package]
+        显示包的信息: pip3 show [package]
+        卸载包: pip3 uninstall [package]
+        导出软件环境: pip3 freeze > requirements.txt
+        安装软件环境: pip3 install -r requirements.txt
+        
