@@ -193,10 +193,49 @@ html页面结构：
 					<li></li>
 					每一组li元素都标识一条列表项
 			示例
-				<ol>
+				<ol type='a'>
 					<li></li>
 					<li></li>
 				<ol>
 			标签属性
 				有序列表默认使用数字标识列表项,从1开始
 				也可以在ol标签中添加属性进行设置
+				type属性
+					以哪种符号排序
+					type = 'a'
+					a  = 小写字母
+					A  = 大写字母
+					i  = 小写罗马数字
+					I  = 小写罗马数字
+				start属性
+					start= x 
+						x为从第几个开始
+					示例
+						<ol type='i' start = '5'>
+                			<li>Rookie</li>
+                			<li>Ning</li>
+                			<li>The Shy</li>
+            			</ol>
+		无序列表(unordered list)
+			格式
+				<ul type = 'disc'>
+					<li></li>
+				</ul>
+			标签属性
+				默认以实心原点来标识列表项
+				可以通过属性修改type属性,指定项目符号类型
+				取值:disc(默认) square(实心正方形)
+					circle(空心圆) none
+		自定义列表
+			格式
+				<dl>
+					<dt>订单跟踪</dt>
+					<dd>物流查询</dd>
+					<dd>联系客服</dd>
+
+					<dt>连系我们</dt>
+					<dd>加入我们</dd>
+					<dd>公司信息</dd>
+				<dl>	
+			注意:
+				一个1个dt后面可以接n个dd为一组				
