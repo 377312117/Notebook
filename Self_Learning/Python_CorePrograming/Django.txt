@@ -74,5 +74,24 @@ URL中添加参数
             return HttpResponse(text)
         因为查询字符串使用的是'GET'请求,所以我们通过'request.GET'
         来获取参数,并且因为'GET'是一个类似于字典的数据类型,所有获取值跟字典的方式都一样
-    4.path
+    4.url参数转换器
+        str:除了斜杠/以外所有字符都可以
+        int:只有是一个或者多个阿拉伯数字
+        path:所有的字符都是满足的
+        uuid:只有满足'uuid.uuid4()'这个函数返回的字符串的格式
+        slug:英文中的横杆或者英文字母或者阿拉伯数字或者下划线才满足
+        示例
+            urlpatterns = [
+            url(r'^admin/', admin.site.urls),
+            url(r'^',include('MyApp.urls')),
+            # 127.0.0.1:8000/book/
+            path('book/',views.book) , # 前面是路径,后面是响应函数(内容)
+            path('book/detail/<book_id>/<category_id>',views.book_detail),
+            path('book/author/',views.author_detail),
+            # 注意author后面的斜杆一定要有
+            path('book/publisher/<uuid:publisher_id>/',views.publisher_detail)
+            # uuid,int是django规定的字符串类型,选择哪种就只能用哪种来访问该页面
+            # uuid是无规律的32位的字码,可由import uuid 中的uuid4()生成
+]
+
 

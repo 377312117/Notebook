@@ -35,5 +35,7 @@ urlpatterns = [
     path('book/detail/<book_id>/<category_id>',views.book_detail),
     path('book/author/',views.author_detail),
     # 注意author后面的斜杆一定要有
-    path('book/publisher/<int:publisher_id>/',views.publisher_detail)
+    path('book/publisher/<uuid:publisher_id>/',views.publisher_detail)
+    # uuid,int是django规定的字符串类型,选择哪种就只能用哪种来访问该页面
+    # uuid是无规律的32位的字码,可由import uuid 中的uuid4()生成
 ]
