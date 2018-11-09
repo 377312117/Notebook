@@ -15,8 +15,21 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from django.urls import path
+from django.http import HttpResponse
+
+
+def index(request):
+    return  HttpResponse('豆瓣首页')
+
+
+
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('MyApp.urls')),
+    # 127.0.0.1:8000/book/
+    path('book/',book) , # 前面是路径,后面是响应函数(内容)
+    path('movie/',movie)
 ]

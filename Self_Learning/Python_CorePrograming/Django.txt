@@ -1,0 +1,14 @@
+URL详解
+    Uniform Resource Locator    统一资源定位符
+    scheme://host:port/path/?query-string=xxx#anchor
+    组成
+        scheme  访问协议
+        host    主机名,域名
+        port    端口号 浏览器默认使用80端口  
+        path    查找路径 
+        query~string    查询字符串
+        achor       瞄点,前端作为定位使用   
+
+
+创建app
+    python3 manage.py startapp city   # 其中city是你创建的应用名字
