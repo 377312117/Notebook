@@ -9,6 +9,54 @@ URL详解
         query~string    查询字符串
         achor       瞄点,前端作为定位使用   
 
+项目结构分析
+    manage.py
+        以后和项目交互基本都基于此文件,一般都是在终端输入python3 manage.py [子命令]
+        可以输入python manage.py help 看下能做什么事情,除非你知道自己在做什么,一般情况
+        下不应该编辑此文件
+    settings.py 
+        保存项目所有配置信息
+    urls.py 
+        用来url与视图函数映射.以后来一个请求,就会从这个文件中找到匹配的函数
+    wsgi.py 
+        专门用来部署的.不需要修改
 
-创建app
-    python3 manage.py startapp city   # 其中city是你创建的应用名字
+urls.py
+        urls.py中的urlpatterns列表,专门用来存储(路径,网页)元组来进行映射的的,
+        网络浏览器输入该路径,则可匹配该路径下的网页或者响应函数Httpresponse
+        不同内容使用不同的APP进行封存而不是加在urls.py中,APP需要加载在settings.py中的
+        INSTALLED_APPS列表中
+ 
+    项目规范
+            按照功能或者模块进行分层,分成一个个app,所有和某个模块相关的视图都写在对应的views.py中
+            并且模型和其他的的也是类似.django提供了一个方便的创建app指令,所有的代码都写在相应app中
+        创建app
+            python3 manage.py startapp appname   # 其中name是你创建的应用名字
+    *debug模式
+        (在settings.py中添加DEBUG = True则开启了DEBUG模式)
+        1.如果开启了debug模式,name以后我们修改了Django项目的代码,然后按下ctrl+s,那么
+          Django会自动重启项目,不需要手动重启
+        2.如果开启了DEBUG模式,以后django项目的代码中出现bug了,那么浏览器和控制台会打印错误信息
+        3.在开发环境下开启,在生产环境禁止开启,会由很大的安全隐患
+        4.关闭DEBUG模式:将DEBUG的值设置为False,然后必须在settings.py下的设置ALLOWED_HOSTS.
+          该列表是用来设置以后别人只能通过这个变量中的IP地址来进行访问
+        
+
+URL分发器
+    视图
+        一般写在app中的views.py中,并且视图的第一个参数永远都是request(一个HttpRequest)对象,
+        这个对象存储了请求过程的所有信息,包括携带的参数以及一些头部信息等.在视图中一般是完成逻辑相关
+        的操作.比如请求是添加一篇博客,name是HttpResponse对象或者子类的对象,示例代码如下
+            from django.http import HttpResponse
+            def book_list(request):
+                return HttpResponse('书籍列表')
+            # 底层会传request的参数过来,必须要注意接收
+        视图函数
+            1.视图函数的第一个参数必须是request,这个参数绝不能少
+            2.视图函数的返回值必须是'django.http.tesponse.HttpResponseBase'子类的对象
+
+URL映射
+    1.为什么会去urls,py寻找映射
+        是因为在settings.py文件配件中配置了ROOT__URLCONF为urls.py,所有的django会去urls.py寻找
+    2.在urls.py中我们的映射,都应该放在urlpatterns中这个变量中
+    3.所有的映射不是随便写的,而是使用path函数或者是're_path'函数进行包装的

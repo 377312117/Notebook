@@ -30,6 +30,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('MyApp.urls')),
     # 127.0.0.1:8000/book/
-    path('book/',book) , # 前面是路径,后面是响应函数(内容)
-    path('movie/',movie)
+    # path('book/',book) , # 前面是路径,后面是响应函数(内容)
+    # path('movie/',movie)
 ]
