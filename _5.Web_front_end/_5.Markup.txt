@@ -26,7 +26,7 @@
 	          作用：控制radio(单选框）的选项个数
 		        a)name属性的值都相同时，选项的取值只有一个,适用于单选题
 			b)name属性值各不相同，选项的个数取决于属性值中最大的值
-表单标记：
+表单
         ps:属性值可有可无可多可少
         单词：form
 	语法：
@@ -35,102 +35,187 @@
 		<form></form>
 	作用：
 		在网页上开辟一块区域来存储各种控件并且让控件的值或者请求有响应
-	属性
+	表单控件
+		提供一系列的可视化组件,能够实现和用户的交互
+		例如输入框,按钮,文件上传等
+	标签属性
 	    属性1:
-			action(动作)
+			action(动作)     必填,指定数据的提交地址
 	    	属性值：响应的位置(url\页面)，服务器(项目)
-	    属性：
+	    属性2:
 			请求方法 method(请求方法)
-	    	属性值：get或者post
-	    	完整格式：<font action="" method="">
+	    	属性值：get或者post,默认为get请求
+				get:
+					数据会以参数的形式拼接在url后面
+					安全性较低
+					最大提交数据2kb
+				post:
+					数据会打包在请求头中
+					安全性较高
+					没有数据大小限制
+					
+	    	完整格式：<form action="" method="">
 	        		控件
 					...
 					<input type="submit" value="注册">
 	        		<input type="reset" value="重置">
-					</form>
-               		控件格式为：
-	        1)img
-	            <input type="image" src="图片路径">
-		    2)number
-		       	<input type="number" max="100" min="1">
-		      		特点：	a.不能限制你输入值，但是下拉选择只能限制在1-100
-                            b.不可以改变控制大小
-		    3)文件上传
-		       <input type="file">  
-		    4)下拉列表:双标记
-		       格式：<select></select>
-		       作用：提供很多选项的值可以供我们选择
-		       选项:<option></option>
-		            作用:为下拉列表提供选项的值
-		         完整格式：
-			   <select>
-			   <option>值1</option>
-		           <option>值2</option> 
-			   <option>值3</option>
-			   ...
-                           </select>
+					</form>  
+	enctype
+		指定数据的编码方式,表单提供的编码类型有
+			1.application/x-www-form-urlencoded
+			 	将表单中的数据转换为字符串格式(name = zhangsan&pwd=123456),
+				附加在url后面使用?与url隔开
+			2.multipart/form-data
+				专门用来上传特殊类型数据的,例如图片,文件,mp3等
+			3.text/plain
+				数据以纯文本形式编码,不含任何控件和格式字符
+	           控件格式为：
+	表单控件
+			表单控件的数据只有放在表单元素中才可以被提交
+		文本框和密码框
+			文本框 
+				<input type='text'>
+			密码框
+				<input type='password'>
+			标签属性
+				1.type  指定控件类型
+				2.name  指定控件名称
+				3.value 指定控件的值 (不经常使用)
+				4.maxlength 指定最大输入字符数
+				5.placeholder 设置提示文本
+				6.autocomplete 自动补全
+		单选框和复选框
+			单选框
+				<input type= 'radio'>
+			复选框
+				<input type= 'checkbox'>
+			标签属性
+				name 定义控件名称
+					一组的按钮控件保持一致
+				value
+					定义控件的值,最终将发给服务器,按钮的value属性必须指定
+				checked
+					表示选中当前按钮
+				特殊用法 label for id
+					将按钮文本和按钮控件绑定在一起,实现点击文本与点击控件等价的效果
+					使用
+						使用<label></label>标签包括按钮文本
+						为使用控件添加id属性,属性值自定义
+						为label标签添加for属性,属性值与文本控件id一致
+					示例
+						<input type='radio' name='gender' value='male' checked id='male'>
+        				<label for='male'>男</label>
+        				<input type='radio' name='gender' value='fmale' checked id='fmale'>
+        				<label for='fmale'>女
+		隐藏域和文件选择框
+			1.隐藏域
+					需要提交给服务器,但是不需要呈现给用户的内容
+					都可以用隐藏域表示
+				例如
+					用户id
+				语法
+					<input type='hidden' name='uid' value = '0001'>
+					name定义控件名称,value控制控件的值,都是必填项
+			2.文本选择框
+				语法
+					<input type='file' name='ufile' >
+				设计二进制文件的提交,文件,图片,mp3等
+					需要设置	from ectype ,指定数据提交方式为post
+		下拉选择框
+			双标记
+			格式：
+				<select></select>
+			作用：
+				提供很多选项的值可以供我们选择
+			选项:
+				<option></option>
+			作用:
+				为下拉列表提供选项的值
+			完整格式：
+				<select>
+					<option>值1</option>
+					<option>值2</option> 
+					<option>值3</option>
+					...
+				</select>
 			案例：
-		          <select>
-			   <option>1980</option>
-		           <option>1990</option> 
-			   <option>2000</option>
-			   <option>2010</option>
-			   <option>2020</option>
-			   <option>2030</option>
-			   <option>2040</option>
-			   <option>2050</option>
-			   <option>2000</option>
-			   ...
-                           </select>
-		     5)textarea
-		       ...
-		     6)readonly 只读
-            示例：<center>
-                  <form action="file:///C:/Users/zhangxs/Desktop/8.17.5.html" method="get">
-                  账号：<input type="text" size="30" placeholder="请输入账号"><br/>
-                  密码：<input type="password" size="30" placeholder="请输入密码"><br/>
-                  重复：<input type="password" size="30" placeholder="请再次输入密码"><br/>
-                        <input type="submit" value="login">
-                        <input type="reset" value="cancel">
-                        </center>
-                        </form>	    
-  
-    1)html语法就是标记<>
-    2)下拉选择框：<select></select>
-          作用：提供选项供用户选择
-	  如何提供选项：
-	       借助option作为select的子标记
-	       <option></option>
-	       一个option只能提供一个选项
-	  完整格式:
-	  <select>
-	      <option>选项1</option>
-	      <option>选项2</option>
-	      <option>选项3</option>
-	      <option>选项4</option>
-	      ...
-	      </select>
-	  对选项进行分组：
-	   <optgroup></optgroup>
-	   作用：给选项定义一个组名
-	   属性：label 组名
-	         selected=""  被选中的默认值，默认为selected
-		 size  行数，放在 select后面。默认为1行
+				<select>
+					<option>1980</option>
+					<option>1990</option> 
+					<option>2000</option>
+					<option>2010</option>
+					<option>2020</option>
+					<option>2030</option>
+					<option>2040</option>
+					<option>2050</option>
+					<option>2000</option>
+					...
+				</select>
+			对选项进行分组：
+	   			<optgroup></optgroup>
+	   			作用：
+				   	给选项定义一个组名
+	   			属性：
+				   	label 组名
+	         		selected=""  被选中的默认值，默认为selected
+		 			size  行数，放在 select后面。默认为1行
+	   			完整格式：
+					<select size="1">
+						<optgroup label="组名1">
+							<option selected="selected">选项1</option>
+							<option>选项2</option>
+							<option>选项3</option>
+							<option>选项4</option>
+							...
+						</optgroup>
+						<optgroup label="组名2">
+							<option>选项5</option>
+							<option>选项6</option>
+							<option>选项7</option>
+							<option>选项8</option>
+							...
+						</optgroup>
+					</select>
+			5)textarea
+			...
+			6)readonly 只读		
+		文本域,支持多行输入
+			格式
+				<rextarea name='uinfo'></textarea>
+			标签属性
+				cols 文本域宽度
+					宽度是通过列数控制的,以英文字符数量为准,中文字符减半
+				rows 文本域长度
+				*用户可自由拖拽大小
+		按钮
+			提交按钮
+				点击时,将表单数据发送给服务器
+				<input type='submit' value=''>
+				value  属性设置按钮的显示文本
+			重置按钮
+				点击时,会将表单数据还原成默认状态
+				<input type='reset' value=''>
+			普通按钮
+				需要自己绑定自定义事件
+				<input type='botton' value=''>
+			<botton>按钮显示文本</botton>
+				按钮标签,可以在HTML中任意地方使用,需要绑定自定义事件
+				如果botton放在form中,默认具有提交功能,等同submit
+		img
+			<input type="image" src="图片路径">
+		2)number
+			<input type="number" max="100" min="1">
+				特点：	a.不能限制你输入值，但是下拉选择只能限制在1-100
+						b.不可以改变控制大小
 
-	   完整格式：
-	    <select size="1">
-	       <optgroup label="组名1">
-	         <option selected="selected">选项1</option>
-	         <option>选项2</option>
-	         <option>选项3</option>
-	         <option>选项4</option>
-	         ...
-	       </optgroup>
-	         <optgroup label="组名2">
-	         <option>选项5</option>
-	         <option>选项6</option>
-	         <option>选项7</option>
-	         <option>选项8</option>
-	         ...
-	       </optgroup>
-            </select>
+		<center>
+			<form action="file:///C:/Users/zhangxs/Desktop/8.17.5.html" method="get">
+			账号：<input type="text" size="30" placeholder="请输入账号"><br/>
+			密码：<input type="password" size="30" placeholder="请输入密码"><br/>
+			重复：<input type="password" size="30" placeholder="请再次输入密码"><br/>
+				<input type="submit" value="login">
+				<input type="reset" value="cancel">
+				</center>
+				</form>	  
+
+	  
