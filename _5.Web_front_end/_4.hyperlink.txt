@@ -122,3 +122,47 @@
 			设置表格的宽高大小,取像素值,默认情况下,表格尺寸由内容自适应
 		bgcolor
 			设置表格背景颜色,取英文单词
+		align valign 设置表格与父元素的水平对齐方式	
+			align : left center right
+			valign: top middle bottom 
+
+	td标签属性
+		1.width height 设置单元格尺寸,娶像素值
+		2.align valign 设置居中属性(水平居中和垂直居中)
+		3.bgcolor  设置背景颜色
+	单元格合并
+		1.跨列合并
+			属性  colspan
+			取值  无单位的数值表示跨几列
+		2.跨行合并
+			属性  rowspan
+			取值  无单位的数值,表示跨几行
+		注意
+			跨行和跨列是单元格操作,所以属性是单元格td的属性
+			一旦发生单元格河滨,要删除多余的单元格
+				跨列合并: 影响当前行中单元格数量,删除当前行中多余的单元格
+				跨行合并: 影响其后行中的单元格数量,删除其后影响的行中的单元格
+	表格行分组
+		表格在浏览器渲染时会自动添加结构标签
+		表格可以分为thead tfoot tbody 三部分
+		1.thead 
+				<thead></thead> 标签用来划分表头
+				表头中可以有若干行组成
+			示例
+				<thead>
+					<tr>
+						<td></td>
+					</tr>
+				<thead>
+		2.表尾tfoot
+				<tfoot></tfoot>用于划分表尾,由若干行组成
+		3.tbody表体
+				<tbody></tbody>表示表格主体,默认情况下,所有的行自动加入tbody中
+		注意
+			如果涉及在html代码中完整书写行分组标签,建议按照
+			<thead></thead>
+			<tfoot></tfoot>
+			<tbody></tbody>
+			顺序书写
+			
+		
