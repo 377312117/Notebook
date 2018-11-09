@@ -29,25 +29,31 @@
 表单标记：
         ps:属性值可有可无可多可少
         单词：form
-	语法：双标记
-	格式：<form></form>
-	作用：在网页上开辟一块区域来存储各种控件并且让控件的值或者请求有响应
-	    属性1:action(动作)
-	    属性值：响应的位置(url\页面)，服务器(项目)
-	    属性：请求方法 method(请求方法)
-	    属性值：get或者post
-	    完整格式：<font action="" method="">
-	        控件
-		...
-		<input type="submit" value="注册">
-	        <input type="reset" value="重置">
-		</form>
-               控件格式为：
-	            1)img
-	               <input type="image" src="图片路径">
+	语法：
+		双标记
+	格式：
+		<form></form>
+	作用：
+		在网页上开辟一块区域来存储各种控件并且让控件的值或者请求有响应
+	属性
+	    属性1:
+			action(动作)
+	    	属性值：响应的位置(url\页面)，服务器(项目)
+	    属性：
+			请求方法 method(请求方法)
+	    	属性值：get或者post
+	    	完整格式：<font action="" method="">
+	        		控件
+					...
+					<input type="submit" value="注册">
+	        		<input type="reset" value="重置">
+					</form>
+               		控件格式为：
+	        1)img
+	            <input type="image" src="图片路径">
 		    2)number
-		       <input type="number" max="100" min="1">
-		      特点：a.不能限制你输入值，但是下拉选择只能限制在1-100
+		       	<input type="number" max="100" min="1">
+		      		特点：	a.不能限制你输入值，但是下拉选择只能限制在1-100
                             b.不可以改变控制大小
 		    3)文件上传
 		       <input type="file">  
