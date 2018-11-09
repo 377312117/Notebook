@@ -56,7 +56,23 @@ URL分发器
             2.视图函数的返回值必须是'django.http.tesponse.HttpResponseBase'子类的对象
 
 URL映射
-    1.为什么会去urls,py寻找映射
+    1.为什么会去urls.py寻找映射
         是因为在settings.py文件配件中配置了ROOT__URLCONF为urls.py,所有的django会去urls.py寻找
     2.在urls.py中我们的映射,都应该放在urlpatterns中这个变量中
     3.所有的映射不是随便写的,而是使用path函数或者是're_path'函数进行包装的
+
+URL中添加参数
+    1.采用url中使用变量的方式,在path的第一个参数中,使用'<参数名>'的方式可以传递参数
+    2.在视图函数中也要写一个参数,视图函数中的参数必须和url中的参数名保持一致,不然就找不到这个参数
+      ,另外,url可以传递过个参数
+    3.采用查询字符串方式,在url中,不需要单独的匹配查询字符串的部分,只需要在视图函数中使用
+      'request.GET.get('参数名称')'的方式来获取,示例代码如下
+        def author_detail(request):
+            # 使用get请求进行映射,不需要将响应内容写在urls.py中
+            author_id = request.GET['id']
+            text = '作者id是 %s' % author_id
+            return HttpResponse(text)
+        因为查询字符串使用的是'GET'请求,所以我们通过'request.GET'
+        来获取参数,并且因为'GET'是一个类似于字典的数据类型,所有获取值跟字典的方式都一样
+    4.path
+

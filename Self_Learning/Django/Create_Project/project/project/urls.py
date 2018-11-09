@@ -17,7 +17,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.urls import path
 from django.http import HttpResponse
-
+from book import views
 
 def index(request):
     return  HttpResponse('豆瓣首页')
@@ -29,7 +29,11 @@ def index(request):
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('MyApp.urls')),
+
     # 127.0.0.1:8000/book/
-    # path('book/',book) , # 前面是路径,后面是响应函数(内容)
-    # path('movie/',movie)
+    path('book/',views.book) , # 前面是路径,后面是响应函数(内容)
+    path('book/detail/<book_id>/<category_id>',views.book_detail),
+    path('book/author/',views.author_detail),
+    # 注意author后面的斜杆一定要有
+    path('book/publisher/<int:publisher_id>/',views.publisher_detail)
 ]
