@@ -40,7 +40,12 @@ urls.py
         3.在开发环境下开启,在生产环境禁止开启,会由很大的安全隐患
         4.关闭DEBUG模式:将DEBUG的值设置为False,然后必须在settings.py下的设置ALLOWED_HOSTS.
           该列表是用来设置以后别人只能通过这个变量中的IP地址来进行访问
-        
+
+path函数:
+    path函数的定义为:
+            path(route,view,name=None,kwargs=None)
+        参数
+            route参数:url的匹配规则        
 
 URL分发器
     视图
@@ -92,6 +97,6 @@ URL中添加参数
             path('book/publisher/<uuid:publisher_id>/',views.publisher_detail)
             # uuid,int是django规定的字符串类型,选择哪种就只能用哪种来访问该页面
             # uuid是无规律的32位的字码,可由import uuid 中的uuid4()生成
-]
+            ]
 
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            color:red;
+        }
+        /* 元素样式和继承样式的优先级 */
+        h1{
+            color:blueviolet
+        }
+        /* 不同引入方式之间,元素自身样式的优先级 */
+        h1{
+            color:aquamarine
+        }
+    </style>
+    <link rel="stylesheet" href='index.css'>
+</head>
+<body>
+    <!-- 浏览器默认样式与继承样式之间的优先级 -->
+    <div>
+        <h1 style='color:black;'>
+            一级标题
+        </h1>
+    </div>
+</body>
+</html>
