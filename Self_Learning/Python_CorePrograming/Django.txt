@@ -41,11 +41,7 @@ urls.py
         4.关闭DEBUG模式:将DEBUG的值设置为False,然后必须在settings.py下的设置ALLOWED_HOSTS.
           该列表是用来设置以后别人只能通过这个变量中的IP地址来进行访问
 
-path函数:
-    path函数的定义为:
-            path(route,view,name=None,kwargs=None)
-        参数
-            route参数:url的匹配规则        
+
 
 URL分发器
     视图
@@ -98,5 +94,19 @@ URL中添加参数
             # uuid,int是django规定的字符串类型,选择哪种就只能用哪种来访问该页面
             # uuid是无规律的32位的字码,可由import uuid 中的uuid4()生成
             ]
-
-
+path函数:
+    path函数的定义为:
+            path(route,view,name=None,kwargs=None)
+        参数
+            route参数:
+                url的匹配规则.这个参数中可以指定url中需要传递的参数,
+                比如访问文章详情页的时候,可以传递一个id.传递参数是通过<>尖括号来进行指定的
+                .并且在传递参数的时候可以指定数据类型,如上面所示,例如<int:id>,以后匹配的
+                时候,就只会匹配到id为int类型的url而不会匹配到其他类型的,并且在视图获取这个参数
+                的时候,就已经转换为一个int类型了
+            view参数
+                可以为一个视图函数或者类视图.as_view()或者django.urls.include()函数的返回值
+            name参数
+                这个参数是给url取名字的,在项目比较大,url比较多的时候用处很大
+            kwargs参数
+                有时

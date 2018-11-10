@@ -2,6 +2,7 @@
 
 
 class A:
+    '''1111'''
     # def __bool__(self):
     #     print("__bool__方法被调用")
     #     return False
