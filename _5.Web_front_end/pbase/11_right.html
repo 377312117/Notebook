@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #d1{
+            color:yellow;
+            /* 优先级为100 */
+        }
+        h1{
+            color:red;
+            /* 优先级为 1 */
+        }
+        .c1{
+            color: blue;
+            /* 优先级为 10 */
+        }
+
+    </style>
+</head>
+<body>
+    <h1 id='d1' class="c1" style='color:green'>一级标题</h1>
+    <!-- 行内优先级最高 1000 -->
+</body>
+</html>
