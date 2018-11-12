@@ -40,7 +40,7 @@ html页面结构：
 	分为2部分：
 	1）声明文件类型
 			<!doctype html>
-	2) 页面的功能描述
+	2) 页面的功能描述,整个页面的开始和结束
 			<html></html>
 	a)文件头
 		<head></head>
@@ -56,8 +56,6 @@ html页面结构：
 	         粗细：size
 		     长短: width（默认以居中显示，不给值则给整个长度）
             <hr color="red" size="20"/>对分割线进行颜色的转变.一般颜色以像素为单位，px表示
-	<html></html>:
-		整个页面的开始和结束
 	属性：lang="en" 语言
 			<head></head>:文件的头
 			<title></title>:网页的标题
