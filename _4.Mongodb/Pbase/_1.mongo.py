@@ -18,7 +18,7 @@ print(dir(myset))
 # myset.insert_many([{"name":"古天乐","King":"丁鹏"},{"name":"李若彤","king":"小龙女"}])
 
 # 查找操作
-cursor = myset.find({},{"_id":0})
+cursor = myset.find({}, {"_id":0})
 for i in cursor:
     print(i)
 # 关闭数据库连接

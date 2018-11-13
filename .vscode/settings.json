@@ -1,8 +1,10 @@
 {
-    "python.linting.pylintEnabled": true,
     "python.unitTest.promptToConfigure": false,
     "python.unitTest.pyTestEnabled": false,
     "python.unitTest.unittestEnabled": false,
     "python.unitTest.nosetestsEnabled": false,
-    "python.pythonPath": "/usr/local/bin/python3"
+    "python.pythonPath": "/usr/local/bin/python3",
+    "python.linting.enabled": true,
+    "files.autoSave": "afterDelay",
+    "python.linting.flake8Enabled": false,
 }
