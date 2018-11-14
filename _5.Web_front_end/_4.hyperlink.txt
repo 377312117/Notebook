@@ -127,7 +127,7 @@
 			valign: top middle bottom 
 
 	td标签属性
-		1.width height 设置单元格尺寸,娶像素值
+		1.width height 设置单元格尺寸,取像素值
 		2.align valign 设置居中属性(水平居中和垂直居中)
 		3.bgcolor  设置背景颜色
 	单元格合并
