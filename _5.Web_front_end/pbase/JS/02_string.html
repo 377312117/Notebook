@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //创建字符串变量
+        var str1 = '100'
+        var str2 = 'abc'
+        var str3 = 'ABC'
+        var code1 = str1.charCodeAt(0);
+        // 无参数转换首个字符
+        var code2 = str2.charCodeAt();
+        var code3 = str3.charCodeAt(1);
+        console.log(code1,code2,code3)
+        // 转化为16进制
+        var zhCode = code1.toString(16);
+        console.log(zhCode)
+        // 16进制字符转换为中文
+        var str5 = '\u5f20'
+        console.log(str5);
+        // 中文范围
+        var s1 = '\u4e00'
+        var s2 = '\u9fa5'
+        console.log(s1,s2)
+        // 检测数据类型
+        var b1  = true;
+        var n1 = 100;
+        console.log(typeof(b1,n1))
+    </script>
+</body>
+</html>

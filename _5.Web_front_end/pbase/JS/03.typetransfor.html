@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 字符串拼接
+        var r1 = '张三'+'100'
+        var r2 = '100'+true
+        var r3 = '张三'+100
+        console.log(r1,r2,r3)
+        console.log(typeof(r1),typeof(r2),typeof(r3))
+        // 皆为string
+        // 强制类型转换
+        var a = 100;
+        var b = true;
+        var string1 = a.toString();
+        var string2 = b.toString();
+        console.log(string1,typeof string1); //100 string
+        console.log(string2,typeof string2); //true string
+        // 定义变量接收用户输入的结果
+        age=prompt('请输入年龄');
+        console.log(age,typeof age)//返回的类型是字符串
+    </script>
+</body>
+</html>

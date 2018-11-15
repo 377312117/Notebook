@@ -35,6 +35,62 @@ h2{
     bottom: 20px;
     left:175px;
 }
+/* 右列样式 */
 .right{
     float: right;
+    margin-top: 70px;
+    margin-right: 47px;
+
+}
+.form-line>p{
+    float:left;
+    width: 64px;
+    height:40px;
+    text-align: right;
+    line-height: 40px;
+    color: #a8a6a4;
+    margin-right: 30px;
+}
+/* 输入框 */
+.form-control{
+    box-sizing: border-box;
+    width:300px;
+    height: 40px;
+    border:1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+    padding-left: 10px;
+}
+/* 行之间的边距 */
+.form-line{
+    margin-bottom:30px;
+}
+.isSave>p{
+    float: right;
+}
+.isSave>input{
+    width: 18px;
+    height:18px;
+    vertical-align: middle;
+}
+.isSave a{
+    color: #999;
+}
+.btn{
+    box-sizing: border-box;
+    width: 130px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border:1px solid #64a131;
+    background: #64a131;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+}
+.registBtn{
+    display: inline-block;
+    background: white;
+    color: #64a131;
+    margin-left: 10px;
 }
