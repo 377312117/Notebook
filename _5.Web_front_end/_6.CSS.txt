@@ -373,7 +373,7 @@ html标签嵌套
 		外边距合并
 			垂直方向上的外边距(块元素)
 				margin-top
-					问题 给子元素添加的margin-top,作用于父元素上,
+					问题 给子元素添加的margin-top,将作用于父元素上
 					解决 a.为父元素添加上边框
 						b.为父元素设置padding-top 顶部内边距
 						  padding-top:0.1px
