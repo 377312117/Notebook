@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       var input = prompt('请输入0~6之间的整数');
+     // 0-6周日-周六
+     sum = 0;
+     switch(input){
+        case '6':
+            sum+=6
+        case '5':
+            sum+=5
+        case '4':
+            sum+=4
+        case '3':
+            sum+=3
+        case '2':
+            sum+=2
+        case '1':
+            sum+=1
+        case '0':
+            sum+=0
+            break;
+        default:
+        console.log('请输入合法值'); 
+     }
+     console.log('总和为:'+sum)
+    </script>
+</body>
+</html>

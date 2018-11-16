@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 接收用户输入身高m
+        // 体重kg
+        // bmi=weight/(height *height)
+        // 保留小数点后两位
+        // >23.9偏胖
+        // 中间值健康
+        // <18.5偏瘦
+        var height=prompt("请输入身高(m):");
+        var weight = prompt("请输入体重(kg):");
+        var bmi = weight/(height*height);
+        bmi = bmi.toFixed(2);
+        var res = bmi >= 23.9 ? '偏胖':bmi >=18.5 ? '健康':'偏瘦';
+        console.log('您的身体指数为:'+bmi+',属于:'+res)
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var year = Number(prompt('请输入年份'));
+        var month = Number(prompt('请输入月份'));
+        var day = Number(prompt('请输入日份'));
+        var isRun = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+        sum = day
+        i = 1
+        while(i<month){
+            switch(i){
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                    sum +=31;
+                    break
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    sum += 30;
+                    break;
+                case 2:
+                    sum += 28;
+                    if (isRun){
+                    sum += 1
+                    }
+                    break;
+            }
+        i +=1;
+        }
+        console.log(sum)
+    </script>
+</body>
+</html> 

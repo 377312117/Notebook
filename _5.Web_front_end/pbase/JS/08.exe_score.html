@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 成绩判定,接收输入成绩score,>=90返回A
+        // 80~90返回B
+        // 60~80返回C
+        // 60以下返回D
+        score=prompt('请输入成绩(0~100):')
+        result=score>=90 && score<=100 ? 'A': score>=80?'良好':score>=60?'及格':'不及格';
+        console.log('您的成绩为'+result)
+    </script>
+</body>
+</html>

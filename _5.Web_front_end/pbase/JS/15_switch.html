@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       var input = prompt('请输入0~6之间的整数');
+     // 0-6周日-周六
+     sum = 0;
+     switch(input){
+        case '6':
+        case '5':
+        case '4':
+        case '2':
+            console.log('输入的是偶数')
+            break;
+        case '5':
+        case '3':
+        case '1':
+            console.log('输入的是奇数')
+            break;
+        default:
+        console.log('输入的是数不合法')
+     }
+    </script>
+</body>
+</html>

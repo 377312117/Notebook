@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 练习2 接收用户输入的字符(单个)
+        判断用户输入的字符是英文吗,是中文吗,是数字吗,返回判断结果 */
+        var s=prompt('请输入单个字符');
+        var isNum = s >=0 && s<=9;
+        var isChn = s>='\u4e00' && s<='\u9fa5';
+        var isABC = s>='A' && s <='Z';
+        var isabc = s>='a' && s <= 'z';
+        var isEng = isABC || isabc;
+        console.log(isNum,isChn,isEng);
+    </script>
+</body>
+</html>

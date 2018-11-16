@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 计算天数
+        // 由用户输入年  月 日
+        // 判断当日是该年的第几天
+        var year = Number(prompt('请输入年:'));
+        var month = Number(prompt('请输入月:'));
+        var day = Number(prompt('请输入日:'));
+        // 总天数
+        num = 0;
+        
+        // 判断闰年
+        var isRun = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+        // 天数累加
+        if(month==1){
+            num=day
+        }else if(month == 2){
+            num = 31 +day;
+        }
+        // 不详细列举
+        if(isRun && month>2){
+            sum+=1;
+        }
+
+    </script>
+</body>
+</html>
