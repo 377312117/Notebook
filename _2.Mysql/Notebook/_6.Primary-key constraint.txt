@@ -385,6 +385,7 @@ MYSQL
 				先删除自增长
 				alter table 表名 modify id int;
 				删除主键
+				alter table 表名 drop  primary key;
 				 
 		注意:
 			复合主键,其中两个字段中的记录其中一条记录满足不相同都可以插入
@@ -427,7 +428,7 @@ MYSQL
 			级联动作
 				1.cascade
 					数据级联删除,更新(参考字段)
-				2,set null
+				2.set null
 					从表的相关联记录,字段值设为null
 				3.restrict
 					从表的相关联记录,不让主表删除,更新

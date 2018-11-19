@@ -214,17 +214,5 @@ github 开源的项目社区网站,提供丰富的开源项目,也为用户提�
         *github就是一个远程仓库
 
 
-pip的使用
-        管理升级下载第三方库
-    安装
-        sudo apt-get install python3-pip
-    常用命令
-        安装包: pip3 install [package]
-        查看包: pip3 list
-        搜索包: pip3 search [package]
-        升级包: pip3 install --upgrade [package]
-        显示包的信息: pip3 show [package]
-        卸载包: pip3 uninstall [package]
-        导出软件环境: pip3 freeze > requirements.txt
-        安装软件环境: pip3 install -r requirements.txt
+
         
