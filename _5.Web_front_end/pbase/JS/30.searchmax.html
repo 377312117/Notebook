@@ -8,13 +8,17 @@
 </head>
 <body>
     <script>
-        for(var row = 1; row <=5;row++){
-            var show = '';
-            for(var s=1;s <=row;s++){
-                show += '*'
+        function maxData(){
+            var arr = [10,20,30,50,35,60,90,80,70,65]
+            maxnum = arr[0]
+            for (i=1;i<arr.length;i++){
+                if(arr[i]>maxnum){
+                    maxnum = arr[i]
+                }
             }
-            console.log(show)
+            console.log("最大值为:",maxnum)
         }
+        maxData()
     </script>
 </body>
 </html>

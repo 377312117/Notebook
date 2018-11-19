@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 接收用户输入
+        var num = Number(prompt('请输入数字'));
+        // 定义空数组,保存余数(二进制位)
+        var arr =[]
+        // 循环除2
+        while(num !=0){
+            // 保存余数
+            arr[arr.length] = num % 2;
+            // 变量num保存每次除2的商,进行循环
+            num = parseInt(num/2);
+        }
+        // 反转数组
+        arr.reverse();
+        // 输出二进制
+        console.log(arr.join(''));
+
+
+    </script>
+</body>
+</html>

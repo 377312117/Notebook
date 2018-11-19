@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 输出星星
+        // 考虑有几个变量:行数,空格数,星星数
+        // 外层循环控制行数
+        for(var i = 1; i <6 ; i++){
+            var show = '';
+            // 空格数
+            for(var j = 5-i; j >0;j--){// 4-1
+                show += ' ';
+            }
+            // 星星数
+            for(var k=1;k<=2*i-1;k++){
+                show += '*';
+            }
+            // 输出当前行
+            console.log(show)
+        }
+    </script>
+</body>
+</html>

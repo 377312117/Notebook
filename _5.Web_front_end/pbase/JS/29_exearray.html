@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 练习1
+        // 循环接收用户输入的数据,保存在数组中
+        // 直到用户输入exit表示结束,结束之后输出数组
+        // 方法1
+        // var udata = [];
+        // i=0;
+        // do{
+        //     input = prompt('请输入数据')
+        //     udata[i]=input;
+        //     i++;
+        // }while(input !='exit');
+        // console.log(udata);
+        // 方法2
+        function addData(){
+            // 定义空数组,保存最终数据
+            var arr = [];
+            while(true){
+                var input = prompt("请输入数据");
+                if(input == 'exit'){
+                    // 退出循环
+                    break
+                }
+                arr[arr.length] = input
+            }
+            console.log(arr)
+        }
+        addData()
+    </script>
+</body>
+</html>

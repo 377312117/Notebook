@@ -4,6 +4,7 @@
 # 简单实现
 def bubble(data):
     for n in range(len(data)-1):
+		# 二层循环次数是,一层遍历次数 - 当前已经有序的长度
         for i in range(len(data)-1-n):
             if data[i] > data[i+1]:
                 data[i], data[i+1] = data[i+1], data[i]

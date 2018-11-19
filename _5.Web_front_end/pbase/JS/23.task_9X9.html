@@ -8,12 +8,16 @@
 </head>
 <body>
     <script>
-       for(var j =1; j<11;j++){
-           if(j ==5){
-               continue
-           }
-           console.log(j)
-       } 
+        // 9*9乘法表
+        for(var i=1;i<=9;i++){
+            // 操作数
+            var show = '';
+            for(var j=1;j<=i;j++){
+                // 第二个操作数
+                show += j + '*'+i+'='+i*j+'\t';
+            }
+            console.log(show)
+        }
     </script>
 </body>
 </html>

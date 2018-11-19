@@ -42,34 +42,53 @@ class DLink:
             self._head = tmp
         else:
             # 非空链表
+			# 备份原链表头部节点
             cur = self._head
+			# 新节点的下一链接域指向原链表头部节点cur
             tmp._next = cur
+			# 将原链表的头部节点的上一链接域指向新节点
             cur._prev = tmp
+			# 更改链表的头部为新节点
             self._head = tmp
-    # 删除链表中元素
+    
+	# 删除链表中元素
     def delete(self, data):
         # 三个变量存放遍历时前中后元素结点
         cur, pre = self._head, None
+		# 定义查找的标志位
         found = False
-        while not found and (cur != None):          
+		# 变量查找
+        while not found and (cur != None):  
+			# net指向当前的下一链接域
             net = cur._next
+			# 找到数据
             if cur._elem == data:
+				# 更改标志位found
                 found = True
                 # 找到数据
                 if pre == None:
-                    # 该节点是首结点       
+                    # 该节点是首结点  
+					# 更改链表首节点指向要删除数据的下一节点
                     self._head = net
+					# 要删除节点的下一链接域置空
                     cur._next = None
+					# 新链表首节点的上一链接域置空
                     net._prev = None                    
                 elif net == None:
                     # 该结点是尾结点
+					# 要删除节点的上一链接域置空
                     cur._prev = None
+					# 要删除节点的上一节点,其下一链接域置空
                     pre._next = None
                 else:
                     # 该节点是中间节点
+					# 将要删除节点的上一节点pre的下一链接域指向要删除节点的下一节点net
                     pre._next = net
+					# 将要删除节点的下一节点net的前一链接域指向要删除节点的上一节点pre
                     net._prev = pre
+					# 将要删除节点的下一链接域置空
                     cur._next = None
+					# 将要删除节点的上一链接域置空
                     cur._prev = None
             else:
                 # 未找到数据
@@ -94,19 +113,37 @@ if __name__ == "__main__":
     mylink.add('Mary')
     mylink.add('Amy')
     mylink.add('Bob')
-    mylink.show()
+    mylink.show() # ->'Bob'  'Amy'  'Mary'
     print('-'*8)
     # 删除数据
     mylink.delete('Bob')
-    mylink.show()
+    mylink.show() # -> 'Amy'  'Mary'
     print('-'*8)
     mylink.delete('Mary')
-    mylink.show()
+    mylink.show() # -> 'Amy'
     print('-'*8)
     # 获取长度
     mylink.add('Marco')
-    mylink.add('Sofi')
-    mylink.delete('Amy')
+    mylink.add('Sofi') # -> 'Sofi' 'Marco' 'Amy'
+    mylink.delete('Amy') # -> 'Sofi' 'Marco' 
     mylink.show()
     print('-'*8)
-    print(mylink.len())
+    print(mylink.len())# -> 2
+
+
+C:\Python36\python.exe "C:/Users/Python/Desktop/DataStruc/Codes/3. 链表/DLinkList.py"
+Bob
+Amy
+Mary
+--------
+Amy
+Mary
+--------
+Amy
+--------
+Sofi
+Marco
+--------
+2
+
+Process finished with exit code 0

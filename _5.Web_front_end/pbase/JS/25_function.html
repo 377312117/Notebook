@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.无参数无返回值的函数
+        function f1 (){
+            console.log('无参数,无返回值')
+        }
+        // 调用函数
+        f1()
+        function f2 (a){
+            // 函数声明时给出的是形式参数
+            console.log(a);
+        }
+        f2(12);
+        function f3(b){
+            return (b*b)
+        }
+        var r = f3(20);
+        console.log(r);
+    </script>
+</body>
+</html>
