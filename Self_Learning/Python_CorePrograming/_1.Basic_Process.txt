@@ -56,7 +56,7 @@ MTV
                     安装pymysql,在/project/project/__init__.py写入:
                         import pymysql
                         pymysql.install_as_MySQLdb()
-                    在数据库中创建指定数据库Create_Project
+                    在数据库中创建指定数据库Database_Name并创建
                 2.settings.py文件中通过DATABASES选项进行数据库配置
                   修改并写入:
                     DATABASES = {
@@ -81,11 +81,8 @@ MTV
         1.在settings.py将MyApp应用加入到INSTALLED_APPS选项中
             (在末尾添加名字即可)
     定义模型
-        1.有一个数据表就对应一个模型
-        2.在models.py中定义模型
-            有一个数据表,对应一个模型
-        3.在models中导入:from django.db import models 以继承父类
-        4.创建模型类,在models.py中定义模型
+        1.在models中导入:from django.db import models 以继承父类
+        2.创建模型类,在models.py中定义模型
             class Grades(models.Model):
                 '''对应数据库上的班级表,属性会对应表里的字段'''
                 gname = models.CharField(max_length=20)

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var date = new Date()
+    var year = date.getFullYear()
+    var month = date.getMonth()
+    // 日
+    var day = date.getDate()
+    var weekday = date.getDay()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var seconds = date.getSeconds()
+    var milliseconds = date.getMilliseconds()
+    console.log(year,month+1,day,hour,minute,seconds,weekday)
+
+
+    // 输出日期字符串
+    console.log(date.toString())
+    console.log(date.toLocaleDateString())
+    console.log(date.toLocaleTimeString())
+    </script>
+</body>
+</html>
