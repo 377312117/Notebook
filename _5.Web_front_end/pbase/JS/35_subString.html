@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function getstr(){
+        var str = prompt('请输入邮箱地址') 
+        var lastindex=str.lastIndexOf('@')
+        var newstr=str.substring(0,lastindex)
+        console.log(newstr)
+    }
+    </script>
+    <button onclick='getstr()'>点击获取</button>
+</body>
+</html>

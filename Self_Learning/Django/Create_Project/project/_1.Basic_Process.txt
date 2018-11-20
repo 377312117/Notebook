@@ -31,7 +31,7 @@ MTV
         分发给不同的view处理,view在调用相应的model和template
 
 使用Django创建一个项目(示例)
-    流程
+    创建一个项目的流程
         1.在合适的位置创建一个目录
         2.打开终端进入到创建的目录下
         3.在终端输入:django-admin startproject project
