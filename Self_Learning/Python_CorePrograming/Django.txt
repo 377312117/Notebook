@@ -111,4 +111,41 @@ path函数:
             kwargs参数
                 有时想给视图函数传递一些额外的参数,就可以了通过kwargs参数进行传递.这个参数
                 接收一个字典,传到视图函数时,会作为一个关键字参数传过去,比如以下的url规则
-                
+
+urls模块化
+    如果项目变得越来越大,nameurl会变得越来越多,入股都放在主'urls.py'文件中,
+    name将变得不太好管理,因此我们可以在每个app下的urls放在自己的apps中进行管理,一般我们会在app
+    中新建一个urls.py文件来存储所有的喝这个app相关的子url
+    需要注意的是:
+        1.应该使用'include'函数包含子'urls.py',并且这个urls.py的路径是相对于项目的路径
+        示例代码如下
+            urlpatterns = [
+            path('admin/', admin.site.urls),
+            # 所有匹配book开头的url都会转到book应用下的urls进行匹配
+            path('book/',include('book.urls'))
+            ]
+        2.在app的urls.py中,所有的url匹配要放在一个叫做urlpatterns的变量中,否则找不到
+        3.url会根据主urls.py和app中的urls.py进行拼接,注意不要多加斜杠
+
+urls取名
+    取名的原因
+        因为url经常变化的,如果在代码中写死可能会经常改代码,给url写个名字,
+        以后使用url的时候使用他的名字进行重定向就可以了,不需要写死url
+    如何指定名称
+        在path函数中,传递一个name参数就可以指定,示例代码如下
+        urlpatterns = [
+            # path有个参数name,可以为url取名,
+            path('',views.index,name='index'),
+            path('signin/',views.login,name='login')
+        ]
+
+    应用命名空间
+        在多个app之间,有可能产生同名的url.这时候为了避免反转url时产生混淆,可以使用命名空间
+        来做区分.定义应用命名空间非常简单,只要在app的urls.py中定义一个叫app_name的变量即可.示例如下
+            app_name = 'cms'
+            urlpatterns = [
+                path('',views.index,name='index'),
+                path('login/',views.login,name='login')
+            ]
+        以后再做反转的时候就可以使用'应用命名空间:url名称'的方式进行反转,示例大妈如下
+            login_url = reverse('front:login')

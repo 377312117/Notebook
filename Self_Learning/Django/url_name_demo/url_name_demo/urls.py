@@ -1,4 +1,4 @@
-"""myproject URL Configuration
+"""url_name_demo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -14,14 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-# 新导入include函数,以便不同应用下的urls进行匹配
 from django.urls import path,include
-# 根据面向对象的思想,分别在每个应用创建自己的视图,不同应用的的视图导入该主应用的urls.py中即可
-from book import views
-
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # 所有匹配book开头的url都会转到book应用下的urls进行匹配
-    path('book/',include('book.urls'))
+    path('', include('front.urls')),
+    path('cms/',include('cms.urls')),
 ]

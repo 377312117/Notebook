@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 满足要求,在div中以绿色文本提示'用户名合法',否则提示不合法 -->
+    <input type="text" name="uname" id="1">
+    <!-- button标签如果在form中使用,默认具有提交功能 -->
+    <!-- <input type="button"> -->
+    <button onclick="yanzheng()">点击验证</button>
+    <div></div>
+    <script>
+        function initWithTagName(tagName){
+            // 函数接收字符字符串参数,表示标签名
+            // 获取元素节点,不能用标签名直接获取,用get方法获取属性值
+            var elem =  document.getElementsByTagName(tagName)[0];
+            return elem;
+        }
+        function yanzheng(){
+            var input = initWithTagName('input');
+            var div = initWithTagName('div');
+            // 验证
+            // 获取input中的值
+            var uname = input.value;
+            if(uname.length<=18 && uname.length>=6){
+                div.innerHTML = '用户名合法';
+                div.style.color = 'green';
+            }else{
+                div.innerHTML = '用户名不合法';
+                div.style.color='red';
+            }
+        }
+        
+    </script>
+</body>
+</html>
