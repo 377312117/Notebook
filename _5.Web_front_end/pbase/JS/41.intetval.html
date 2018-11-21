@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function start(){
+            // 间歇调用
+            timeID = setInterval(function(){
+                var date = new Date();
+                console.log(date);
+            },1000);
+        }
+        function stop(){
+            clearInterval(timeID);
+            console.log(timeID)
+        }
+    </script>
+    <button onclick="start()">开启计时器</button>
+    <button onclick="stop()">关闭计时器</button>
+</body>
+</html>

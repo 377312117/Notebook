@@ -122,20 +122,21 @@ MTV
         4.添加数据
             本质是创建一个模型类的对象实例
             添加班级信息
-                grade1 = Grades()
-                grade1.gname = 'python04'
-                grade1.gdate = datetime(year=2017,month=7,day=17)
-                grade1.ggirlnum = 3
-                grade1.gboynum = 70
-                grade1.save()   #模型和数据交互
+grade1 = Grades()
+grade1.gname = 'python04'
+grade1.gdate = datetime(year=2017,month=7,day=17)
+grade1.ggirlnum = 3
+grade1.gboynum = 70
+grade1.save()  
+#模型和数据交互
             添加学生信息
-                 stu = Students()
-            >>> stu.sname = '薛艳梅'
-            >>> stu.sgender = False
-            >>> stu.sage = 20
-            >>> stu.scontend = '我叫薛艳梅'
-            >>> stu.sgrade = grade1
-            >>> stu.save()
+stu = Students()
+stu.sname = '薛艳梅'
+stu.sgender = False
+stu.sage = 20
+stu.scontend = '我叫薛艳梅'
+stu.sgrade = grade1
+stu.save()
         5.查看数据
             g = Grades.objects.get(pk=2)
               print(g)
