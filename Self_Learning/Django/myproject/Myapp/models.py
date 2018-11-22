@@ -16,7 +16,7 @@ class Students(models.Model):
     '''对应数据库中的学生表'''
     sname = models.CharField(max_length=20)
     sgender = models.BooleanField(default=True)
-    # sage = models.IntegerField()
+    sage = models.IntegerField()
     scontend = models.CharField(max_length=20)
     isDelete = models.BooleanField(default=False)
     # 关联外键,一个班级对应多个学生
