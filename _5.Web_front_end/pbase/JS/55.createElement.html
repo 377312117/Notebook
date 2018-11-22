@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id= 'box'>标签创建</div>
+    <script>
+        div2 = document.createElement('div');
+        div2.innerHTML = '动态创建div';
+        div2.id="box2";
+        console.log(div2);
+        // 添加到body中显示
+        document.body.appendChild(div2)
+        // 动态创建b标签,添加在div2中
+        var bElem = document.createElement('b');
+        // 创建文本节点
+        var text = document.createTextNode('加粗标签');
+        // <b>加粗标签</b> 文本节点是元素节点的子节点
+        bElem.appendChild(text);
+        div2.appendChild(bElem);
+        // 指定位置插入元素
+        var h1 =document.createElement('h1');
+        h1.innerText='一级标题';
+        // 将h1插入到div2之前
+        document.body.insertBefore(h1,div2);
+        // 移除节点
+        document.body.removeChild(h1);
+
+    </script>
+</body>
+</html>

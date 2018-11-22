@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="init.js"></script>
+    <script>
+    window.onload = function(){
+        // 表示窗口加载完毕后执行
+        var form= $('form');
+        var input = $('input');
+        var span = $('span');
+        var h1 = $('h1');
+        input.onfocus = function(){
+            console.log('获取焦点');
+        };
+        input.onblur = function(){
+            console.log('失去焦点',this.value);
+            // 此时this是input
+            // 失去焦点后对用户名进行简单判断
+            if(this.value.length >=6 && this.value.length <=18){
+                span.innerHTML = '用户名合法';
+                this.style.border='2px solid green';
+            }else{
+                span.innerHTML = '请重新输入';
+                this.style.border='2px solid red';
+            };
+        };
+        // 监听文本框输入
+        input.oninput = function(){
+            // 实时监听,只要输入框在焦点状态,任何字符的输入操作都会触发
+            console.log('oninput',this.value)
+            h1.innerHTML=this.value
+        };
+        input.onchange = function(){
+            // 当输入内容前后发生变化,并且元素失去焦点触发
+            console.log('onchange:',this.value)
+        };
+        form.onsubmit = function(){
+            // 用户点击提交时自动触发form的onsubmit事件
+            // onsubmit事件用来验证表单中的数据是否可以提交
+            // 允许返回布尔值,true表示数据可以提交,false表示不能提交
+            if(input.value.length == 0){
+                return false;
+            }else{
+                return true;
+            }
+        }
+        
+    };
+    </script>
+</head>
+<body>
+    <h1></h1>
+    <form action="" method="">
+        <p>
+            用户名:
+            <input type="text" name='uname' placeholder="" maxlength=""> 
+            <span></span>
+        </p>
+        <p>
+            <input type="submit" name="submit" value='发送'>
+        </p>
+        
+    </form>
+</body>
+</html>

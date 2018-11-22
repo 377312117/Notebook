@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="init.js"></script>
+</head>
+<body>
+    <h1 onclick="alert('元素内联绑定');">一级标题</h1>
+    <p>段落文本</p>
+    <!-- <div>div标签</div> -->
+    <script>
+        // 获取元素节点
+        var p = $('p');
+        // 动态绑定事件
+        p.ondblclick = function(){
+            alert('动态绑定双击事件');
+            console.log('测试双击');
+        };
+        // 标准的事件监听
+        p.style.background = 'red';
+        p.addEventListener('mouseover',function(){
+            console.log('鼠标移入');
+        })
+        // 创建div,为div添加单击事件,点击显示弹框
+        // var div = $('div');
+        var div = document.createElement('div');
+        document.body.appendChild(div);
+        div.innerHTML='div标签';
+        div.style.background = 'blue';
+        div.addEventListener('click',function(){
+            console.log('123');
+            alert('动态显示标签')
+        })
+    </script>
+</body>
+</html>

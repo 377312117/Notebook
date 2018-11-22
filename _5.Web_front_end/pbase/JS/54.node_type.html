@@ -9,11 +9,30 @@
     <script src="init.js"></script>
 </head>
 <body>
-    <h1>一级标题</h1>
+    <div>
+            <h1 >一级标题</h1> 
+            <!-- 文本节点 -->
+            '哈哈哈哈'
+            <span>hahah</span>   
+    </div>
     <script>
     // 获取元素
-    // var h1 = $    15html
+    var h1 = $('h1');
+    var div = $('div');
+    var span = $('span');
+    console.log(div.childNodes)
+    for(i=0;i<div.childNodes.length;i++){
+        var child = div.childNodes[i];
+        // nodeType是整数型,nodeName中空格和换行都是text类型,弄得Value是具体值 
+        console.log(child.nodeType,child.nodeName,child.nodeValue,)
+    }
+    // 兄弟节点 
+    console.log(h1.nextSibling)
+    console.log(h1.nextElementSibling)
 
+    // 属性节点
+    console.log(span.attributes);
+    console.log(span.attributes[0].nodeName,span.attributes[0].nodeValue);
     </script>
 </body>
 </html>

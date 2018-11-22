@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+    <script src="init.js"></script>
+    <script>
+        window.onload = function(){
+            var div = $('div');
+            // 形参名推荐:e evt event
+            div.onclick = function(evt){
+                console.log(evt);
+                console.log('offset:',evt.offsetX,evt.offsetY);
+                console.log('client:',evt.clientX,evt.clientY);
+                console.log('screen:',evt.screenX,evt.screenY);
+                console.log('target:',evt.target);
+            }
+            // div.onclick = function(evt){
+            //     console.log(evt);
+            //     console.log('client:',evt.clientX,evt.clientY);
+            // }
+            // div.onclick = function(evt){
+            //     console.log(evt);
+            //     console.log('screen:',evt.screenX,evt.screenY);
+            // }
+        }
+    </script>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

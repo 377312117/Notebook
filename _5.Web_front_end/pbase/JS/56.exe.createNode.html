@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table{
+            width: 600px;
+            border: 1px solid black;
+            /* 边框合并 */
+            border-collapse: collapse;
+        }
+        th,td{
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+    <script src="init.js"></script>
+</head>
+<body>
+    <!-- 静态元素:
+        1.输入框和按钮
+        2.表格中第一行为表头,显示当前列的名称
+        动态添加
+        1.当用户点击按钮,将输入的商品名称,数量,价格,展示在表格中
+         -->
+    <p>
+        <input type="text" name="gname">
+        <input type="text" name="gprice">
+        <input type="text" name="gcount">
+        <button onclick="add()">增加</button>
+    </p>
+    <table>
+        <tbody>
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+                <th>操作</th>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script>
+        // var table = document.createElement('table')
+        
+        // var tfoot = document.createElement('tfoot')
+        // var thead = document.createElement('thead')
+        // var tr = document.createElement('tr')
+        // var th = document.createElement('th')
+        // var td = document.createElement('td')
+        
+        // document.body.appendChild(table);
+        // table.appendChild(thead);
+        // table.appendChild(tfoot);
+        // table.appendChild(tbody);
+        // tbody.appendChild(tr);
+        // tr.appendChild(td);
+        // td.innerText='商品名称';
+        // tr.appendChild(td);
+        // td.innerText='商品价格';
+        // tr.appendChild(td);
+        // td.innerText='商品类型';
+
+
+        // 1.获取元素类型
+        function add(){
+            // 获取元素
+            var gname = $2('input')[0].value;
+            var gprice = $2('input')[1].value;
+            var gcount = $2('input')[2].value;
+            var tbody = $2('tbody')[0];
+            // 创建行,创建单元格
+            var tr = document.createElement('tr');
+            // 单元格赋值
+            var tdName = document.createElement('td')
+            tdName.innerHTML = gname;
+            var tdPrice = document.createElement('td');
+            tdPrice.innerHTML = gprice;
+            var tdCount = document.createElement('td');
+            tdCount.innerHTML = gcount;
+            var tdBtn = document.createElement('td');
+            // 创建按钮
+            var updateBtn = document.createElement('button');
+            updateBtn.innerHTML = '修改';
+            var deleteBtn = document.createElement('input');
+            deleteBtn.type = 'button';
+            deleteBtn.value = '删除';
+            // 添加按钮至单元格
+            document.table
+            tdBtn.appendChild(updateBtn);
+            tdBtn.appendChild(deleteBtn);
+            // 追加元素, tbody -> tr ->td
+            tr.appendChild(tdName);
+            tr.appendChild(tdPrice);
+            tr.appendChild(tdCount);
+            tr.appendChild(tdBtn);
+
+            tbody.appendChild(tr);
+
+        }
+    </script>
+</body>
+</html>
