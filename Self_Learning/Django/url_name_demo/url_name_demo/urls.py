@@ -18,5 +18,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('', include('front.urls')),
-    path('cms/',include('cms.urls')),
+    # 同一个app下有两个实例,
+    path('cms1/',include('cms.urls',namespace='cms1')),
+    path('cms2/',include('cms.urls',namespace='cms2')),
 ]

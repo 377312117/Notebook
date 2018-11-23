@@ -113,7 +113,7 @@ path函数:
                 接收一个字典,传到视图函数时,会作为一个关键字参数传过去,比如以下的url规则
 
 urls模块化
-    如果项目变得越来越大,nameurl会变得越来越多,入股都放在主'urls.py'文件中,
+    如果项目变得越来越大,url会变得越来越多,入股都放在主'urls.py'文件中,
     name将变得不太好管理,因此我们可以在每个app下的urls放在自己的apps中进行管理,一般我们会在app
     中新建一个urls.py文件来存储所有的喝这个app相关的子url
     需要注意的是:
@@ -139,7 +139,7 @@ urls取名
             path('signin/',views.login,name='login')
         ]
 
-    应用命名空间
+    应用(app)命名空间
         在多个app之间,有可能产生同名的url.这时候为了避免反转url时产生混淆,可以使用命名空间
         来做区分.定义应用命名空间非常简单,只要在app的urls.py中定义一个叫app_name的变量即可.示例如下
             app_name = 'cms'
@@ -149,3 +149,38 @@ urls取名
             ]
         以后再做反转的时候就可以使用'应用命名空间:url名称'的方式进行反转,示例大妈如下
             login_url = reverse('front:login')
+    实例命名空间
+        一个app可以创建多个实例,可以用多个url映射同一个app,会产生一个问题:以后做反转的时候,
+        如果使用应用命名空间,那么就会发生混淆,为了避免这个问题,我们可以使用实例命名空间.
+        实例命名空间也非常简单,只要在include函数中传递一个namespace变量即可,示例代码如下:
+        '''
+            path('cms1/',include('cms.urls',namespace='cms1')),
+            path('cms2/',include('cms.urls',namespace='cms2')),
+        '''
+        以后再做反转的时候,就可以根据示例命名空间来具体指定url,示例代码如下:
+        '''
+            def index(request):
+                username = request.GET.get('username')
+                if username:
+                    return HttpResponse('cms首页')
+                else:
+                    # 获取当前的命名空间
+                    current_namespace = request.resolver_match.namespace
+                    return redirect(reverse(f'{current_namespace}:login'))
+        '''
+include()的用法
+    三种用法
+        include(module,namespace=None):
+            *module:子url的模块字符串.
+            *namespace:实例命名空间,这个地方需要注意一点.如果指定实例命名空间,那么前提是
+            先指定应用命名空间,也就是在子urls.py中添加'app_name'变量.
+        include((pattern_list,app_namespace),namespace=None):
+            'include'函数第一个参数既可以为一个字符串,也可以为一个元组,如果是元组
+            ,那么元组的第一个参数是子'urls.py'模块的字符串,元组第二个参数是应用命名空间,
+            应用命名空间既可以在子urls.py中通过app_name指定,也可在include函数中指定
+        include(pattern_list):
+            pattern_list是一个列表.这个列表装的是path或者re_path函数,示例代码如下:
+            path('movie/',include([
+                path('',views.movie),
+                path('/list',views.movie_list),
+            ]))
