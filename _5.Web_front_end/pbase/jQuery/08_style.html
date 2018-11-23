@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-1.11.3.js"></script>
+    <style>
+        .c1{
+            background-color: blue;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            $('[class=c1]').attr('id','d1');
+            $('h2').addClass('c2');
+            $('h1').addClass('c1');
+            // 链式调用
+            $('h3').addClass('c1').addClass('c2')
+            $('[class=c1]').attr('id','d1');
+            $('[class=c1]').attr('id','d1');
+            // 动态切换
+        }
+        function toggle(){
+                $('h1').toggleClass('c1');
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>周一</h1>
+    <h2>周二</h1>
+    <h3>周三</h1>
+        <button onclick="toggle()"></button>
+</body>
+</html>

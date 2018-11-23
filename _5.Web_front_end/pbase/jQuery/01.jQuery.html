@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        window.onload = function(){
+            var h1 = document.getElementsByTagName('h1')[0];
+            var $h1 = $('h1');
+            console.log('JS:',h1);
+            console.log('JQ:',$h1);
+            // 原生对象使用原生方法,JQ对象使用JQ方法,不能混用
+            // $h1.html("<a href= '#'>超链接</a>")
+            h1.html("<a href= '#'>超链接2</a>")
+            $h1.innerHTML("<a href= '#'>超链接3</a>")
+        };
+    </script>
+</head>
+<body>
+    <h1></h1>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        function show(){
+            var value=$('[type=text]').val();
+            $("div").html('<h1>'+value+'</h1>');
+            $("div").attr('id','box');
+            console.log($("div").attr('id'));
+            $("div").removeAttr('class');
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name='text' id="1">
+    <button onclick="show()">这是一个按钮</button>
+    <div class="111"></div>
+
+</body>
+</html>

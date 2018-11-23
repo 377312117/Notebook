@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        window.onload =  function(){
+            // :first
+            $('li:first').css('color','red');
+            $('li:last').css('color','green');
+            // :first-child:lastchild
+            $('li:first-child').css('background','orange');
+            $('li:last-child').css('background','pink');
+            // :nth-child(n)匹配属于其父元素的第n个子元素
+            $('li:nth-child(odd)').css('font-size','24px');
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li>周一</li>
+        <li>周二
+            <ol>
+                <li>内层列表1</li>
+                <li>内层列表2</li>
+                <li>内层列表3</li>
+            </ol>
+        </li>
+        <li>周三</li>
+        <li>周四</li>
+    </ul>
+    <ol>
+        <li>周一</li>
+        <li>周二</li>
+        <li>周三</li>
+        <li>周四</li>
+    </ol>
+</body>
+</html>

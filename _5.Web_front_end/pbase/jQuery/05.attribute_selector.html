@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        window.onload =  function(){
+            // [attr]
+            $('[id]').css('color','red');
+            // [attr=value]
+            $('[id=d1]').css('background','orange');
+            // 3.[attr!=value]
+            // 所有的元素都有id属性,所以不写默认为undefined
+            $('[id != d1]').css('background','pink');
+
+        }
+    </script>
+</head>
+<body>
+    <p id='d1'>星期一</p>
+    <p class="c1">星期二</p>
+    <p id="d3">星期三</p>
+ 
+</body>
+</html>

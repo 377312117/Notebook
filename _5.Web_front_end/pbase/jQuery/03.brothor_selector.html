@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        window.onload =  function(){
+            // 1.后代选择器
+            $('div span').css('background','pink');
+            // 2.子选择器,只匹配直接子选择器
+            $('div>span').css('color','red');
+            // 3.相邻兄弟选择器,只匹配加号后面的选择器,且必须符合selector2的要求且与selector1相邻
+            $('#d1+.c1').css('color','red');
+            // 4.通用兄弟选择器,只匹配加号后面的选择器,在selector1之后所有的匹配都可以
+            $('#d1~.c1').css('color','red');
+
+        }
+    </script>
+</head>
+<body>
+    <h1>星期五,要放假了</h1>
+    <p id='d1'>星期一</p>
+    <p id = 'd2'>星期四</p>
+    <p class="c1">星期二</p>
+    <p class="c1">星期三</p>
+    <div>
+        <h2>
+            h2标题文本
+            <span>span文本1</span>
+            
+        </h2>
+        
+        <span>span文本2</span>
+    </div>
+    <p class="c1">星期五</p>
+</body>
+</html>

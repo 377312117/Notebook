@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        window.onload =  function(){
+            // 1.first:last
+            // 无论是否被嵌套,匹配的是整个body
+            // 中第一个和最后一个p元素
+            $('p:first').css('color','red');
+            $('p:last').css('color','green');
+            $('p:even').css('background','orange');
+            $('p:odd').css('background','pink');
+            // 下标匹配
+            $('p:eq(2)').css('background','blue');
+            $('p:lt(2)').css('background','white');
+            $('p:gt(2)').css('font-size','24px');
+            // 否定筛选
+            $(':not(p)').css('border','1px solid blue');
+
+        }
+    </script>
+</head>
+<body>
+    <p id='d1'>星期一</p>
+    <p class="c1">星期二</p>
+    <p class="c1">星期三</p>
+    <p id = 'd2'>星期四</p>
+    <p id = 'd2'>星期五</p>
+    <p id = 'd2'>星期六</p>
+    <p id = 'd2'>星期天</p>
+    <div>
+        <p id='d1'>星期一</p>
+        <p class="c1">星期二</p>
+        <p class="c1">星期三</p>
+        <p id = 'd2'>星期四</p>
+        <p id = 'd2'>星期五</p>
+        <p id = 'd2'>星期六</p>
+        <p id = 'd2'>星期天</p>
+    </div>
+</body>
+</html>
