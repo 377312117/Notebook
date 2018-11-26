@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #dd1:after{
+                content: "";
+                width: 14px;
+                height: 8px;
+                background: url('s1.png') no-repeat center;
+                /* //通过定位将图标放在合适的位置 */
+                position: absolute;
+                right: 20px;
+                top: 45%;
+                /* //给自定义的图标实现点击下来功能 */
+                pointer-events: none;
+        }
+
+    </style>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        window.onload=function(){
+            // 用div样式代替select样式
+            $('[id=dd1]').css('width','100px');
+            $('[id=dd1]').css('height','40px');
+            $('[id=dd1]').css('border-radius','5px');
+            // 盒子阴影修饰作用
+            $('[id=dd1]').css('border-shadow','0 0 5px #ccc');
+            $('[id=dd1]').css('position','relative');
+            
+
+            // 修改下拉框
+            // 清除select的边框样式
+            $('div>select').css('border','none');
+            // 清除select聚焦时的边框颜色
+            $('div>select').css('outline','none');
+            // 将select的宽高等同于div的宽高
+            $('div>select').css('width','100%');
+            $('div>select').css('height','40px');
+            $('div>select').css('line-height','40px');
+            // 隐藏select的下拉图标
+            $('div>select').css('appearance','none');
+            $('div>select').css('-webkit-appearance','none');
+            $('div>select').css('-moz-appearance','none');
+            //通过padding-left的值让文字居中
+            $('div>select').css('padding-left','20px');
+
+            // 星夜达的样式
+            $('[id = d2]').css('color','green');
+
+
+            $('[class=tc1]').css('box-sizing','border-box');
+            $('[class=tc1]').css('height','50px');
+            $('[class=tc1]').css('width','1000px');
+
+            $('[id=id1]').css('box-sizing','border-box');
+            $('[id=id1]').css('width','1000px');
+            $('[id=id1]').css('height','500px');
+
+            $('[id=id2]').css('height','200px');
+            $('[id=id2]').css('width','1000px');
+            $('[id=id2]').css('box-sizing','border-box');
+
+            $('[id=td1]').css('','border-box');
+    }
+    </script>
+</head>
+<body>
+    <table class='tc1'>
+        <tr>
+            <td>
+                <img src="3.png" alt="">
+            </td>
+            <td>
+                <div id = 'dd1'>
+                    <select name="address" selected='上海'>
+                        <option value="上海">上海</option>
+                        <option value="北京">北京</option>
+                        <option value="广州">广州</option>
+                        <option value="深圳">深圳</option>
+                    </select>
+                </div>  
+            </td>
+            <td>
+                <span>满百包邮(环郊内)</span>
+                <span id='d2'>星夜达</span> 
+            </td>
+            <td>
+                <a href="#">[登录]</a>
+            </td>
+            <td>
+                <a href="#">,  [注册有惊喜]</a>
+            </td>
+            <td>
+                <a href="#">果园公告</a>
+            </td>
+            <td>
+                <a href="#">券卡兑换</a>
+            </td>
+            <td>
+                <a href="#">手机界面</a>
+            </td>
+        </tr>
+    </table>
+    <table class="tc2">
+        <tr>
+            <td>
+                <img src="i1.png" >
+            </td>
+        </tr>
+        <tr>
+             <td id='id1'>
+                <a href="#" ><img src="i2.png" alt=""></a>
+            </td> 
+        </tr>
+    </table>
+    <table class="tc3">
+        <tr id = 'id2'>
+            <td>
+                <a href="#"><img src="images/4.manguo.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/4.qiyiguo.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/4.sheguo.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#"><img src="images/5.1.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.2.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.3.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.5.jpg" alt=""></a>
+            </td>
+            <td>
+                <a href="#"><img src="images/5.6.jpg" alt=""></a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

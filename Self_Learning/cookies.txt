@@ -1,0 +1,61 @@
+一.字符串的其中拼接方式
+    1.%格式化字符串
+        继承自c语言
+    *2.format()拼接
+        语法
+            s1='hello {}!'.format('wangmeimei')
+            print(s1)
+            s1='hello wangmeimei!'
+    3.()方式拼接
+        语法
+            s_like_tuple =('hello' '' 'wangmeimei')
+            print(s_like_tuple)
+            >>> hello wangmeimei
+        要求
+            不能混用变量,全为真实字符串,不推荐
+    4.面向对象模板拼接
+        from string import Template
+        s = Template("${s1} ${s2}")
+        print(s.safe_substitute(s1='hello'.s2='wangmeimei!')
+        >>> hello wangmeimei
+    5.+号拼接
+        缺点:
+            新的字符串会独占一块内存空间.而原来字符串保持不变
+    *6.join()拼接方式
+        str_list = ['Hello','world']
+        str_join1 = ' 'join(str_list)
+        print(str_join1) 
+        >>> hello world
+        应用方式
+            连接序列对象的元素
+    *7.f-string 方式
+        优点:速度快,与join()相当
+        语法
+            name = wangmeimei
+            words=f'hello {name}'
+            print(words)
+            >>>hello wangmeimei
+
+二.时间处理总结
+    模块
+        datetime
+            表示日期,年月日时分秒
+        time
+            时分秒
+        calender
+            年月日
+        三者为互补关系
+    时间基准点
+        1970年1月1日0时
+    基准时间
+        UTC:格林威治时间,根据原子钟计算时间
+        GMT:格林威治时间,根据地球的自转和公转来计算时间
+        二者一致
+    时区
+        tzone:时区
+        DST:根据太阳光照人为调整时间,不同国家有不同的政策
+        北京时间-8小时 为UTC时间
+    方法
+        time模块
+            time(),时间基准点距今的秒数(浮点数)
+            
