@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+</head>
+<body>
+    <script>
+        // 动态创建并添加元素
+        var $h1 = $('<h1 id="d1">一级标题</h1>');
+        $('body').append($h1);
+        var $p = $("<p>段落</p>");
+        $('body').prepend($p);
+        // 兄弟元素添加,节点一个就是一个,不能复用
+        var $span = $("<span>span文本</span>");
+        var $span2 = $("<span>span文本2</span>");
+        $p.after($span);
+        $p.before($span2);
+        $span.remove();
+    </script>
+</body>
+</html>

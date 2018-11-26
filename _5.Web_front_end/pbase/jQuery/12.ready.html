@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery-1.11.3.js'></script>
+    <script>
+        // 只执行最后一段代码,会将之前的覆盖掉
+        // window.onload = function(){
+        //     alert('load1');
+        // }
+        // window.onload = function(){
+        //     alert('load2');
+        // }
+        // window.onload = function(){
+        //     alert('load3');
+        // }
+        // ready方法不会覆盖掉,顺序是从前到后执行
+        // $(document).ready(function(){
+        //    alert('ready1'); 
+        // });
+        // $().ready(function(){
+        //    alert('ready2'); 
+        // });
+        $(function(){
+        //    等待文档加载完毕获取元素
+            $('h1').click(function(){
+                alert('h1被点击');
+            });
+            $('p').bind("click",function(evt){
+                alert('p被点击');
+                console.log(evt);
+                console.log(evt.target,evt.offsetX,evt.offsetY);
+            })
+        });
+
+    </script>
+</head>
+<body>
+    <h1>一级标题</h1>
+    <p>段落</p>
+
+</body>
+</html>

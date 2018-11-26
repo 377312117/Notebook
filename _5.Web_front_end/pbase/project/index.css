@@ -1,0 +1,53 @@
+/* 可复用的样式可单独统一设置 */
+
+
+/* 清除浏览器默认样式 */
+body,h1,h2,h3,h4,h5,h6,ul,ol,p{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/* 设置页面基础样式 */
+body{
+    /* 黑体为备用字体,用逗号隔开 */
+    font:12px '微软雅黑','黑体';
+    color: #9a9a9a;
+}
+a{
+    text-decoration: none;
+    color: #9a9a9a;
+}
+a:hover{
+    color: #64a131;
+}
+/* 行内块元素的垂直对齐 */
+img{
+    vertical-align: bottom;
+}
+
+/* 外围结构标签的样式 */
+#container{
+    /* div -> d1 d2 d3 d4 子元素继承了父元素的样式 */
+    width: 990px;
+    margin: 0 auto;
+}
+
+
+/* 1.导航栏样式 */
+#nav{
+    height: 30px;
+    background: #eee;
+    /* 文本的垂直居中 */
+    line-height: 30px;
+}
+/* 1.1右侧导航 */
+.rightNav{
+    float:right;
+}
+.rightNav>li{
+    float: left;
+    
+}
+/* 1.2左侧导航 */
