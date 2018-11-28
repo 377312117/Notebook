@@ -8,13 +8,15 @@
     1.数据库CRUD(增删改查)操作,查询优化,数据库知识量
         答:mysql思维导图中.
     2.框架的对比和了解/项目具体的模块的业务逻辑描述
-        答:了解框架/具体的逻辑描述
+        答:https://baijiahao.baidu.com/s?id=1610038438439925424&wfr=spider&for=pc
     3.常见排序算法
         答:https://blog.csdn.net/liang_gu/article/details/80627548
     4.Linux常用命令,linux系统的了解程度
         答:计算机基础的思维导图中
     5.项目部署用到的服务器的配置和了解程度
-        
+        答:
+        https://blog.csdn.net/MOY37RQW1JarN33BgZk/article/details/79676022
+        https://blog.csdn.net/MOY37RQW1JarN33BgZk/article/details/79676022
 加分项
     (数据库)理解为什么和如何实现的
     Linux系统的底层原理和了解程度

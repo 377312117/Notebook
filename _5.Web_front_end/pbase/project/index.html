@@ -10,9 +10,8 @@
     <style>
     </style>
     <script src='jquery-1.11.3.js'></script>
-    <script>
-   
-    </script>
+    <script src='index.js'> </script>
+    <script></script>
 </head>
 <body>
     <!-- 使用div固定整体宽度和高度 -->
@@ -29,29 +28,154 @@
                 <a href="">[注册有惊喜]</a>
             </li>
             <li>
-                <a href="">果园公告</a>
+                <a href="">
+                    <!-- 文本标签模拟分隔线 -->
+                    <b></b>
+                    果园公告
+                </a>
             </li>
             <li>
-                <a href="">券卡兑换</a>
+                <a href="">
+                    <b></b>
+                    券卡兑换
+                </a>
             </li>
             <li>
-                <a href="">手机果园</a>
+                <a href="">
+                    <b></b>
+                    手机果园
+                </a>
             </li>
         </ul>
-        <ol class='leftNav'></ol>
-        <!-- 设置完右列表,左列表自动向左填充 -->
+        <ol class='leftNav'>
+            <!-- 设置完右列表,左列表自动向左填充 -->
+            <li>
+                <span>上海</span>
+                <u></u>
+            </li>
+            <li>
+                满百包邮(含郊区)
+            </li>
+            <li>
+                <a href="">星夜达</a>
+            </li>
+        </ol>
 
     </div>
 
     <!-- 2.banner/wrraper -->
-    <div id="wrapper"></div>
+        <div id="wrapper">
+            <!-- 图片轮播 -->
+            <div class="banner">
+                <img src="images/banner1.jpg" alt="">
+                <img src="images/banner2.jpg" alt="">
+            </div>
+          <!--图片下标  -->
+          <ul class="imgNav">
+              <li>1</li>
+              <li>2</li>
+          </ul>
+        </div>
 
     <!-- 3.小图推荐 -->
-    <div id='adv'></div>
+        <div id='adv'>
+            <img src="images/4.manguo.jpg" alt="">
+            <img src="images/4.sheguo.jpg" alt="">
+            <img src="images/4.qiyiguo.jpg" alt="">
+            <img src="images/4.manguo.jpg" alt="" class="lastimg">
+        </div>
+
 
     <!-- 4.main -->
-    <div id='main'></div>
+        <div id='main'>
+            <!-- 第一个分类(所有分类样式与结构都可以复用) -->
+            <div class="goodType">
+                <!-- 1.顶部标题 -->
+                <p class="goodClass">
+                    <img src="images/t4.png" alt="">
+                    <a href="#">更多</a>
+                </p>
+            
+                <!-- 2.商品信息展示 -->
+                <ul>
+                    <li class="item">
+                        <!-- 商品大图 -->
+                        <div class="imgInfo">
+                            <img src="images/5.1.jpg" alt="">
+                        </div>
+                        <!-- 商品信息展示 -->
+                        <div class="content">
+                            <!-- 购物车图标 -->
+                            <a href="">
+                            <img src="images/cart.png" alt="">
+                            </a>
+                            <p>欢乐时光水果果篮</p>
+                            <span>&yen;999元/份</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <!-- 商品大图 -->
+                        <div class="imgInfo">
+                            <img src="images/5.1.jpg" alt="">
+                        </div>
+                        <!-- 商品信息展示 -->
+                        <div class="content">
+                            <!-- 购物车图标 -->
+                            <a href="">
+                            <img src="images/cart.png" alt="">
+                            </a>
+                            <p>欢乐时光水果果篮</p>
+                            <span>&yen;999元/份</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <!-- 商品大图 -->
+                        <div class="imgInfo">
+                            <img src="images/5.1.jpg" alt="">
+                        </div>
+                        <!-- 商品信息展示 -->
+                        <div class="content">
+                            <!-- 购物车图标 -->
+                            <a href="">
+                            <img src="images/cart.png" alt="">
+                            </a>
+                            <p>欢乐时光水果果篮</p>
+                            <span>&yen;999元/份</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <!-- 商品大图 -->
+                        <div class="imgInfo">
+                            <img src="images/5.1.jpg" alt="">
+                        </div>
+                        <!-- 商品信息展示 -->
+                        <div class="content">
+                            <!-- 购物车图标 -->
+                            <a href="">
+                            <img src="images/cart.png" alt="">
+                            </a>
+                            <p>欢乐时光水果果篮</p>
+                            <span>&yen;999元/份</span>
+                        </div>
+                    </li>
+                    <li class="item lastItem">
+                        <!-- 商品大图 -->
+                        <div class="imgInfo">
+                            <img src="images/5.1.jpg" alt="">
+                        </div>
+                        <!-- 商品信息展示 -->
+                        <div class="content">
+                            <!-- 购物车图标 -->
+                            <a href="">
+                                <img src="images/cart.png" alt="">
+                            </a>
+                            <p>欢乐时光水果果篮</p>
+                            <span>&yen;999元/份</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>

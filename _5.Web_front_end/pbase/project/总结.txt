@@ -1,0 +1,40 @@
+首页+购物车页
+
+1.html部分
+    书写结构:层次清晰,书写正确
+
+2.CSS
+    大括号后面禁止出现标点
+"""选择器{
+
+}"""
+
+
+3.jquery
+    1.引入操作必须在所有JS之前
+    2.涉及到获取元素节点,必须考虑文档的加载顺序
+    3.书写选择器,id/class选择器一定要注意添加前缀
+        #("#box")
+        #('.c1')
+        $('[name=check]')
+    4.jquery方法
+        html()
+        text()
+        val()
+        click(function(){});mouseover();
+        eq(index)    //根据下标取元素
+        each(function(){})    遍历数组,获取每个元素,执行函数
+        not()  否定筛选元素
+        prop('','')用法同attr(),为元素设置属性
+        parent()
+        parents()
+        prev()
+        next()
+        children()
+    5.jquery选择器
+        :checked 伪类选择器  表示表单控件-按钮的选中状态
+
+    6.JS与jquery书写规范
+        语句的结束以分号;为标志,可省略
+    
+

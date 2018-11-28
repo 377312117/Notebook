@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入css -->
+    <link rel="stylesheet" href="cart.css" type="text/css">
+    <style>
+    </style>
+    <script src='jquery-1.11.3.js'></script>
+    <script src="cart.js"></script>
+</head>
+<body>
+    <!-- 使用div固定整体宽度和高度 -->
+    <div id="container">
+
+    <!-- 1.导航 -->
+    <!-- 两个列表,右边列表设置浮动 -->
+    <div id='nav'>
+        <ul class='rightNav'>
+            <li>
+                <a href="">[登录]</a>
+            </li>
+            <li>
+                <a href="">[注册有惊喜]</a>
+            </li>
+            <li>
+                <a href="">
+                    <!-- 文本标签模拟分隔线 -->
+                    <b></b>
+                    果园公告
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <b></b>
+                    券卡兑换
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <b></b>
+                    手机果园
+                </a>
+            </li>
+        </ul>
+        <ol class='leftNav'>
+            <!-- 设置完右列表,左列表自动向左填充 -->
+            <li>
+                <span>上海</span>
+                <u></u>
+            </li>
+            <li>
+                满百包邮(含郊区)
+            </li>
+            <li>
+                <a href="">星夜达</a>
+            </li>
+        </ol>
+
+    </div>
+
+    <!-- 3.小图推荐 -->
+        <div id='adv'>
+            <img src="images/4.manguo.jpg" alt="">
+            <img src="images/4.sheguo.jpg" alt="">
+            <img src="images/4.qiyiguo.jpg" alt="">
+            <img src="images/4.manguo.jpg" alt="" class="lastimg">
+        </div>
+
+
+    <!-- 4.main -->
+        <div id='main'>
+            <!-- 购物车标题区域 -->
+            <div class="title">
+                <p class="check-box">
+                    <input id='checkall' type="checkbox" name="checkall">全选
+                </p>
+
+                <p class="goods">商品</p>
+                <p class='prices'>单价</p>
+                <p class="count">数量</p>
+                <p class='t-sum'>小计</p>
+                <p class="action">操作</p>
+            </div>
+            <!-- 购物车内容区域 -->
+            <div class='good-content'>
+            <div class="g-item">
+                <p class="check-box">
+                    <input type="checkbox" name="check">
+                    <img src="images/5.1.jpg" alt="">
+                
+                </p>
+                <p class="goods">
+                    欢乐时光水果果篮
+                </p>
+                <p class="prices">&yen;188</p>
+                <p class="count">
+                    <a href="javascript:void(0)" class="decrement">-</a>
+                    <input type="text" name="countText" value="1">
+                    <a href="javascript:void(0)" class="increment">+</a>
+                </p>
+                <p class="t-sum"><b>&yen;188</b></p>
+                <p class="action">
+                    <a href="javascript:void(0)">移除</a>
+                </p>
+            </div>
+            <div class="g-item">
+                <p class="check-box">
+                    <input type="checkbox" name="check">
+                    <img src="images/5.1.jpg" alt="">
+                
+                </p>
+                <p class="goods">
+                    欢乐时光水果果篮
+                </p>
+                <p class="prices">&yen;188</p>
+                <p class="count">
+                    <a href="javascript:void(0)" class="decrement">-</a>
+                    <input type="text" name="countText" value="1">
+                    <a href="javascript:void(0)" class="increment">+</a>
+                </p>
+                <p class="t-sum"><b>&yen;188</b></p>
+                <p class="action">
+                    <a href="javascript:void(0)">移除</a>
+                </p>
+            </div>
+            </div>
+            <!-- 结算,购物车底部工具栏 -->
+            <div id="cart-toolbar">
+                <p class="submit-count">
+                    已选择<span>2</span>件商品
+                </p>
+                <p class="submit-price">
+                   总价: <span>&yen;376元</span>
+                    </p>
+                <p class="submit-btn">去结算</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

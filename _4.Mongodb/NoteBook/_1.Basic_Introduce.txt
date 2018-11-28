@@ -51,11 +51,11 @@
                 灵活性强会导致一定的操作混乱
                 技术成熟度比关系型数据库要差
         Nosql使用情况
-            1，对数据一致性较低
+            1.对数据一致性较低
             2.应对数据高并发数据存储的可能性较大
             3.比较容易建立非关系型数据库模型
         Nosql分类
-            1,键值存储数据量：Redis
+            1.键值存储数据量：Redis
             2.列存储数据库，HBase
             3.文档型数据库：Mongodb
             4.图形数据库
@@ -70,7 +70,7 @@ MongoDB数据库
         使用方便，便于扩展和部署
     MongoDB安装
         Linux  
-            命令与句
+            命令语句
             sudo apt-get install mongodb 
             安装位置    /var/lib/mongodb
             配置文件    /etc/mongodb.conf
@@ -88,7 +88,7 @@ MongoDB数据库
             下载homebrew
             命令： sudo brew install mongodb   
             (涉及到权限问题，如果/usr/local所有者为本人，则不需要root权限)
-            启动时：
+            初次启动时：
               >>  brew services start mongodb
               >>  mongo
     文档
