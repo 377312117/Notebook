@@ -1,4 +1,6 @@
 # 此实例示意为Dog类添加吃,睡,玩等方法,以实现Dog类的相应行为
+
+
 class Dog:
     """这是一种可爱的小动物"""
     def eat(self,food):  
