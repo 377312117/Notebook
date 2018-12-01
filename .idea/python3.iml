@@ -7,6 +7,7 @@
     <orderEntry type="library" name="R User Library" level="project" />
     <orderEntry type="library" name="R Skeletons" level="application" />
     <orderEntry type="module" module-name="FlaskDemo01" />
+    <orderEntry type="module" module-name="gitproject" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_FOLDERS">

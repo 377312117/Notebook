@@ -5,6 +5,12 @@
     "python.unitTest.nosetestsEnabled": false,
     "python.pythonPath": "/usr/local/bin/python3",
     "python.linting.enabled": true,
-    "files.autoSave": "afterDelay",
+    "files.autoSave": "onFocusChange",
     "python.linting.flake8Enabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": false,
+    "python.linting.prospectorEnabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.banditEnabled": false,
+    "editor.fontSize":18,
 }
