@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script>
+        $(function(){
+            // 为 #lname绑定blur事件
+            $('#lname').blur(function(){
+                // 创建xhr
+                var xhr = createXhr();
+                // 创建请求
+                var lname = this.value;
+                var url ='/03-server?lname='+lname
+                xhr.open('get',url,true);
+                // 设置回调函数
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState==4 && xhr.status==200){
+                        $('#lname-show').html(xhr.responseText);
+                    }
+                };
+                // 发送请求
+                xhr.send(null)
+            });
+        });
+    </script>
+</head>
+<body>
+    用户名称: <input type="text" id='lname' placeholder="请输入您的用户名称">
+    <span id="lname-show">*</span>
+</body>
+</html>
