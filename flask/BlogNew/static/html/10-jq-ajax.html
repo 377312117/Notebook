@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script>
+        $(function(){
+            $('#show-info').click(function(){
+                $.ajax({
+                    url:'/10-jq-ajax',
+                    type:'get',
+                    dataType:'json',
+                    success:function(data){
+                        $.each(data,function(i,obj){
+                            console.log('**********')
+                            console.log('登录名:'+obj.name)
+                            console.log('登录id:'+obj.id)
+                        })
+                    }
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="show-info">显示所有数据</button>
+</body>
+</html>

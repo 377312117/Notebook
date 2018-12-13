@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script>
+        // $(function(){
+            // $('#uname').blur(function(){
+            //     var uname = $('#uname').val();
+            //     var params={
+            //         'uname':uname,
+            //     }
+            //     console.log(uname)
+            //     $.post('/09-jq-register',params,function(resText){
+            //         // resText表示的是想回来的数据
+            //         console.log('resText:'+resText)
+            //        $('#warning').html(resText.text)
+            //     },'json');
+            // });
+        $(function(){
+            function check_login(){
+                var url = '/09-jq-register'
+                var params='uname='+$('#uname').val();
+                // $.get(url,params,function(data){
+                //     if(data.status==1){
+                //         $('#warning').html(data.text)
+                //     }else{
+                //         $('#warning').html(data.text)
+                //     }
+                // },'json');
+                $.ajax({
+                    url:url,
+                    data:params,
+                    type:'get',
+                    dataType:'json',
+                    async:false,
+                    success:function(data){
+                        if(data.status==1){
+                        $('#warning').html(data.text)
+                        ret = true;
+
+                    }else{
+                        $('#warning').html(data.text)
+                        ret = false;
+                    }
+                }
+                })
+            };
+            $('#uname').blur(check_login);
+
+
+          
+            $('#btnPost').click(function(){
+                var ret = check_login()
+                if (ret){
+                    alert('不可以注册')
+                }else{
+                    alert('可以注册')
+                };
+    
+                uname = $('#uname').val()
+                console.log('uname:',uname)
+                upassword = $('#upassword').val()
+                phonenumber = $('#phonenumber').val()
+                var params={
+                    'uname':uname,
+                    'upassword':upassword,
+                    'phonenumber':phonenumber,
+                }
+                $.post('/11-jq-insertinfo',params,function(resText){
+                    // resText表示的是想回来的数据
+                    if(resText.status==1){
+                        $('#inputtext').html(resText.text)
+                    }else{
+                        $('#inputtext').html(resText.text)
+                    }
+                   
+                },'json');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        登录名称 <input type="text" name="uname" id="uname">
+        <span id="warning">*</span>
+    </div>
+    <div>
+        登录密码 <input type="password" name="upassword" id="upassword">
+    </div>
+    <div>
+        电话号码 <input type="number" name="phonenumber" id="phonenumber">
+    </div>
+    <button id="btnPost">注册</button>
+    <div id="inputtext"></div>
+   
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script>
+        $(function(){
+            $('#btnSend').click(function(){
+                $.ajax({
+                    url:'http://127.0.0.1:6060/13-server',
+                    type:'get',
+                    dataType:'jsonp',
+                    success:function (data) {
+                        alert('前端处理的数据'+data)
+                    }
+                });
+            });
+
+            $('#btnJqCross').click(function(){
+                $.ajax({
+                    url:'http://127.0.0.1:6060/12-server',
+                    type:'get',
+                    dataType:'jsonp',
+                    success:function (data) {
+                        $('#number').html('航班号:'+data.flightNO)
+                        $('#takeoff').html('起飞机场:'+data.from)
+                        $('#landing').html('着陆机场:'+data.to)
+                        $('#time').html('到达时间:'+data.time)
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="btnSend">发送跨域请求</button>
+    <button id="btnJqCross">发送跨域请求</button>
+    <div id='number'></div>
+    <div id='takeoff'></div>
+    <div id='landing'></div>
+    <div id='time'></div>
+</body>
+</html>

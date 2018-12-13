@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <!-- 对ie低版本做适配,能用就用XMLHttpRequest(),不能就用ActiveXObject('Microsoft.XMLHTTP') -->
+    <script src="/static/js/common.js"></script>
+    <script>
+ 
+            // 对id为testbtn的按钮进行点击事件绑定
+            function  testPro(){
+                // 定义超级长的字符串,将所有循环得到的数据进行累加,将整体内容展现给tbody
+                var allmessage='';
+                // 创建异步对象
+                var xhr = createXhr();
+                // 创建请求
+                xhr.open('get','/04-provinceinfo',false)
+                // 设置回调函数,onreadystatechange判断状态,接收响应,业务处理
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4&&xhr.status==200){
+                        var provinces = JSON.parse(xhr.responseText)
+                        console.log('provinces:'+provinces)
+                        $(provinces).each(function(i,obj){
+                                allmessage += "<option value='"+obj.id+"'>"
+                                allmessage += obj.pname 
+                                allmessage += '</option>'
+                        })
+                    }
+                    // 将所有的内容拼接完成后发送给tbody
+                    $('#provinces').html(allmessage)
+                }
+                // 发送请求
+                xhr.send(null)
+            }
+            function loadCity(p_id){
+                var xhr =createXhr();
+                var url = '/05-loadcity?p_id='+p_id;
+                xhr.open('get',url,true)
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4 &&  xhr.status==200){
+                        var arr = JSON.parse(xhr.responseText);
+                        console.log('arr:'+arr)
+                        var allcitys = '';
+                        $(arr).each(function(i,obj){
+                            allcitys += "<option value='"+obj.id+"'>"
+                            allcitys += obj.cname 
+                            allcitys += '</option>'
+                        })
+                        $('#selCity').html(allcitys);
+                    }
+                }
+                xhr.send(null)
+            }
+            $(function(){
+                testPro()
+                // 为id=provinces绑定事件为值得改变
+                $('#provinces').change(function(){
+                    loadCity(this.value);
+                })
+                loadCity($('#provinces').val());
+            })
+    </script>
+</head>
+<body>
+    <select name="provinces" id="provinces">
+            
+    </select>
+    <select name="cities" id="selCity">
+            
+    </select>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <!-- 对ie低版本做适配,能用就用XMLHttpRequest(),不能就用ActiveXObject('Microsoft.XMLHTTP') -->
+    <script src="/static/js/common.js"></script>
+    <script>
+        // 使用jquery方法定义函数,在绑定事件后自动调用
+        $(function(){  
+            // 对id为testbtn的按钮进行点击事件绑定
+            $('#testbtn').click(function () {
+                // 定义超级长的字符串,将所有循环得到的数据进行累加,将整体内容展现给tbody
+                var allmessage='';
+                // 创建异步对象
+                var xhr = createXhr();
+                // 创建请求
+                xhr.open('get','/02-jsoninfo',true)
+                // 设置回调函数,onreadystatechange判断状态,接收响应,业务处理
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4&xhr.status==200){
+                        var user = JSON.parse(xhr.responseText)
+                        console.log('user:'+user)
+                        $(user).each(function(i,obj){
+                            allmessage += '<tr>'
+                                allmessage += '<td>'+obj.id+'</td>'
+                                allmessage += '<td>'+obj.name+'</td>'
+                                allmessage += '<td>'+obj.password+'</td>'
+                                allmessage += '<td>'+obj.phonenumber+'</td>'
+                                allmessage += '<td>'+obj.email+'</td>'
+                                allmessage += '<td>'+obj.isActive+'</td>'
+                            allmessage += '</tr>'
+                        })
+                    }
+                    // 将所有的内容拼接完成后发送给tbody
+                    $('#content').html(allmessage)
+                }
+                // 发送请求
+                xhr.send(null)
+            })
+        })
+    </script>
+</head>
+<body>
+    <!-- 定义按钮,按下后能够与后端传输数据然后显示所有用户信息 -->
+    <button id='testbtn'>查看数据</button>
+    <table width='400' border='1'>
+        <thead>
+            <tr>
+                <th>id号</th>
+                <th>姓名</th>
+                <th>密码</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>isActive</th>
+            </tr>
+        </thead>
+        <!-- 将数据展示给tbody,使用字符串拼接的方式,然后用jquery的html方法填充内容进来 -->
+        <tbody id='content'>
+            
+        </tbody>
+    </table>
+</body>
+</html>

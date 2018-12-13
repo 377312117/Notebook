@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script>
+        $(function(){
+            $('#btnPost').click(function(){
+                var params={
+                    'uname':'wangwc',
+                    'ugender':'男',
+                }
+                $.post('/08-jq-post',params,function(resText){
+                    // resText表示的是想回来的数据
+                    console.log('resText:'+resText)
+                   $('#inputtext').html(resText)
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="btnPost">使用post方式发送请求</button>
+    <div id="inputtext"></div>
+</body>
+</html>

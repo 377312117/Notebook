@@ -1,0 +1,35 @@
+'''
+此模块用于配置路由映射函数以及反馈给客户端的视图
+'''
+
+import os
+from datetime import datetime
+import json
+
+from flask import Flask, redirect, render_template, request,make_response,session
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func, or_
+
+import sys
+sys.path.append("..")
+from config import *
+from models import *
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    '''用于无法找到页面时的404提示'''
+    return render_template('/404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    '''用于服务器出现错误时的提示'''
+    return render_template('/500.html'), 500
+
+@app.route('/01-test')
+def test1():
+        return render_template('/01-test.html')
+
+if __name__=='__main__':
+        app.run()
