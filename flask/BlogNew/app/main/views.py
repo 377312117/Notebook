@@ -10,26 +10,33 @@ from flask import Flask, redirect, render_template, request,make_response,sessio
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, or_
 
-import sys
-sys.path.append("..")
-from config import *
-from models import *
+from . import main
+from .. import db
+from ..models import *
 
 
-@app.errorhandler(404)
+@main.errorhandler(404)
 def page_not_found(e):
     '''用于无法找到页面时的404提示'''
     return render_template('/404.html'), 404
 
 
-@app.errorhandler(500)
+@main.errorhandler(500)
 def internal_server_error(e):
     '''用于服务器出现错误时的提示'''
     return render_template('/500.html'), 500
 
-@app.route('/01-test')
+@main.route('/01-test')
 def test1():
-        return render_template('/01-test.html')
+        return '这是main下的视图'
 
-if __name__=='__main__':
-        app.run()
+@main.route('/')
+def main_index():
+    categories = Category.query.all()
+    print('categories:',categories)
+    # 读取前5条信息
+    topics = Topic.query.limit(5).all()
+    if 'uid' in session and 'loginname' in session:
+        user = User.query.filter_by(ID=session.get('uid')).first()
+    return render_template('index.html',params=locals())
+
