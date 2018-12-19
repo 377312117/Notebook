@@ -31,7 +31,7 @@ dic1= {
 
 
 urlpatterns = [
-    path(r'^admin/', admin.site.urls),
+    path(r'^admin/$', admin.site.urls),
     # 当访问路径为/show,对匹配路由不进行^$约束时,只要含有路由关键字都可匹配,
     # 匹配顺序从上往下,优先匹配顺序在前的路由视图,尤其注意不完全匹配,部分的内容匹配到就会进行匹配,sh也会匹配show
     # url(r'sh',sh_views),

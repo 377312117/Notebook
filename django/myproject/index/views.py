@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from django.urls import reverse
 
 # Create your views here.
 
@@ -50,5 +51,13 @@ def var_views(request):
 
 # 演示静态文件的处理
 def static_views(request):
-    # dic = {'static':'/static/images/500.jpg'}
     return render(request,'04-static.html')
+def alias01_views(request):
+    # 在视图中解析
+    url = reverse('a02',args=(2015,))
+    print('a02的地址为:'+url)
+    return render(request,'05-alias01.html')
+
+def alias02_views(request,year):
+    print('年份为:'+year)
+    return render(request,'06-alias02.html')

@@ -11,4 +11,7 @@ urlpatterns = [
     url(r'02-temp/$',temp02_views),
     url(r'03-var/$',var_views), 
     url(r'04-static/$',static_views), 
+    # 反向解析
+    url(r'05-alias01/$',alias01_views,name='a01'),
+    url(r'06-alias02/(\d{4})/$',alias02_views,name='a02'),
 ]
