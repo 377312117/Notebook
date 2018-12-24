@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- action="/10-remarkform/" 一定要加上后面的/ -->
+    <form action="/10-remarkform/" method="POST">
+    {% csrf_token %}
+    <!-- 解析form对象 方法1 -->
+    <!-- {% for field in form %}
+    <p>
+    {{field.label}}:{{field}}
+    {% endfor %}
+    </p> -->
+    <!-- {{form.as_p}} -->
+    <!-- <ul>
+    {{form.as_ul}}
+    </ul> -->
+    <table>
+        {{form.as_table}}
+        <td><input type="submit" value="提交查询"></td>
+    </table>
+    </form>
+</body>
+</html>
