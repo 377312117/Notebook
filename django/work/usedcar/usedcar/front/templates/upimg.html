@@ -1,0 +1,18 @@
+<!DOCTYPE>
+<html>
+  <head>
+    {% load static %}
+    <title>upimg</title>
+  </head>
+  <body>
+      <form action="{% url 'upimg' %}" method="post" enctype="multipart/form-data">
+        <div>下一步</div>
+        <div>下一步</div>
+        <div>下一步</div>
+        <div>下一步</div>
+        {% csrf_token %}
+        <input type="file" name="picc" id="picc">
+          <input type="submit" value="提交">
+      </form>
+  </body>
+</html>
